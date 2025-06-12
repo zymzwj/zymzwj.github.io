@@ -152,19 +152,19 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-java基础/IO知识点总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-java基础/IO知识点总结/IO知识点总结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2025/06/12/java%E5%9F%BA%E7%A1%80/IO%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/">IO知识点总结</a>
+      <a class="article-title" href="/2025/06/12/java%E5%9F%BA%E7%A1%80/IO%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/IO%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/">IO知识点总结</a>
     </h1>
   
 
         
-        <a href="/2025/06/12/java%E5%9F%BA%E7%A1%80/IO%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" class="archive-article-date">
+        <a href="/2025/06/12/java%E5%9F%BA%E7%A1%80/IO%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/IO%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" class="archive-article-date">
   	<time datetime="2025-06-12T03:17:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2025-06-12</time>
 </a>
         
@@ -185,13 +185,13 @@
 <br>
 Mac 上写路径的方法有所不同 (The way to write paths on Mac is different)
 
-<p><img src="/%E8%B7%AF%E5%BE%84%E5%86%99%E6%B3%95.png" alt="路径"></p>
+<p><img src="/images/%E8%B7%AF%E5%BE%84%E5%86%99%E6%B3%95.png" alt="路径"></p>
 <h2 id="Get-information-about-a-file"><a href="#Get-information-about-a-file" class="headerlink" title="Get information about a file"></a>Get information about a file</h2><p>getName、getAbsolutePath、getParent、length、exists、isFile、isDirectory</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//调用相应的方法，得到对应信息</span></span><br><span class="line">System.out.println(<span class="string">&quot;文件名字=&quot;</span> + file.getName());</span><br><span class="line">System.out.println(<span class="string">&quot;文件绝对路径=&quot;</span> + file.getAbsolutePath());</span><br><span class="line">System.out.println(<span class="string">&quot;文件父级目录=&quot;</span> + file.getParent());</span><br><span class="line">System.out.println(<span class="string">&quot;文件大小(字节)=&quot;</span> + file.length());</span><br><span class="line">System.out.println(<span class="string">&quot;文件是否存在=&quot;</span> + file.exists());</span><br><span class="line">System.out.println(<span class="string">&quot;是不是一个文件=&quot;</span> + file.isFile());</span><br><span class="line">System.out.println(<span class="string">&quot;是不是一个目录=&quot;</span> + file.isDirectory());</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <h2 id="Directory-operations-and-file-deletion"><a href="#Directory-operations-and-file-deletion" class="headerlink" title="Directory operations and file deletion"></a>Directory operations and file deletion</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">file.mkdir()</span><br><span class="line">file.mkdirs()</span><br><span class="line">file.delete()</span><br></pre></td></tr></table></figure>
 
-<h2 id="Classification-of-flows"><a href="#Classification-of-flows" class="headerlink" title="Classification of flows"></a>Classification of flows</h2><p><img src="/%E5%9B%BE%E7%89%871.png" alt="流的分类"><br><img src="/IO%E6%B5%81%E4%BD%93%E7%B3%BB%E5%9B%BE.png" alt="体系图"></p>
+<h2 id="Classification-of-flows"><a href="#Classification-of-flows" class="headerlink" title="Classification of flows"></a>Classification of flows</h2><p><img src="/images/%E5%9B%BE%E7%89%871.png" alt="流的分类"><br><img src="/images/IO%E6%B5%81%E4%BD%93%E7%B3%BB%E5%9B%BE.png" alt="体系图"></p>
 <h2 id="FileInputStream"><a href="#FileInputStream" class="headerlink" title="FileInputStream"></a>FileInputStream</h2><p>Use FileInputStream to read the hello.txt file and display the read content to the console</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">readFile</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="type">String</span> <span class="variable">filePath</span> <span class="operator">=</span> <span class="string">&quot;e:\\hello.txt&quot;</span>;</span><br><span class="line">    <span class="type">int</span> <span class="variable">readData</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">    <span class="type">FileInputStream</span> <span class="variable">fileInputStream</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">    <span class="comment">//创建 FileInputStream 对象，用于读取 文件</span></span><br><span class="line">    fileInputStream = <span class="keyword">new</span> <span class="title class_">FileInputStream</span>(filePath);</span><br><span class="line">    <span class="comment">//从该输入流读取一个字节的数据。 如果没有输入可用，此方法将阻止。</span></span><br><span class="line">    <span class="comment">//如果返回-1 , 表示读取完毕</span></span><br><span class="line">    <span class="keyword">while</span> ((readData = fileInputStream.read()) != -<span class="number">1</span>) &#123;</span><br><span class="line">          System.out.print((<span class="type">char</span>)readData);<span class="comment">//转成 char 显示</span></span><br><span class="line">          &#125;</span><br><span class="line">    &#125;<span class="keyword">catch</span> (IOException e)&#123;</span><br><span class="line">    e.printStackTrace();</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">      <span class="keyword">try</span> &#123;</span><br><span class="line">          fileInputStream.close();</span><br><span class="line">          &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">          e.printStackTrace();</span><br><span class="line">          &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -321,11 +321,11 @@ Mac 上写路径的方法有所不同 (The way to write paths on Mac is differen
 </li>
 <li><p>可以在使用时指定编码格式（比如 utf-8、gbk、gb2312、ISO8859-1 等）。<br>You can specify the encoding format when using it (such as utf-8, gbk, gb2312, ISO8859-1, etc.).</p>
 <br>
-![](3.png)
+![](images/3.png)
 <br>
 <br>
-![](1.png)
-![](2.png)
+![](images/1.png)
+![](images/2.png)
 <br>
 下面的代码读出来的文件会有乱码的问题
 The following code will read out the file has garbled characters</li>
@@ -369,7 +369,7 @@ The following code will read out the file has garbled characters</li>
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2025/06/12/java%E5%9F%BA%E7%A1%80/IO%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/">展开全文 >></a>
+          <a class="article-more-a" href="/2025/06/12/java%E5%9F%BA%E7%A1%80/IO%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/IO%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/">展开全文 >></a>
         </p>
       
 
