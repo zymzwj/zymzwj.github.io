@@ -1,0 +1,679 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Laravel学习之基础篇 | 张一鸣的博客</title><meta name="author" content="张一鸣"><meta name="copyright" content="张一鸣"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="路由1. 路由的作用在 Laravel 里，路由就是规定：  当用户访问某个 URL 时，要返回什么内容。  比如：  用户访问 &#x2F;hello → 返回一句 “Hello Laravel” 用户访问 &#x2F;about → 返回一个 HTML 页面  Laravel 会先匹配路由，再交给控制器或直接返回内容。 2. 路由文件在哪里？默认在： 1routes&#x2F;web.php  这是 网站（浏览器）访问用的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Laravel学习之基础篇">
+<meta property="og:url" content="http://example.com/2025/08/11/Laravel%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%9F%BA%E7%A1%80%E7%AF%87/index.html">
+<meta property="og:site_name" content="张一鸣的博客">
+<meta property="og:description" content="路由1. 路由的作用在 Laravel 里，路由就是规定：  当用户访问某个 URL 时，要返回什么内容。  比如：  用户访问 &#x2F;hello → 返回一句 “Hello Laravel” 用户访问 &#x2F;about → 返回一个 HTML 页面  Laravel 会先匹配路由，再交给控制器或直接返回内容。 2. 路由文件在哪里？默认在： 1routes&#x2F;web.php  这是 网站（浏览器）访问用的">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/butterfly-icon.png">
+<meta property="article:published_time" content="2025-08-11T09:54:34.000Z">
+<meta property="article:modified_time" content="2025-08-11T09:59:28.422Z">
+<meta property="article:author" content="张一鸣">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/butterfly-icon.png"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Laravel学习之基础篇",
+  "url": "http://example.com/2025/08/11/Laravel%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%9F%BA%E7%A1%80%E7%AF%87/",
+  "image": "http://example.com/img/butterfly-icon.png",
+  "datePublished": "2025-08-11T09:54:34.000Z",
+  "dateModified": "2025-08-11T09:59:28.422Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "张一鸣",
+      "url": "http://example.com"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2025/08/11/Laravel%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%9F%BA%E7%A1%80%E7%AF%87/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Laravel学习之基础篇',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">张一鸣的博客</span></a><a class="nav-page-title" href="/"><span class="site-name">Laravel学习之基础篇</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">Laravel学习之基础篇</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-08-11T09:54:34.000Z" title="发表于 2025-08-11 17:54:34">2025-08-11</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-08-11T09:59:28.422Z" title="更新于 2025-08-11 17:59:28">2025-08-11</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="路由"><a href="#路由" class="headerlink" title="路由"></a>路由</h1><h2 id="1-路由的作用"><a href="#1-路由的作用" class="headerlink" title="1. 路由的作用"></a><strong>1. 路由的作用</strong></h2><p>在 Laravel 里，<strong>路由</strong>就是规定：</p>
+<blockquote>
+<p>当用户访问某个 URL 时，要返回什么内容。</p>
+</blockquote>
+<p>比如：</p>
+<ul>
+<li>用户访问 <code>/hello</code> → 返回一句 “Hello Laravel”</li>
+<li>用户访问 <code>/about</code> → 返回一个 HTML 页面</li>
+</ul>
+<p>Laravel 会先匹配路由，再交给控制器或直接返回内容。</p>
+<h2 id="2-路由文件在哪里？"><a href="#2-路由文件在哪里？" class="headerlink" title="2. 路由文件在哪里？"></a><strong>2. 路由文件在哪里？</strong></h2><p>默认在：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">routes/web.php</span><br></pre></td></tr></table></figure>
+
+<p>这是 <strong>网站（浏览器）访问用的路由</strong>，适合 HTML 页面。<br> 如果是 <strong>API</strong>（手机端、小程序），会放在：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">routes/api.php</span><br></pre></td></tr></table></figure>
+
+<p>我们现在先用 <code>web.php</code>。</p>
+<h2 id="3-最简单的路由写法"><a href="#3-最简单的路由写法" class="headerlink" title="3. 最简单的路由写法"></a><strong>3. 最简单的路由写法</strong></h2><p>打开 <code>routes/web.php</code>，你会看到类似：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">use</span> <span class="title">Illuminate</span>\<span class="title">Support</span>\<span class="title">Facades</span>\<span class="title">Route</span>;</span><br><span class="line"></span><br><span class="line"><span class="title class_">Route</span>::<span class="title function_ invoke__">get</span>(<span class="string">&#x27;/&#x27;</span>, function () &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="title function_ invoke__">view</span>(<span class="string">&#x27;welcome&#x27;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-新建一个简单路由"><a href="#4-新建一个简单路由" class="headerlink" title="4. 新建一个简单路由"></a><strong>4. 新建一个简单路由</strong></h2><p>我们加一个 <code>/hello</code>：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Route</span>::<span class="title function_ invoke__">get</span>(<span class="string">&#x27;/hello&#x27;</span>, function () &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;Hello Laravel!&#x27;</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>保存，然后访问：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1:8000/hello</span><br></pre></td></tr></table></figure>
+
+<p>✅ 页面会直接显示 <code>Hello Laravel!</code>（纯文本）。</p>
+<hr>
+<h2 id="5-返回-HTML"><a href="#5-返回-HTML" class="headerlink" title="5. 返回 HTML"></a><strong>5. 返回 HTML</strong></h2><p>如果你想返回一段 HTML：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">php</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">CopyEdit</span><br><span class="line">Route::get(&#x27;/about&#x27;, function () &#123;</span><br><span class="line">    return &#x27;&lt;h1&gt;About Page&lt;/h1&gt;&lt;p&gt;This is my first Laravel page.&lt;/p&gt;&#x27;;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-返回-Blade-模板"><a href="#6-返回-Blade-模板" class="headerlink" title="6. 返回 Blade 模板"></a><strong>6. 返回 Blade 模板</strong></h2><p>Blade 是 Laravel 自带的模板引擎，文件放在：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">resources/views/</span><br></pre></td></tr></table></figure>
+
+<p>例子：</p>
+<ol>
+<li>新建文件 <code>resources/views/hello.blade.php</code></li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Hello Page<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello from Blade Template!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>路由返回这个模板：</li>
+</ol>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Route</span>::<span class="title function_ invoke__">get</span>(<span class="string">&#x27;/template&#x27;</span>, function () &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="title function_ invoke__">view</span>(<span class="string">&#x27;hello&#x27;</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>访问：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1:8000/template</span><br></pre></td></tr></table></figure>
+
+<p>✅ 就能看到我们写的 HTML 页面。</p>
+<h2 id="7-小结"><a href="#7-小结" class="headerlink" title="7. 小结"></a><strong>7. 小结</strong></h2><p>Laravel 路由基本用法：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Route</span>::<span class="title function_ invoke__">get</span>(<span class="string">&#x27;/path&#x27;</span>, function () &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;内容&#x27;</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong><code>Route::get</code></strong> → 处理 GET 请求</li>
+<li><strong><code>Route::post</code></strong> → 处理 POST 请求（表单提交）</li>
+<li><strong><code>view(&#39;name&#39;)</code></strong> → 返回 Blade 模板</li>
+<li>路由匹配顺序是从上往下，先匹配到的会被执行</li>
+</ul>
+<h1 id="路由连接控制器"><a href="#路由连接控制器" class="headerlink" title="路由连接控制器"></a>路由连接控制器</h1><h2 id="1-为什么要用控制器"><a href="#1-为什么要用控制器" class="headerlink" title="1. 为什么要用控制器"></a><strong>1. 为什么要用控制器</strong></h2><p>之前我们这样写：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Route</span>::<span class="title function_ invoke__">get</span>(<span class="string">&#x27;/hello&#x27;</span>, function () &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;Hello Laravel!&#x27;</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>虽然能用，但如果逻辑很复杂（比如从数据库取数据、验证用户），<code>web.php</code> 会变得很乱。</p>
+<p><strong>解决办法</strong>：<br> 把处理逻辑放到 <strong>控制器（Controller）</strong> 里，路由只负责“指路”，代码更干净。</p>
+<h2 id="2-创建控制器"><a href="#2-创建控制器" class="headerlink" title="2. 创建控制器"></a><strong>2. 创建控制器</strong></h2><p>Laravel 提供了 Artisan 命令来创建控制器。<br> 在项目根目录终端输入：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php artisan make:controller HelloController</span><br></pre></td></tr></table></figure>
+
+<p>执行后，<code>app/Http/Controllers/</code> 目录下会多一个：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HelloController.php</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-写控制器代码"><a href="#3-写控制器代码" class="headerlink" title="3. 写控制器代码"></a><strong>3. 写控制器代码</strong></h2><p>打开 <code>app/Http/Controllers/HelloController.php</code>，你会看到：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title class_">App</span>\<span class="title class_">Http</span>\<span class="title class_">Controllers</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">use</span> <span class="title">Illuminate</span>\<span class="title">Http</span>\<span class="title">Request</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HelloController</span> <span class="keyword">extends</span> <span class="title">Controller</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">index</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;Hello from Controller!&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>index()</code> 是方法名，可以自定义，比如 <code>showHello()</code>。</li>
+<li>这里直接返回一段字符串。</li>
+</ul>
+<h2 id="4-路由连接到控制器"><a href="#4-路由连接到控制器" class="headerlink" title="4. 路由连接到控制器"></a><strong>4. 路由连接到控制器</strong></h2><p>打开 <code>routes/web.php</code>，修改：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> <span class="title">App</span>\<span class="title">Http</span>\<span class="title">Controllers</span>\<span class="title">HelloController</span>;</span><br><span class="line"></span><br><span class="line"><span class="title class_">Route</span>::<span class="title function_ invoke__">get</span>(<span class="string">&#x27;/hello&#x27;</span>, [<span class="title class_">HelloController</span>::<span class="variable language_">class</span>, <span class="string">&#x27;index&#x27;</span>]);</span><br></pre></td></tr></table></figure>
+
+<p>解释：</p>
+<ul>
+<li><code>HelloController::class</code> → 控制器的完整类名</li>
+<li><code>&#39;index&#39;</code> → 调用控制器里的 <code>index()</code> 方法</li>
+</ul>
+<p>现在访问：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1:8000/hello</span><br></pre></td></tr></table></figure>
+
+<p>✅ 页面会显示 <code>Hello from Controller!</code></p>
+<h2 id="5-控制器返回-Blade-模板"><a href="#5-控制器返回-Blade-模板" class="headerlink" title="5. 控制器返回 Blade 模板"></a><strong>5. 控制器返回 Blade 模板</strong></h2><ol>
+<li>创建模板 <code>resources/views/hello.blade.php</code>：</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Hello Page<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello from Blade Template!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>修改控制器：</li>
+</ol>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">index</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="title function_ invoke__">view</span>(<span class="string">&#x27;hello&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>访问 <code>/hello</code> → 会显示 Blade 模板内容。</p>
+<h2 id="6-控制器传数据到模板"><a href="#6-控制器传数据到模板" class="headerlink" title="6. 控制器传数据到模板"></a><strong>6. 控制器传数据到模板</strong></h2><p>控制器：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">index</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="variable">$name</span> = <span class="string">&quot;Luke&quot;</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="title function_ invoke__">view</span>(<span class="string">&#x27;hello&#x27;</span>, [<span class="string">&#x27;name&#x27;</span> =&gt; <span class="variable">$name</span>]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Blade 模板：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello, &#123;&#123; $name &#125;&#125;!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>访问：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://127.0.0.1:8000/hello</span><br></pre></td></tr></table></figure>
+
+<p>✅ 显示 <code>Hello, Luke!</code></p>
+<h2 id="7-小结-1"><a href="#7-小结-1" class="headerlink" title="7. 小结"></a><strong>7. 小结</strong></h2><ul>
+<li><code>php artisan make:controller 控制器名</code> 创建控制器</li>
+<li>路由写成：</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Route</span>::<span class="title function_ invoke__">get</span>(<span class="string">&#x27;/path&#x27;</span>, [控制器类::<span class="variable language_">class</span>, <span class="string">&#x27;方法名&#x27;</span>]);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>控制器负责逻辑，Blade 负责显示</li>
+<li>通过 <code>view(&#39;模板名&#39;, [&#39;变量名&#39; =&gt; $值])</code> 把数据传到页面</li>
+</ul>
+<h2 id="1-什么是-Blade"><a href="#1-什么是-Blade" class="headerlink" title="1. 什么是 Blade"></a><strong>1. 什么是 Blade</strong></h2><ul>
+<li>Blade 是 Laravel 自带的 <strong>模板引擎</strong></li>
+<li>用它可以在 HTML 中写 PHP 变量、循环、条件判断</li>
+<li>文件扩展名是 <code>.blade.php</code>，放在：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">resources/views/</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2-Blade-显示变量"><a href="#2-Blade-显示变量" class="headerlink" title="2. Blade 显示变量"></a><strong>2. Blade 显示变量</strong></h2><p>控制器（<code>HelloController</code>）：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">index</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="variable">$name</span> = <span class="string">&quot;Luke&quot;</span>;</span><br><span class="line">    <span class="variable">$age</span> = <span class="number">25</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="title function_ invoke__">view</span>(<span class="string">&#x27;hello&#x27;</span>, [</span><br><span class="line">        <span class="string">&#x27;name&#x27;</span> =&gt; <span class="variable">$name</span>,</span><br><span class="line">        <span class="string">&#x27;age&#x27;</span> =&gt; <span class="variable">$age</span></span><br><span class="line">    ]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>Blade 模板（<code>resources/views/hello.blade.php</code>）：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Hello, &#123;&#123; $name &#125;&#125;!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>You are &#123;&#123; $age &#125;&#125; years old.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>访问 <code>/hello</code><br> ✅ 会显示：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Hello, Luke<span class="operator">!</span></span><br><span class="line">You <span class="keyword">are</span> <span class="number">25</span> years old.</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>💡 <strong><code>&#123;&#123; $变量 &#125;&#125;</code> 会自动转义 HTML</strong>，防止 XSS。<br> 如果你真的需要输出原 HTML，用 <code>&#123;!! $变量 !!&#125;</code>。</p>
+<ol start="3">
+<li><p>条件判断</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@if($age &gt;= 18)</span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>You are an adult.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">@else</span><br><span class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>You are under 18.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">@endif</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>or</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123; $age &gt;= 18 ? &#x27;Adult&#x27; : &#x27;Underage&#x27; &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="4-循环"><a href="#4-循环" class="headerlink" title="4. 循环"></a><strong>4. 循环</strong></h2><p>假设控制器传了一个数组：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">index</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="variable">$users</span> = [<span class="string">&#x27;Alice&#x27;</span>, <span class="string">&#x27;Bob&#x27;</span>, <span class="string">&#x27;Charlie&#x27;</span>];</span><br><span class="line">    <span class="keyword">return</span> <span class="title function_ invoke__">view</span>(<span class="string">&#x27;hello&#x27;</span>, [<span class="string">&#x27;users&#x27;</span> =&gt; <span class="variable">$users</span>]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>Blade:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;ul&gt;</span><br><span class="line">@<span class="keyword">foreach</span>(<span class="variable">$users</span> <span class="keyword">as</span> <span class="variable">$user</span>)</span><br><span class="line">    &lt;li&gt;&#123;&#123; <span class="variable">$user</span> &#125;&#125;&lt;/li&gt;</span><br><span class="line">@<span class="keyword">endforeach</span></span><br><span class="line">&lt;/ul&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="5-模板继承（布局复用）"><a href="#5-模板继承（布局复用）" class="headerlink" title="5. 模板继承（布局复用）"></a><strong>5. 模板继承（布局复用）</strong></h2><p>Blade 最大的好处是 <strong>模板继承</strong>，可以让所有页面用同一个头部、底部。</p>
+<p>(详细讲解)</p>
+<p>###模板继承到底是啥？</p>
+<ul>
+<li><strong>父布局（layout）</strong>：放通用结构（<code>&lt;html&gt;、头部、导航、页脚</code>）。</li>
+<li><strong>占位符（@yield）</strong>：告诉子页面“这里留给你填”。</li>
+<li><strong>子页面（view）</strong>：用 <strong>@extends</strong> 继承父布局，在 <strong>@section</strong> 里把内容塞进对应的占位符。</li>
+<li><strong>碎片（@include）</strong>：把导航、页脚这种小块单独拆文件，父布局里按需引入。</li>
+<li><strong>按页追加（@stack &#x2F; @push）</strong>：某些页面需要额外的脚本&#x2F;样式，就往“堆栈”里 <code>@push</code>，父布局在固定位置 <code>@stack</code> 输出。</li>
+</ul>
+<p>推荐目录结构</p>
+<p>resources&#x2F;views&#x2F;<br>├─ layouts&#x2F;<br>│  └─ app.blade.php        # 父布局<br>├─ partials&#x2F;<br>│  ├─ nav.blade.php        # 导航碎片<br>│  └─ footer.blade.php     # 页脚碎片<br>├─ home.blade.php          # 子页面1<br>└─ about.blade.php         # 子页面2</p>
+<p>1）父布局：<code>resources/views/layouts/app.blade.php</code></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=<span class="string">&quot;zh-CN&quot;</span>&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=<span class="string">&quot;UTF-8&quot;</span>&gt;</span><br><span class="line">    &lt;title&gt;@<span class="keyword">yield</span>(<span class="string">&#x27;title&#x27;</span>, <span class="string">&#x27;我的站点&#x27;</span>)&lt;/title&gt;</span><br><span class="line"></span><br><span class="line">    &#123;&#123;-- 站点通用样式 --&#125;&#125;</span><br><span class="line">    &lt;link rel=<span class="string">&quot;stylesheet&quot;</span> href=<span class="string">&quot;/css/app.css&quot;</span>&gt;</span><br><span class="line"></span><br><span class="line">    &#123;&#123;-- 允许子页面追加样式 --&#125;&#125;</span><br><span class="line">    @<span class="title function_ invoke__">stack</span>(<span class="string">&#x27;styles&#x27;</span>)</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    @<span class="keyword">include</span>(<span class="string">&#x27;partials.nav&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    &lt;main <span class="class"><span class="keyword">class</span>=&quot;<span class="title">container</span>&quot;&gt;</span></span><br><span class="line"><span class="class">        </span>&#123;&#123;-- 子页面主体内容占位 --&#125;&#125;</span><br><span class="line">        @<span class="keyword">yield</span>(<span class="string">&#x27;content&#x27;</span>)</span><br><span class="line">    &lt;/main&gt;</span><br><span class="line"></span><br><span class="line">    @<span class="keyword">include</span>(<span class="string">&#x27;partials.footer&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    &#123;&#123;-- 站点通用脚本 --&#125;&#125;</span><br><span class="line">    &lt;script src=<span class="string">&quot;/js/app.js&quot;</span>&gt;&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">    &#123;&#123;-- 允许子页面追加脚本 --&#125;&#125;</span><br><span class="line">    @<span class="title function_ invoke__">stack</span>(<span class="string">&#x27;scripts&#x27;</span>)</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>要点：</p>
+<ul>
+<li><code>@yield(&#39;title&#39;, &#39;我的站点&#39;)</code>：子页面不写标题就用默认值。</li>
+<li><code>@stack(&#39;styles&#39;) / @stack(&#39;scripts&#39;)</code>：等着子页面用 <code>@push</code> 往里塞。</li>
+</ul>
+<p>2）碎片：<code>resources/views/partials/nav.blade.php</code></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;nav style=<span class="string">&quot;padding:12px;border-bottom:1px solid #eee;&quot;</span>&gt;</span><br><span class="line">    &lt;a href=<span class="string">&quot;/&quot;</span>&gt;首页&lt;/a&gt; |</span><br><span class="line">    &lt;a href=<span class="string">&quot;/about&quot;</span>&gt;关于&lt;/a&gt;</span><br><span class="line">&lt;/nav&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>resources&#x2F;views&#x2F;partials&#x2F;footer.blade.php</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;footer style=<span class="string">&quot;padding:12px;border-top:1px solid #eee;margin-top:24px;&quot;</span>&gt;</span><br><span class="line">    &lt;small&gt;© &#123;&#123; <span class="title function_ invoke__">date</span>(<span class="string">&#x27;Y&#x27;</span>) &#125;&#125; My Laravel Site&lt;/small&gt;</span><br><span class="line">&lt;/footer&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>3）子页面示例 A：<code>resources/views/home.blade.php</code></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">extends</span>(<span class="string">&#x27;layouts.app&#x27;</span>)</span><br><span class="line"></span><br><span class="line">&#123;&#123;-- 标题可以用“单行节”写法 --&#125;&#125;</span><br><span class="line">@<span class="title function_ invoke__">section</span>(<span class="string">&#x27;title&#x27;</span>, <span class="string">&#x27;首页&#x27;</span>)</span><br><span class="line"></span><br><span class="line">&#123;&#123;-- 如果此页需要额外样式，丢到 styles 堆栈里 --&#125;&#125;</span><br><span class="line">@<span class="title function_ invoke__">push</span>(<span class="string">&#x27;styles&#x27;</span>)</span><br><span class="line">&lt;style&gt;</span><br><span class="line">  .welcome &#123; font-size: <span class="number">20</span>px; margin-top: <span class="number">12</span>px; &#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line">@endpush</span><br><span class="line"></span><br><span class="line">@<span class="title function_ invoke__">section</span>(<span class="string">&#x27;content&#x27;</span>)</span><br><span class="line">    &lt;h1&gt;欢迎来到首页&lt;/h1&gt;</span><br><span class="line">    &lt;p <span class="class"><span class="keyword">class</span>=&quot;<span class="title">welcome</span>&quot;&gt;这是使用 <span class="title">Blade</span> 模板继承做出来的页面。&lt;/<span class="title">p</span>&gt;</span></span><br><span class="line"><span class="class"></span></span><br><span class="line"><span class="class">    </span>&#123;&#123;-- 也可以在内容底部追加脚本 --&#125;&#125;</span><br><span class="line">    @<span class="title function_ invoke__">push</span>(<span class="string">&#x27;scripts&#x27;</span>)</span><br><span class="line">    &lt;script&gt;</span><br><span class="line">      console.<span class="title function_ invoke__">log</span>(<span class="string">&#x27;Home page ready&#x27;</span>);</span><br><span class="line">    &lt;/script&gt;</span><br><span class="line">    @endpush</span><br><span class="line">@endsection</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>4）子页面示例 B：<code>resources/views/about.blade.php</code></p>
+ <figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@<span class="keyword">extends</span>(<span class="string">&#x27;layouts.app&#x27;</span>)</span><br><span class="line"></span><br><span class="line">@<span class="title function_ invoke__">section</span>(<span class="string">&#x27;title&#x27;</span>, <span class="string">&#x27;关于我们&#x27;</span>)</span><br><span class="line"></span><br><span class="line">@<span class="title function_ invoke__">section</span>(<span class="string">&#x27;content&#x27;</span>)</span><br><span class="line">    &lt;h1&gt;关于我们&lt;/h1&gt;</span><br><span class="line">    &lt;p&gt;这里是关于页。它复用了同一个布局、导航和页脚。&lt;/p&gt;</span><br><span class="line">@endsection</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>5）路由：<code>routes/web.php</code></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> <span class="title">Illuminate</span>\<span class="title">Support</span>\<span class="title">Facades</span>\<span class="title">Route</span>;</span><br><span class="line"></span><br><span class="line"><span class="title class_">Route</span>::<span class="title function_ invoke__">view</span>(<span class="string">&#x27;/&#x27;</span>, <span class="string">&#x27;home&#x27;</span>);       <span class="comment">// 直接返回视图</span></span><br><span class="line"><span class="title class_">Route</span>::<span class="title function_ invoke__">view</span>(<span class="string">&#x27;/about&#x27;</span>, <span class="string">&#x27;about&#x27;</span>);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p><img src="/2025/08/11/Laravel%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%9F%BA%E7%A1%80%E7%AF%87/%E5%9B%BE%E7%89%87/home.png" alt="home"></p>
+<p><img src="/2025/08/11/Laravel%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%9F%BA%E7%A1%80%E7%AF%87/%E5%9B%BE%E7%89%87/about.png" alt="about"></p>
+<h1 id="数据库-Eloquent-ORM"><a href="#数据库-Eloquent-ORM" class="headerlink" title="数据库 &amp; Eloquent ORM"></a>数据库 &amp; Eloquent ORM</h1><h2 id="1-数据库配置"><a href="#1-数据库配置" class="headerlink" title="1. 数据库配置"></a><strong>1. 数据库配置</strong></h2><p>Laravel 默认支持 MySQL、MariaDB、PostgreSQL、SQLite。<br> 我们用 MySQL 举例。</p>
+<p>配置文件在：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">config/database.php</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>但通常我们在 <code>.env</code> 文件里改连接信息：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">DB_CONNECTION=mysql</span><br><span class="line">DB_HOST=127.0.0.1</span><br><span class="line">DB_PORT=3306</span><br><span class="line">DB_DATABASE=myapp</span><br><span class="line">DB_USERNAME=root</span><br><span class="line">DB_PASSWORD=你的密码</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>💡 小技巧：改 <code>.env</code> 后执行：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">php artisan config:cache</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>让配置立即生效。</p>
+<p><img src="/2025/08/11/Laravel%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%9F%BA%E7%A1%80%E7%AF%87/xingxing/Documents/G%E8%80%81%E5%B8%88%E6%95%99Laravel/%E5%9B%BE%E7%89%87/clearcache.png" alt="区别"></p>
+<h2 id="2-创建数据库表（Migration）"><a href="#2-创建数据库表（Migration）" class="headerlink" title="2. 创建数据库表（Migration）"></a><strong>2. 创建数据库表（Migration）</strong></h2><p>Migration 就是“数据库版本控制”，你不用手动写 SQL 创建表，而是用 Laravel 生成。</p>
+<p>我们先为留言板创建一张表：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php artisan make:migration create_messages_table --create=messages</span><br></pre></td></tr></table></figure>
+
+<p>这会在 <code>database/migrations/</code> 生成文件，比如：</p>
+<p><code>2025_08_09_000000_create_messages_table.php</code></p>
+<p>打开它，修改 <code>up()</code> 方法：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">up</span>(<span class="params"></span>): <span class="title">void</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="title class_">Schema</span>::<span class="title function_ invoke__">create</span>(<span class="string">&#x27;messages&#x27;</span>, function (Blueprint <span class="variable">$table</span>) &#123;</span><br><span class="line">        <span class="variable">$table</span>-&gt;<span class="title function_ invoke__">id</span>();</span><br><span class="line">        <span class="variable">$table</span>-&gt;<span class="keyword">string</span>(<span class="string">&#x27;name&#x27;</span>);    <span class="comment">// 留言者名字</span></span><br><span class="line">        <span class="variable">$table</span>-&gt;<span class="title function_ invoke__">text</span>(<span class="string">&#x27;content&#x27;</span>);   <span class="comment">// 留言内容</span></span><br><span class="line">        <span class="variable">$table</span>-&gt;<span class="title function_ invoke__">timestamps</span>();      <span class="comment">// created_at / updated_at</span></span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>执行迁移：</p>
+<p><code>php artisan migrate</code></p>
+<p>✅ 数据库里就有 <code>messages</code> 表了。</p>
+<h2 id="3-创建模型（Model）"><a href="#3-创建模型（Model）" class="headerlink" title="3. 创建模型（Model）"></a><strong>3. 创建模型（Model）</strong></h2><p>&#x3D;&#x3D;Model 是 Laravel 操作数据库的对象。&#x3D;&#x3D;</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php artisan make:model Message</span><br></pre></td></tr></table></figure>
+
+<p>会在 <code>app/Models/Message.php</code> 生成：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title class_">App</span>\<span class="title class_">Models</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">use</span> <span class="title">Illuminate</span>\<span class="title">Database</span>\<span class="title">Eloquent</span>\<span class="title">Model</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Message</span> <span class="keyword">extends</span> <span class="title">Model</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$fillable</span> = [<span class="string">&#x27;name&#x27;</span>, <span class="string">&#x27;content&#x27;</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>$fillable</code> 用来定义<strong>可批量赋值的字段</strong>，防止批量赋值漏洞。</p>
+<h2 id="4-在控制器中用-Eloquent-操作数据"><a href="#4-在控制器中用-Eloquent-操作数据" class="headerlink" title="4. 在控制器中用 Eloquent 操作数据"></a><strong>4. 在控制器中用 Eloquent 操作数据</strong></h2><p>我们建一个 <code>MessageController</code>：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php artisan make:controller MessageController</span><br></pre></td></tr></table></figure>
+
+<p>编辑 <code>app/Http/Controllers/MessageController.php</code>：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title class_">App</span>\<span class="title class_">Http</span>\<span class="title class_">Controllers</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">use</span> <span class="title">Illuminate</span>\<span class="title">Http</span>\<span class="title">Request</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">App</span>\<span class="title">Models</span>\<span class="title">Message</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MessageController</span> <span class="keyword">extends</span> <span class="title">Controller</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="comment">// 显示所有留言</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">index</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="variable">$messages</span> = <span class="title class_">Message</span>::<span class="title function_ invoke__">orderBy</span>(<span class="string">&#x27;created_at&#x27;</span>, <span class="string">&#x27;desc&#x27;</span>)-&gt;<span class="title function_ invoke__">get</span>();</span><br><span class="line">        <span class="keyword">return</span> <span class="title function_ invoke__">view</span>(<span class="string">&#x27;messages.index&#x27;</span>, <span class="title function_ invoke__">compact</span>(<span class="string">&#x27;messages&#x27;</span>));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 处理表单提交</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">store</span>(<span class="params">Request <span class="variable">$request</span></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="variable">$request</span>-&gt;<span class="title function_ invoke__">validate</span>([</span><br><span class="line">            <span class="string">&#x27;name&#x27;</span> =&gt; <span class="string">&#x27;required|max:50&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;content&#x27;</span> =&gt; <span class="string">&#x27;required|max:500&#x27;</span></span><br><span class="line">        ]);</span><br><span class="line"></span><br><span class="line">        <span class="title class_">Message</span>::<span class="title function_ invoke__">create</span>(<span class="variable">$request</span>-&gt;<span class="title function_ invoke__">only</span>(<span class="string">&#x27;name&#x27;</span>, <span class="string">&#x27;content&#x27;</span>));</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="title function_ invoke__">redirect</span>(<span class="string">&#x27;/messages&#x27;</span>)-&gt;<span class="title function_ invoke__">with</span>(<span class="string">&#x27;success&#x27;</span>, <span class="string">&#x27;留言已发布！&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<ol>
+<li><code>$messages = Message::orderBy(&#39;created_at&#39;, &#39;desc&#39;)-&gt;get();</code></li>
+</ol>
+<p>先看最简单的模型调用：</p>
+<p>假设我们有一个 <code>messages</code> 表：</p>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>name</th>
+<th>content</th>
+<th>created_at</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>Alice</td>
+<td>Hello World</td>
+<td>2025-08-01 10:00:00</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Bob</td>
+<td>Hi There</td>
+<td>2025-08-02 11:00:00</td>
+</tr>
+</tbody></table>
+<p>Laravel 里的 <code>Message</code> 模型（<code>app/Models/Message.php</code>）是这样关联到这张表的：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Message</span> <span class="keyword">extends</span> <span class="title">Model</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="comment">// 默认表名是 &quot;messages&quot;，如果不一样可以用 protected $table 修改</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>当我们写：</p>
+<p><code>Message::all();</code></p>
+<p>意思是：<br> “<strong>用 Message 这个模型，把 messages 表里的所有数据查出来</strong>”，返回的是一个集合（Collection）。</p>
+<p><code>orderBy(&#39;created_at&#39;, &#39;desc&#39;)</code> 是 SQL 排序的意思：</p>
+<ul>
+<li><code>&#39;created_at&#39;</code> → 按 <code>created_at</code> 这个字段排序</li>
+<li><code>&#39;desc&#39;</code> → 降序（最新的在最前面）</li>
+</ul>
+<p>这行：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$messages</span> = <span class="title class_">Message</span>::<span class="title function_ invoke__">orderBy</span>(<span class="string">&#x27;created_at&#x27;</span>, <span class="string">&#x27;desc&#x27;</span>)-&gt;<span class="title function_ invoke__">get</span>();</span><br></pre></td></tr></table></figure>
+
+<p>等价于 SQL：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> messages <span class="keyword">ORDER</span> <span class="keyword">BY</span> created_at <span class="keyword">DESC</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+<p><strong>为什么链式写法能用？</strong><br> 因为 <code>orderBy()</code> 会返回一个查询构造器对象，你可以继续调用 <code>.get()</code>。<br> 就像：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Message</span>::<span class="title function_ invoke__">where</span>(<span class="string">&#x27;name&#x27;</span>, <span class="string">&#x27;Alice&#x27;</span>)-&gt;<span class="title function_ invoke__">orderBy</span>(<span class="string">&#x27;created_at&#x27;</span>, <span class="string">&#x27;desc&#x27;</span>)-&gt;<span class="title function_ invoke__">get</span>();</span><br></pre></td></tr></table></figure>
+
+<p>会翻译成：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> messages <span class="keyword">WHERE</span> name <span class="operator">=</span> <span class="string">&#x27;Alice&#x27;</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> created_at <span class="keyword">DESC</span>;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<ol start="2">
+<li><code>Message::create($request-&gt;only(&#39;name&#39;, &#39;content&#39;));</code></li>
+</ol>
+<ul>
+<li><code>create()</code> 是 Eloquent 模型提供的“批量插入”方法。</li>
+<li><code>$request-&gt;only(&#39;name&#39;, &#39;content&#39;)</code> 会从用户提交的表单数据里，只取出 <code>name</code> 和 <code>content</code> 这两个字段，返回一个数组：</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">    <span class="string">&#x27;name&#x27;</span> =&gt; <span class="string">&#x27;用户输入的名字&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;content&#x27;</span> =&gt; <span class="string">&#x27;用户输入的留言&#x27;</span></span><br><span class="line">]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>当你写：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Message</span>::<span class="title function_ invoke__">create</span>([</span><br><span class="line">    <span class="string">&#x27;name&#x27;</span> =&gt; <span class="string">&#x27;Luke&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;content&#x27;</span> =&gt; <span class="string">&#x27;Hello World&#x27;</span></span><br><span class="line">]);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>它等价于 SQL：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT INTO</span> messages (name, content) <span class="keyword">VALUES</span> (<span class="string">&#x27;Luke&#x27;</span>, <span class="string">&#x27;Hello World&#x27;</span>);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>💡 <strong>安全点</strong>：<br> Laravel 为了防止有人恶意通过表单传递“你数据库里不想被改的字段”（比如 <code>is_admin</code>），<br> 要求你在模型里用 <code>$fillable</code> 显式声明<strong>允许批量插入的字段</strong>。</p>
+<ol start="3">
+<li><code>$fillable</code> 的作用</li>
+</ol>
+<p>在 <code>app/Models/Message.php</code> 里：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> <span class="variable">$fillable</span> = [<span class="string">&#x27;name&#x27;</span>, <span class="string">&#x27;content&#x27;</span>];</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>意思是：</p>
+<blockquote>
+<p>我只允许通过 <code>create()</code> 或 <code>update()</code> 一次性批量写入 <code>name</code> 和 <code>content</code> 这两个字段。</p>
+</blockquote>
+<p>如果有人试图提交：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Message</span>::<span class="title function_ invoke__">create</span>([</span><br><span class="line">    <span class="string">&#x27;name&#x27;</span> =&gt; <span class="string">&#x27;Hacker&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;content&#x27;</span> =&gt; <span class="string">&#x27;攻击测试&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;is_admin&#x27;</span> =&gt; <span class="number">1</span>  // ❌ 不在 fillable 列表里</span><br><span class="line">]);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>Laravel 会直接忽略 <code>is_admin</code>，不让它插入。</p>
+<p><strong>这个机制叫“批量赋值保护”（Mass Assignment Protection）</strong>，<br> 是 Laravel 里防御数据库被恶意写入的重要安全手段。</p>
+<h2 id="5-Blade-页面"><a href="#5-Blade-页面" class="headerlink" title="5. Blade 页面"></a><strong>5. Blade 页面</strong></h2><p>创建 <code>resources/views/messages/index.blade.php</code>：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">@extends(&#x27;layouts.app&#x27;)</span><br><span class="line"></span><br><span class="line">@section(&#x27;title&#x27;, &#x27;留言板&#x27;)</span><br><span class="line"></span><br><span class="line">@section(&#x27;content&#x27;)</span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>留言板<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    &#123;&#123;-- 成功提示 --&#125;&#125;</span><br><span class="line">    @if(session(&#x27;success&#x27;))</span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span> <span class="attr">style</span>=<span class="string">&quot;color: green;&quot;</span>&gt;</span>&#123;&#123; session(&#x27;success&#x27;) &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    @endif</span><br><span class="line"></span><br><span class="line">    &#123;&#123;-- 留言表单 --&#125;&#125;</span><br><span class="line">    <span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;/messages&quot;</span> <span class="attr">method</span>=<span class="string">&quot;POST&quot;</span>&gt;</span></span><br><span class="line">        @csrf</span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;name&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;你的名字&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">br</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">textarea</span> <span class="attr">name</span>=<span class="string">&quot;content&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;写下留言...&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">br</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span>&gt;</span>发布留言<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">hr</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    &#123;&#123;-- 留言列表 --&#125;&#125;</span><br><span class="line">    @foreach($messages as $msg)</span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;<span class="name">strong</span>&gt;</span>&#123;&#123; $msg-&gt;name &#125;&#125;<span class="tag">&lt;/<span class="name">strong</span>&gt;</span> (&#123;&#123; $msg-&gt;created_at-&gt;format(&#x27;Y-m-d H:i&#x27;) &#125;&#125;)<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123; $msg-&gt;content &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">hr</span>&gt;</span></span><br><span class="line">    @endforeach</span><br><span class="line">@endsection</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="6-路由"><a href="#6-路由" class="headerlink" title="6. 路由"></a><strong>6. 路由</strong></h2><p><code>routes/web.php</code>：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> <span class="title">App</span>\<span class="title">Http</span>\<span class="title">Controllers</span>\<span class="title">MessageController</span>;</span><br><span class="line"></span><br><span class="line"><span class="title class_">Route</span>::<span class="title function_ invoke__">get</span>(<span class="string">&#x27;/messages&#x27;</span>, [<span class="title class_">MessageController</span>::<span class="variable language_">class</span>, <span class="string">&#x27;index&#x27;</span>]);</span><br><span class="line"><span class="title class_">Route</span>::<span class="title function_ invoke__">post</span>(<span class="string">&#x27;/messages&#x27;</span>, [<span class="title class_">MessageController</span>::<span class="variable language_">class</span>, <span class="string">&#x27;store&#x27;</span>]);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="7-测试"><a href="#7-测试" class="headerlink" title="7. 测试"></a><strong>7. 测试</strong></h2><ol>
+<li>访问 <code>http://127.0.0.1:8000/messages</code></li>
+<li>填名字 + 留言 → 提交</li>
+<li>页面刷新后能看到刚才的留言（倒序排列）</li>
+</ol>
+<hr>
+<h2 id="8-小结"><a href="#8-小结" class="headerlink" title="8. 小结"></a><strong>8. 小结</strong></h2><ul>
+<li><code>.env</code> 配数据库</li>
+<li><code>php artisan make:migration</code> → 创建表</li>
+<li><code>php artisan make:model</code> → 创建模型</li>
+<li><code>php artisan make:controller</code> → 写业务逻辑</li>
+<li>Eloquent 常用方法：<ul>
+<li><code>Model::all()</code> → 全部数据</li>
+<li><code>Model::create()</code> → 插入数据</li>
+<li><code>Model::find(id)</code> → 查单条</li>
+<li><code>Model::where(...)-&gt;get()</code> → 条件查询</li>
+<li><code>orderBy()-&gt;get()</code> → 排序</li>
+</ul>
+</li>
+</ul>
+<p>##关于表的创建</p>
+<p>我明白你问的意思，其实在 Laravel 里，<strong>创建完一张表的“迁移文件”以后执行 <code>php artisan migrate</code>，是为了真正把这个表写进数据库</strong>。</p>
+<p>🔍 详细解释</p>
+<p>在 Laravel 中，“创建一张表”通常分成 <strong>两个步骤</strong>：1. <strong>创建迁移文件（Migration File）</strong></p>
+<ul>
+<li>例如：</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php artisan make:migration create_users_table</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>这个命令会生成一个 PHP 文件，里面是创建或修改数据表的“说明书”：</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Schema</span>::<span class="title function_ invoke__">create</span>(<span class="string">&#x27;users&#x27;</span>, function (Blueprint <span class="variable">$table</span>) &#123;</span><br><span class="line">    <span class="variable">$table</span>-&gt;<span class="title function_ invoke__">id</span>();</span><br><span class="line">    <span class="variable">$table</span>-&gt;<span class="keyword">string</span>(<span class="string">&#x27;name&#x27;</span>);</span><br><span class="line">    <span class="variable">$table</span>-&gt;<span class="title function_ invoke__">timestamps</span>();</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这一步只是<strong>写好了表的结构定义</strong>，但数据库里还没发生变化。</p>
+</blockquote>
+<ol start="2">
+<li><strong>执行迁移（Migrate）</strong></li>
+</ol>
+<ul>
+<li>命令：</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php artisan migrate</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>Laravel 会读取 <code>database/migrations</code> 文件夹里的迁移文件，并<strong>在数据库中真正执行这些结构变更</strong>（比如 <code>CREATE TABLE users (...)</code>）。</li>
+<li>换句话说：<ul>
+<li><strong>迁移文件</strong> &#x3D; 数据库结构的蓝图</li>
+<li><strong><code>migrate</code> 命令</strong> &#x3D; 把蓝图落实到数据库</li>
+</ul>
+</li>
+</ul>
+<p>📌 为什么不直接在数据库里建表？</p>
+<ol>
+<li><p><strong>版本管理方便</strong></p>
+<ul>
+<li>迁移文件是 PHP 代码，可以存到 Git 里，方便多人协作、回滚、重建。</li>
+</ul>
+</li>
+<li><p><strong>跨环境一致性</strong></p>
+<ul>
+<li>在本地、测试、生产环境都能执行同一份迁移文件，保证表结构一致。</li>
+</ul>
+</li>
+<li><p><strong>可回滚</strong></p>
+<ul>
+<li><p>你可以用：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php artisan migrate:rollback</span><br></pre></td></tr></table></figure>
+
+<p>撤销上一次的迁移操作。</p>
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<p>✅ <strong>一句话总结</strong>：</p>
+<blockquote>
+<p>写迁移文件只是“计划书”，执行 <code>php artisan migrate</code> 才是“施工”，只有执行完迁移命令，数据库里才会真的多出这张表。</p>
+</blockquote>
+<h1 id="中间件"><a href="#中间件" class="headerlink" title="中间件"></a>中间件</h1><h2 id="1-中间件是什么？"><a href="#1-中间件是什么？" class="headerlink" title="1. 中间件是什么？"></a>1. 中间件是什么？</h2><p>简单来说，中间件就是 <strong>请求（Request） 和 响应（Response） 之间的一道“过滤器”</strong>。<br> 它可以在请求到达控制器之前、或者响应返回浏览器之前，对数据进行检查、修改、拦截、记录等操作。</p>
+<p>你可以把它想象成机场安检：</p>
+<ul>
+<li>乘客（Request）来了 → 先经过安检（Middleware）</li>
+<li>安检通过 → 进入登机口（Controller）</li>
+<li>返程时也可能再检查行李（Response 处理）</li>
+</ul>
+<h2 id="2-中间件的作用"><a href="#2-中间件的作用" class="headerlink" title="2. 中间件的作用"></a>2. 中间件的作用</h2><p>Laravel 自带很多中间件，也允许你自己写。常见用途有：</p>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>示例中间件</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>认证</td>
+<td><code>auth</code></td>
+<td>只允许已登录用户访问某些路由</td>
+</tr>
+<tr>
+<td>权限</td>
+<td><code>can:delete-post</code></td>
+<td>检查用户是否有权限执行操作</td>
+</tr>
+<tr>
+<td>防护</td>
+<td><code>VerifyCsrfToken</code></td>
+<td>防止 CSRF 攻击</td>
+</tr>
+<tr>
+<td>节流</td>
+<td><code>throttle:60,1</code></td>
+<td>限制 API 调用频率（每分钟 60 次）</td>
+</tr>
+<tr>
+<td>CORS</td>
+<td><code>HandleCors</code></td>
+<td>允许跨域访问</td>
+</tr>
+<tr>
+<td>日志</td>
+<td>自定义</td>
+<td>在请求进入&#x2F;离开时记录日志</td>
+</tr>
+<tr>
+<td>数据加工</td>
+<td>自定义</td>
+<td>修改请求参数或统一响应格式</td>
+</tr>
+</tbody></table>
+<h2 id="3-中间件的运行流程"><a href="#3-中间件的运行流程" class="headerlink" title="3. 中间件的运行流程"></a>3. 中间件的运行流程</h2><p>你可以想象 Laravel 的请求处理像是<strong>洋葱模型</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">浏览器请求</span><br><span class="line">   ↓</span><br><span class="line">[中间件A: 检查认证]</span><br><span class="line">   ↓</span><br><span class="line">[中间件B: 检查权限]</span><br><span class="line">   ↓</span><br><span class="line"> 控制器 (处理业务)</span><br><span class="line">   ↑</span><br><span class="line">[中间件B: 修改响应]</span><br><span class="line">   ↑</span><br><span class="line">[中间件A: 添加响应头]</span><br><span class="line">   ↑</span><br><span class="line">浏览器接收响应</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>每个中间件的 <code>handle()</code> 方法，都会在 <code>$next($request)</code> 前执行“请求前逻辑”，<br> <code>$next</code> 之后的代码会在<strong>响应返回时</strong>执行。</p>
+<h2 id="4-中间件的结构"><a href="#4-中间件的结构" class="headerlink" title="4. 中间件的结构"></a>4. 中间件的结构</h2><p>一个典型中间件长这样：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title class_">App</span>\<span class="title class_">Http</span>\<span class="title class_">Middleware</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">use</span> <span class="title">Closure</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">Illuminate</span>\<span class="title">Http</span>\<span class="title">Request</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ExampleMiddleware</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">handle</span>(<span class="params">Request <span class="variable">$request</span>, <span class="built_in">Closure</span> <span class="variable">$next</span></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">// 请求前处理</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="variable">$request</span>-&gt;<span class="title function_ invoke__">ip</span>() === <span class="string">&#x27;192.168.1.1&#x27;</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="title function_ invoke__">response</span>(<span class="string">&#x27;你的IP被禁止访问&#x27;</span>, <span class="number">403</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="variable">$response</span> = <span class="variable">$next</span>(<span class="variable">$request</span>); <span class="comment">// 交给下一个中间件或控制器</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 响应前处理</span></span><br><span class="line">        <span class="variable">$response</span>-&gt;headers-&gt;<span class="title function_ invoke__">set</span>(<span class="string">&#x27;X-Powered-By&#x27;</span>, <span class="string">&#x27;Laravel&#x27;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="variable">$response</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="5-中间件的注册方式"><a href="#5-中间件的注册方式" class="headerlink" title="5. 中间件的注册方式"></a>5. 中间件的注册方式</h2><h3 id="全局中间件"><a href="#全局中间件" class="headerlink" title="全局中间件"></a>全局中间件</h3><p>在 <code>app/Http/Kernel.php</code> 的 <code>$middleware</code> 中注册，作用于所有请求。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> <span class="variable">$middleware</span> = [</span><br><span class="line">    <span class="title class_">\App\Http\Middleware\CheckForMaintenanceMode</span>::<span class="variable language_">class</span>,</span><br><span class="line">];</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="分组中间件"><a href="#分组中间件" class="headerlink" title="分组中间件"></a>分组中间件</h3><p>分配给路由分组，例如 <code>web</code>、<code>api</code>。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> <span class="variable">$middlewareGroups</span> = [</span><br><span class="line">    <span class="string">&#x27;web&#x27;</span> =&gt; [</span><br><span class="line">        <span class="title class_">\App\Http\Middleware\EncryptCookies</span>::<span class="variable language_">class</span>,</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    ],</span><br><span class="line">];</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="路由中间件"><a href="#路由中间件" class="headerlink" title="路由中间件"></a>路由中间件</h3><p>注册到 <code>$routeMiddleware</code>，按需使用：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> <span class="variable">$routeMiddleware</span> = [</span><br><span class="line">    <span class="string">&#x27;auth&#x27;</span> =&gt; <span class="title class_">\App\Http\Middleware\Authenticate</span>::<span class="variable language_">class</span>,</span><br><span class="line">];</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>路由中使用：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Route</span>::<span class="title function_ invoke__">get</span>(<span class="string">&#x27;/dashboard&#x27;</span>, function () &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;后台&#x27;</span>;</span><br><span class="line">&#125;)-&gt;<span class="title function_ invoke__">middleware</span>(<span class="string">&#x27;auth&#x27;</span>);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="6-你需要记住的核心点"><a href="#6-你需要记住的核心点" class="headerlink" title="6. 你需要记住的核心点"></a>6. 你需要记住的核心点</h2><ol>
+<li><strong>位置</strong>：中间件处于 Request 和 Response 之间，像过滤器一样。</li>
+<li><strong>功能</strong>：可以拦截、修改、放行、拒绝请求，也可以修改返回的响应。</li>
+<li><strong>注册方式</strong>：全局、分组、单路由。</li>
+<li><strong>执行顺序</strong>：请求时顺序进入，响应时反向返回。</li>
+<li><strong>应用场景</strong>：认证、权限、日志、限流、安全、防爬虫、数据预处理等。</li>
+</ol>
+<p>顺序是这样的：</p>
+<ol>
+<li><strong>浏览器请求</strong></li>
+<li><strong>全局中间件</strong>（<code>Kernel::$middleware</code>）——所有请求都会经过</li>
+<li><strong>分组中间件</strong>（<code>Kernel::$middlewareGroups</code>）——如 <code>web</code>、<code>api</code></li>
+<li><strong>路由中间件</strong>（<code>Kernel::$routeMiddleware</code>）——路由上单独声明的</li>
+<li><strong>控制器 Controller</strong>——执行业务逻辑</li>
+<li><strong>路由中间件（返回阶段）</strong></li>
+<li><strong>分组中间件（返回阶段）</strong></li>
+<li><strong>全局中间件（返回阶段）</strong></li>
+<li><strong>浏览器接收响应</strong></li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">张一鸣</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2025/08/11/Laravel%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%9F%BA%E7%A1%80%E7%AF%87/">http://example.com/2025/08/11/Laravel%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%9F%BA%E7%A1%80%E7%AF%87/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://example.com" target="_blank">张一鸣的博客</a>！</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2025/08/11/Laravel%20from%20Scratch/" title="Laravel from Scratch"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Laravel from Scratch</div></div><div class="info-2"><div class="info-item-1"> Routing1. Purpose of RoutingIn Laravel, routing defines:  When a user visits a certain URL, what content should be returned.  For example:  User visits /hello → returns the text “Hello Laravel” User visits /about → returns an HTML page  Laravel first matches the route, then hands it over to the controller or directly returns the content.  2. Where are the route files located?By default: 1routes/web.php  This is the route for website (browser) access, suitable for HTML pages. If it’s for an A...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">张一鸣</div><div class="author-info-description">一步一个脚印，记录学习与生活</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">4</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B7%AF%E7%94%B1"><span class="toc-number">1.</span> <span class="toc-text">路由</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E8%B7%AF%E7%94%B1%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="toc-number">1.1.</span> <span class="toc-text">1. 路由的作用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E8%B7%AF%E7%94%B1%E6%96%87%E4%BB%B6%E5%9C%A8%E5%93%AA%E9%87%8C%EF%BC%9F"><span class="toc-number">1.2.</span> <span class="toc-text">2. 路由文件在哪里？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E6%9C%80%E7%AE%80%E5%8D%95%E7%9A%84%E8%B7%AF%E7%94%B1%E5%86%99%E6%B3%95"><span class="toc-number">1.3.</span> <span class="toc-text">3. 最简单的路由写法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%96%B0%E5%BB%BA%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E8%B7%AF%E7%94%B1"><span class="toc-number">1.4.</span> <span class="toc-text">4. 新建一个简单路由</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E8%BF%94%E5%9B%9E-HTML"><span class="toc-number">1.5.</span> <span class="toc-text">5. 返回 HTML</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E8%BF%94%E5%9B%9E-Blade-%E6%A8%A1%E6%9D%BF"><span class="toc-number">1.6.</span> <span class="toc-text">6. 返回 Blade 模板</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E5%B0%8F%E7%BB%93"><span class="toc-number">1.7.</span> <span class="toc-text">7. 小结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%B7%AF%E7%94%B1%E8%BF%9E%E6%8E%A5%E6%8E%A7%E5%88%B6%E5%99%A8"><span class="toc-number">2.</span> <span class="toc-text">路由连接控制器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%94%A8%E6%8E%A7%E5%88%B6%E5%99%A8"><span class="toc-number">2.1.</span> <span class="toc-text">1. 为什么要用控制器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%88%9B%E5%BB%BA%E6%8E%A7%E5%88%B6%E5%99%A8"><span class="toc-number">2.2.</span> <span class="toc-text">2. 创建控制器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%86%99%E6%8E%A7%E5%88%B6%E5%99%A8%E4%BB%A3%E7%A0%81"><span class="toc-number">2.3.</span> <span class="toc-text">3. 写控制器代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E8%B7%AF%E7%94%B1%E8%BF%9E%E6%8E%A5%E5%88%B0%E6%8E%A7%E5%88%B6%E5%99%A8"><span class="toc-number">2.4.</span> <span class="toc-text">4. 路由连接到控制器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E6%8E%A7%E5%88%B6%E5%99%A8%E8%BF%94%E5%9B%9E-Blade-%E6%A8%A1%E6%9D%BF"><span class="toc-number">2.5.</span> <span class="toc-text">5. 控制器返回 Blade 模板</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E6%8E%A7%E5%88%B6%E5%99%A8%E4%BC%A0%E6%95%B0%E6%8D%AE%E5%88%B0%E6%A8%A1%E6%9D%BF"><span class="toc-number">2.6.</span> <span class="toc-text">6. 控制器传数据到模板</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E5%B0%8F%E7%BB%93-1"><span class="toc-number">2.7.</span> <span class="toc-text">7. 小结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AF-Blade"><span class="toc-number">2.8.</span> <span class="toc-text">1. 什么是 Blade</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Blade-%E6%98%BE%E7%A4%BA%E5%8F%98%E9%87%8F"><span class="toc-number">2.9.</span> <span class="toc-text">2. Blade 显示变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%BE%AA%E7%8E%AF"><span class="toc-number">2.10.</span> <span class="toc-text">4. 循环</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E6%A8%A1%E6%9D%BF%E7%BB%A7%E6%89%BF%EF%BC%88%E5%B8%83%E5%B1%80%E5%A4%8D%E7%94%A8%EF%BC%89"><span class="toc-number">2.11.</span> <span class="toc-text">5. 模板继承（布局复用）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93-Eloquent-ORM"><span class="toc-number">3.</span> <span class="toc-text">数据库 &amp; Eloquent ORM</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E6%95%B0%E6%8D%AE%E5%BA%93%E9%85%8D%E7%BD%AE"><span class="toc-number">3.1.</span> <span class="toc-text">1. 数据库配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%BA%93%E8%A1%A8%EF%BC%88Migration%EF%BC%89"><span class="toc-number">3.2.</span> <span class="toc-text">2. 创建数据库表（Migration）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%88%9B%E5%BB%BA%E6%A8%A1%E5%9E%8B%EF%BC%88Model%EF%BC%89"><span class="toc-number">3.3.</span> <span class="toc-text">3. 创建模型（Model）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%9C%A8%E6%8E%A7%E5%88%B6%E5%99%A8%E4%B8%AD%E7%94%A8-Eloquent-%E6%93%8D%E4%BD%9C%E6%95%B0%E6%8D%AE"><span class="toc-number">3.4.</span> <span class="toc-text">4. 在控制器中用 Eloquent 操作数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Blade-%E9%A1%B5%E9%9D%A2"><span class="toc-number">3.5.</span> <span class="toc-text">5. Blade 页面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E8%B7%AF%E7%94%B1"><span class="toc-number">3.6.</span> <span class="toc-text">6. 路由</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#7-%E6%B5%8B%E8%AF%95"><span class="toc-number">3.7.</span> <span class="toc-text">7. 测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#8-%E5%B0%8F%E7%BB%93"><span class="toc-number">3.8.</span> <span class="toc-text">8. 小结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%AD%E9%97%B4%E4%BB%B6"><span class="toc-number">4.</span> <span class="toc-text">中间件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">4.1.</span> <span class="toc-text">1. 中间件是什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E4%B8%AD%E9%97%B4%E4%BB%B6%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="toc-number">4.2.</span> <span class="toc-text">2. 中间件的作用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E4%B8%AD%E9%97%B4%E4%BB%B6%E7%9A%84%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B"><span class="toc-number">4.3.</span> <span class="toc-text">3. 中间件的运行流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E4%B8%AD%E9%97%B4%E4%BB%B6%E7%9A%84%E7%BB%93%E6%9E%84"><span class="toc-number">4.4.</span> <span class="toc-text">4. 中间件的结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E4%B8%AD%E9%97%B4%E4%BB%B6%E7%9A%84%E6%B3%A8%E5%86%8C%E6%96%B9%E5%BC%8F"><span class="toc-number">4.5.</span> <span class="toc-text">5. 中间件的注册方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%A8%E5%B1%80%E4%B8%AD%E9%97%B4%E4%BB%B6"><span class="toc-number">4.5.1.</span> <span class="toc-text">全局中间件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E7%BB%84%E4%B8%AD%E9%97%B4%E4%BB%B6"><span class="toc-number">4.5.2.</span> <span class="toc-text">分组中间件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B7%AF%E7%94%B1%E4%B8%AD%E9%97%B4%E4%BB%B6"><span class="toc-number">4.5.3.</span> <span class="toc-text">路由中间件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E4%BD%A0%E9%9C%80%E8%A6%81%E8%AE%B0%E4%BD%8F%E7%9A%84%E6%A0%B8%E5%BF%83%E7%82%B9"><span class="toc-number">4.6.</span> <span class="toc-text">6. 你需要记住的核心点</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/08/11/Laravel%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%9F%BA%E7%A1%80%E7%AF%87/" title="Laravel学习之基础篇">Laravel学习之基础篇</a><time datetime="2025-08-11T09:54:34.000Z" title="发表于 2025-08-11 17:54:34">2025-08-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/08/11/Laravel%20from%20Scratch/" title="Laravel from Scratch">Laravel from Scratch</a><time datetime="2025-08-11T01:39:24.000Z" title="发表于 2025-08-11 09:39:24">2025-08-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/06/12/Java%E5%9F%BA%E7%A1%80%E4%B9%8B%E7%BB%A7%E6%89%BF/" title="Java基础之继承">Java基础之继承</a><time datetime="2025-06-12T13:03:29.000Z" title="发表于 2025-06-12 21:03:29">2025-06-12</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/06/12/IO%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/" title="IO知识点总结">IO知识点总结</a><time datetime="2025-06-12T03:17:46.000Z" title="发表于 2025-06-12 11:17:46">2025-06-12</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By 张一鸣</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.3</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
