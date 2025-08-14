@@ -1,0 +1,33 @@
+<h1 id="Laravel-生命周期解析"><a href="#Laravel-生命周期解析" class="headerlink" title="Laravel 生命周期解析"></a>Laravel 生命周期解析</h1><p>Laravel 的生命周期可以简单理解为 “从接收用户请求到返回响应” 的完整过程，主要分为以下几个核心阶段：</p>
+<h2 id="1-入口文件（public-index-php）"><a href="#1-入口文件（public-index-php）" class="headerlink" title="1. 入口文件（public&#x2F;index.php）"></a>1. 入口文件（public&#x2F;index.php）</h2><p>这是所有请求的起点：</p>
+<ul>
+<li>加载 Composer 生成的自动加载文件（autoload.php）</li>
+<li>实例化 Laravel 应用的核心容器（Application）</li>
+<li>绑定基础服务（如环境配置、日志等）</li>
+</ul>
+<h2 id="2-启动应用（Bootstrap）"><a href="#2-启动应用（Bootstrap）" class="headerlink" title="2. 启动应用（Bootstrap）"></a>2. 启动应用（Bootstrap）</h2><p>应用实例化后，会进入启动阶段：</p>
+<ul>
+<li>加载环境变量（.env 文件）和配置信息（config 目录）</li>
+<li>注册核心服务提供者（如数据库、路由、视图等）</li>
+<li>初始化事件系统、路由系统等基础组件</li>
+</ul>
+<h2 id="3-处理请求（Routing-Middleware）"><a href="#3-处理请求（Routing-Middleware）" class="headerlink" title="3. 处理请求（Routing &amp; Middleware）"></a>3. 处理请求（Routing &amp; Middleware）</h2><p>应用启动后，会接收并解析用户请求：</p>
+<ul>
+<li>通过路由系统（Router）匹配对应的路由规则，确定处理该请求的控制器方法或闭包</li>
+<li>执行路由关联的中间件（Middleware），完成身份验证、CSRF 防护、请求过滤等预处理</li>
+</ul>
+<h2 id="4-执行业务逻辑（Controller-Service）"><a href="#4-执行业务逻辑（Controller-Service）" class="headerlink" title="4. 执行业务逻辑（Controller &amp; Service）"></a>4. 执行业务逻辑（Controller &amp; Service）</h2><p>路由匹配成功后，进入控制器（Controller）的处理阶段：</p>
+<ul>
+<li>控制器接收请求参数，调用模型（Model）或服务（Service）处理具体业务逻辑</li>
+<li>可能涉及数据库操作（通过 Eloquent ORM）、缓存、队列等功能</li>
+</ul>
+<h2 id="5-生成响应（Response）"><a href="#5-生成响应（Response）" class="headerlink" title="5. 生成响应（Response）"></a>5. 生成响应（Response）</h2><p>业务逻辑处理完成后，会生成响应内容：</p>
+<ul>
+<li>通过视图系统（View）渲染页面，或直接返回 JSON 等数据</li>
+<li>响应对象经过后置中间件处理（如添加响应头、压缩内容等）</li>
+</ul>
+<h2 id="6-终止应用（Terminate）"><a href="#6-终止应用（Terminate）" class="headerlink" title="6. 终止应用（Terminate）"></a>6. 终止应用（Terminate）</h2><p>响应发送给用户后，框架会触发终止阶段：</p>
+<ul>
+<li>执行所有注册的 “终止回调”（如日志写入、数据库连接关闭等）</li>
+<li>完成整个请求生命周期的清理工作</li>
+</ul>
