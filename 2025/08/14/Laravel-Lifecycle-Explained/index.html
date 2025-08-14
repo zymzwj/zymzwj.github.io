@@ -1,0 +1,228 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Laravel Lifecycle Explained | 张一鸣的博客</title><meta name="author" content="张一鸣"><meta name="copyright" content="张一鸣"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="The Laravel lifecycle can be understood as the complete journey “from receiving a user request to sending back a response,” divided into the following core phases: 1. Entry File (public&#x2F;index.php">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Laravel Lifecycle Explained">
+<meta property="og:url" content="http://example.com/2025/08/14/Laravel-Lifecycle-Explained/index.html">
+<meta property="og:site_name" content="张一鸣的博客">
+<meta property="og:description" content="The Laravel lifecycle can be understood as the complete journey “from receiving a user request to sending back a response,” divided into the following core phases: 1. Entry File (public&#x2F;index.php">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/avatar.jpg">
+<meta property="article:published_time" content="2025-08-14T09:50:06.000Z">
+<meta property="article:modified_time" content="2025-08-14T09:51:04.565Z">
+<meta property="article:author" content="张一鸣">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/avatar.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Laravel Lifecycle Explained",
+  "url": "http://example.com/2025/08/14/Laravel-Lifecycle-Explained/",
+  "image": "http://example.com/img/avatar.jpg",
+  "datePublished": "2025-08-14T09:50:06.000Z",
+  "dateModified": "2025-08-14T09:51:04.565Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "张一鸣",
+      "url": "http://example.com"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2025/08/14/Laravel-Lifecycle-Explained/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Laravel Lifecycle Explained',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">张一鸣的博客</span></a><a class="nav-page-title" href="/"><span class="site-name">Laravel Lifecycle Explained</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">Laravel Lifecycle Explained</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-08-14T09:50:06.000Z" title="发表于 2025-08-14 17:50:06">2025-08-14</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-08-14T09:51:04.565Z" title="更新于 2025-08-14 17:51:04">2025-08-14</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>The Laravel lifecycle can be understood as the complete journey “from receiving a user request to sending back a response,” divided into the following core phases:</p>
+<h2 id="1-Entry-File-public-index-php"><a href="#1-Entry-File-public-index-php" class="headerlink" title="1. Entry File (public&#x2F;index.php)"></a>1. Entry File (public&#x2F;index.php)</h2><p>This is the starting point for all requests:</p>
+<ul>
+<li>Load Composer’s autoload file (<code>autoload.php</code>).</li>
+<li>Instantiate the Laravel application’s core container (Application).</li>
+<li>Bind foundational services (such as environment configuration, logging, etc.).</li>
+</ul>
+<h2 id="2-Bootstrapping-the-Application-Bootstrap"><a href="#2-Bootstrapping-the-Application-Bootstrap" class="headerlink" title="2. Bootstrapping the Application (Bootstrap)"></a>2. Bootstrapping the Application (Bootstrap)</h2><p>After the application is instantiated, it enters the bootstrapping stage:</p>
+<ul>
+<li>Load environment variables (<code>.env</code>) and configuration files (the <code>config</code> directory).</li>
+<li>Register core service providers (such as database, routing, view, etc.).</li>
+<li>Initialize foundational components like the event system and routing system.</li>
+</ul>
+<h2 id="3-Handling-the-Request-Routing-Middleware"><a href="#3-Handling-the-Request-Routing-Middleware" class="headerlink" title="3. Handling the Request (Routing &amp; Middleware)"></a>3. Handling the Request (Routing &amp; Middleware)</h2><p>Once bootstrapped, the application receives and parses the user request:</p>
+<ul>
+<li>Use the routing system (Router) to match route rules and determine the controller method or closure that will handle the request.</li>
+<li>Execute route-related middleware to perform authentication, CSRF protection, and request filtering as pre-processing.</li>
+</ul>
+<h2 id="4-Executing-Business-Logic-Controller-Service"><a href="#4-Executing-Business-Logic-Controller-Service" class="headerlink" title="4. Executing Business Logic (Controller &amp; Service)"></a>4. Executing Business Logic (Controller &amp; Service)</h2><p>After a route is matched, control moves into the controller stage:</p>
+<ul>
+<li>The controller accepts request parameters and invokes models (Model) or services (Service) to process business logic.</li>
+<li>This may involve database operations via Eloquent ORM, caching, queues, and other features.</li>
+</ul>
+<h2 id="5-Generating-the-Response-Response"><a href="#5-Generating-the-Response-Response" class="headerlink" title="5. Generating the Response (Response)"></a>5. Generating the Response (Response)</h2><p>When business logic is complete, the application builds the response:</p>
+<ul>
+<li>Render pages through the view system (View) or return JSON and other data directly.</li>
+<li>The response object may pass through “after” middleware (e.g., adding response headers, compressing content, etc.).</li>
+</ul>
+<h2 id="6-Terminating-the-Application-Terminate"><a href="#6-Terminating-the-Application-Terminate" class="headerlink" title="6. Terminating the Application (Terminate)"></a>6. Terminating the Application (Terminate)</h2><p>After the response is sent to the user, the framework triggers the termination phase:</p>
+<ul>
+<li>Execute all registered “terminate callbacks” (such as writing logs, closing database connections, etc.).</li>
+<li>Complete cleanup work for the entire request lifecycle.</li>
+</ul>
+<hr>
+<h1 id="Laravel-生命周期解析"><a href="#Laravel-生命周期解析" class="headerlink" title="Laravel 生命周期解析"></a>Laravel 生命周期解析</h1><p>Laravel 的生命周期可以简单理解为“从接收用户请求到返回响应”的完整过程，主要分为以下几个核心阶段：</p>
+<h2 id="1-入口文件（public-index-php）"><a href="#1-入口文件（public-index-php）" class="headerlink" title="1. 入口文件（public&#x2F;index.php）"></a>1. 入口文件（public&#x2F;index.php）</h2><p>这是所有请求的起点：</p>
+<ul>
+<li>加载 Composer 生成的自动加载文件（<code>autoload.php</code>）</li>
+<li>实例化 Laravel 应用的核心容器（Application）</li>
+<li>绑定基础服务（如环境配置、日志等）</li>
+</ul>
+<h2 id="2-启动应用（Bootstrap）"><a href="#2-启动应用（Bootstrap）" class="headerlink" title="2. 启动应用（Bootstrap）"></a>2. 启动应用（Bootstrap）</h2><p>应用实例化后，会进入启动阶段：</p>
+<ul>
+<li>加载环境变量（<code>.env</code> 文件）和配置信息（<code>config</code> 目录）</li>
+<li>注册核心服务提供者（如数据库、路由、视图等）</li>
+<li>初始化事件系统、路由系统等基础组件</li>
+</ul>
+<h2 id="3-处理请求（Routing-Middleware）"><a href="#3-处理请求（Routing-Middleware）" class="headerlink" title="3. 处理请求（Routing &amp; Middleware）"></a>3. 处理请求（Routing &amp; Middleware）</h2><p>应用启动后，会接收并解析用户请求：</p>
+<ul>
+<li>通过路由系统（Router）匹配对应的路由规则，确定处理该请求的控制器方法或闭包</li>
+<li>执行路由关联的中间件（Middleware），完成身份验证、CSRF 防护、请求过滤等预处理</li>
+</ul>
+<h2 id="4-执行业务逻辑（Controller-Service）"><a href="#4-执行业务逻辑（Controller-Service）" class="headerlink" title="4. 执行业务逻辑（Controller &amp; Service）"></a>4. 执行业务逻辑（Controller &amp; Service）</h2><p>路由匹配成功后，进入控制器（Controller）的处理阶段：</p>
+<ul>
+<li>控制器接收请求参数，调用模型（Model）或服务（Service）处理具体业务逻辑</li>
+<li>可能涉及数据库操作（通过 Eloquent ORM）、缓存、队列等功能</li>
+</ul>
+<h2 id="5-生成响应（Response）"><a href="#5-生成响应（Response）" class="headerlink" title="5. 生成响应（Response）"></a>5. 生成响应（Response）</h2><p>业务逻辑处理完成后，会生成响应内容：</p>
+<ul>
+<li>通过视图系统（View）渲染页面，或直接返回 JSON 等数据</li>
+<li>响应对象经过后置中间件处理（如添加响应头、压缩内容等）</li>
+</ul>
+<h2 id="6-终止应用（Terminate）"><a href="#6-终止应用（Terminate）" class="headerlink" title="6. 终止应用（Terminate）"></a>6. 终止应用（Terminate）</h2><p>响应发送给用户后，框架会触发终止阶段：</p>
+<ul>
+<li>执行所有注册的“终止回调”（如日志写入、数据库连接关闭等）</li>
+<li>完成整个请求生命周期的清理工作</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">张一鸣</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2025/08/14/Laravel-Lifecycle-Explained/">http://example.com/2025/08/14/Laravel-Lifecycle-Explained/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://example.com" target="_blank">张一鸣的博客</a>！</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/avatar.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2025/08/14/Principle-of-Implementing-the-User-Activation-Feature-Coordination-Between-Code-Files/" title="Principle of Implementing the User Activation Feature (Coordination Between Code Files)"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Principle of Implementing the User Activation Feature (Coordination Between Code Files)</div></div><div class="info-2"><div class="info-item-1">0. Data Structure (Laying the Foundation First)File: database/migrations/*_create_users_table.php (or an additional migration)  Fields: activated (bool, default false), activation_token (string, nullable), (optional) email_verified_at (timestamp, nullable)  12345Schema::table(&#x27;users&#x27;, function (Blueprint $t) &#123;    $t-&gt;boolean(&#x27;activated&#x27;)-&gt;default(false);    $t-&gt;string(&#x27;activation_token&#x27;, 64)-&gt;nullable();    $t-&gt;timestamp(&#x27;email_verified_a...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">张一鸣</div><div class="author-info-description">一步一个脚印，记录学习与生活</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">7</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Entry-File-public-index-php"><span class="toc-number">1.</span> <span class="toc-text">1. Entry File (public&#x2F;index.php)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-Bootstrapping-the-Application-Bootstrap"><span class="toc-number">2.</span> <span class="toc-text">2. Bootstrapping the Application (Bootstrap)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Handling-the-Request-Routing-Middleware"><span class="toc-number">3.</span> <span class="toc-text">3. Handling the Request (Routing &amp; Middleware)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Executing-Business-Logic-Controller-Service"><span class="toc-number">4.</span> <span class="toc-text">4. Executing Business Logic (Controller &amp; Service)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Generating-the-Response-Response"><span class="toc-number">5.</span> <span class="toc-text">5. Generating the Response (Response)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-Terminating-the-Application-Terminate"><span class="toc-number">6.</span> <span class="toc-text">6. Terminating the Application (Terminate)</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Laravel-%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E8%A7%A3%E6%9E%90"><span class="toc-number"></span> <span class="toc-text">Laravel 生命周期解析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%85%A5%E5%8F%A3%E6%96%87%E4%BB%B6%EF%BC%88public-index-php%EF%BC%89"><span class="toc-number">1.</span> <span class="toc-text">1. 入口文件（public&#x2F;index.php）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%90%AF%E5%8A%A8%E5%BA%94%E7%94%A8%EF%BC%88Bootstrap%EF%BC%89"><span class="toc-number">2.</span> <span class="toc-text">2. 启动应用（Bootstrap）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%A4%84%E7%90%86%E8%AF%B7%E6%B1%82%EF%BC%88Routing-Middleware%EF%BC%89"><span class="toc-number">3.</span> <span class="toc-text">3. 处理请求（Routing &amp; Middleware）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E6%89%A7%E8%A1%8C%E4%B8%9A%E5%8A%A1%E9%80%BB%E8%BE%91%EF%BC%88Controller-Service%EF%BC%89"><span class="toc-number">4.</span> <span class="toc-text">4. 执行业务逻辑（Controller &amp; Service）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E7%94%9F%E6%88%90%E5%93%8D%E5%BA%94%EF%BC%88Response%EF%BC%89"><span class="toc-number">5.</span> <span class="toc-text">5. 生成响应（Response）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E7%BB%88%E6%AD%A2%E5%BA%94%E7%94%A8%EF%BC%88Terminate%EF%BC%89"><span class="toc-number">6.</span> <span class="toc-text">6. 终止应用（Terminate）</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/08/14/Laravel-Lifecycle-Explained/" title="Laravel Lifecycle Explained">Laravel Lifecycle Explained</a><time datetime="2025-08-14T09:50:06.000Z" title="发表于 2025-08-14 17:50:06">2025-08-14</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/08/14/Principle-of-Implementing-the-User-Activation-Feature-Coordination-Between-Code-Files/" title="Principle of Implementing the User Activation Feature (Coordination Between Code Files)">Principle of Implementing the User Activation Feature (Coordination Between Code Files)</a><time datetime="2025-08-14T09:46:46.000Z" title="发表于 2025-08-14 17:46:46">2025-08-14</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/08/14/%E5%AE%9E%E7%8E%B0%E7%94%A8%E6%88%B7%E6%BF%80%E6%B4%BB%E5%8A%9F%E8%83%BD%E7%9A%84%E5%8E%9F%E7%90%86%EF%BC%88%E5%90%84%E4%B8%AA%E4%BB%A3%E7%A0%81%E6%96%87%E4%BB%B6%E4%B9%8B%E9%97%B4%E7%9A%84%E9%85%8D%E5%90%88%EF%BC%89/" title="实现用户激活功能的原理（各个代码文件之间的配合）">实现用户激活功能的原理（各个代码文件之间的配合）</a><time datetime="2025-08-14T09:31:04.000Z" title="发表于 2025-08-14 17:31:04">2025-08-14</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/08/11/Laravel%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%9F%BA%E7%A1%80%E7%AF%87/" title="Laravel学习之基础篇">Laravel学习之基础篇</a><time datetime="2025-08-11T09:54:34.000Z" title="发表于 2025-08-11 17:54:34">2025-08-11</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/08/11/Laravel%20from%20Scratch/" title="Laravel from Scratch">Laravel from Scratch</a><time datetime="2025-08-11T01:39:24.000Z" title="发表于 2025-08-11 09:39:24">2025-08-11</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By 张一鸣</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.3</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
