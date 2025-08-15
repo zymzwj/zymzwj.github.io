@@ -1,0 +1,534 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Implicit Routing + Slug(隐式路由 + Slug) | 张一鸣的博客</title><meta name="author" content="张一鸣"><meta name="copyright" content="张一鸣"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="1. Start with “Routing”In Laravel, routes are like traffic controllers:  They check the URL Then decide which controller or function should handle the request  Example: 123Route::get(&#x27;&#x2F;users&#x2F;5&amp;#x">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Implicit Routing + Slug(隐式路由 + Slug)">
+<meta property="og:url" content="http://example.com/2025/08/15/Implicit-Routing-Slug/index.html">
+<meta property="og:site_name" content="张一鸣的博客">
+<meta property="og:description" content="1. Start with “Routing”In Laravel, routes are like traffic controllers:  They check the URL Then decide which controller or function should handle the request  Example: 123Route::get(&#x27;&#x2F;users&#x2F;5&amp;#x">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/avatar.jpg">
+<meta property="article:published_time" content="2025-08-15T09:35:33.000Z">
+<meta property="article:modified_time" content="2025-08-15T09:39:26.772Z">
+<meta property="article:author" content="张一鸣">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/avatar.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Implicit Routing + Slug(隐式路由 + Slug)",
+  "url": "http://example.com/2025/08/15/Implicit-Routing-Slug/",
+  "image": "http://example.com/img/avatar.jpg",
+  "datePublished": "2025-08-15T09:35:33.000Z",
+  "dateModified": "2025-08-15T09:39:26.772Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "张一鸣",
+      "url": "http://example.com"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2025/08/15/Implicit-Routing-Slug/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Implicit Routing + Slug(隐式路由 + Slug)',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">张一鸣的博客</span></a><a class="nav-page-title" href="/"><span class="site-name">Implicit Routing + Slug(隐式路由 + Slug)</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">Implicit Routing + Slug(隐式路由 + Slug)</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-08-15T09:35:33.000Z" title="发表于 2025-08-15 17:35:33">2025-08-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-08-15T09:39:26.772Z" title="更新于 2025-08-15 17:39:26">2025-08-15</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h2 id="1-Start-with-“Routing”"><a href="#1-Start-with-“Routing”" class="headerlink" title="1. Start with “Routing”"></a>1. Start with “Routing”</h2><p>In Laravel, <strong>routes</strong> are like traffic controllers:</p>
+<ul>
+<li>They check the URL</li>
+<li>Then decide which controller or function should handle the request</li>
+</ul>
+<p>Example:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Route</span>::<span class="title function_ invoke__">get</span>(<span class="string">&#x27;/users/5&#x27;</span>, function () &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;Information of user 5&#x27;</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>Here, <code>/users/5</code> is the access address, and <code>function () &#123;...&#125;</code> is the processing logic.</p>
+<hr>
+<h2 id="2-What-is-“Implicit-Routing”"><a href="#2-What-is-“Implicit-Routing”" class="headerlink" title="2. What is “Implicit Routing”"></a>2. What is “Implicit Routing”</h2><p>The word “implicit” means <strong>you don’t need to manually write the intermediate details; the system automatically handles them for you</strong>.<br> In Laravel, <strong>Implicit Route Model Binding</strong> means:</p>
+<blockquote>
+<p>As long as you specify a model class type in the route parameter, Laravel will automatically fetch the corresponding data from the database and pass you the model object.</p>
+</blockquote>
+<hr>
+<h2 id="3-Comparing-with-and-without-Implicit-Routing"><a href="#3-Comparing-with-and-without-Implicit-Routing" class="headerlink" title="3. Comparing with and without Implicit Routing"></a>3. Comparing with and without Implicit Routing</h2><h3 id="Without-implicit-routing-manual-lookup"><a href="#Without-implicit-routing-manual-lookup" class="headerlink" title="Without implicit routing (manual lookup)"></a>Without implicit routing (manual lookup)</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> <span class="title">App</span>\<span class="title">Models</span>\<span class="title">User</span>;</span><br><span class="line"></span><br><span class="line"><span class="title class_">Route</span>::<span class="title function_ invoke__">get</span>(<span class="string">&#x27;/users/&#123;id&#125;&#x27;</span>, function (<span class="variable">$id</span>) &#123;</span><br><span class="line">    <span class="variable">$user</span> = <span class="title class_">User</span>::<span class="title function_ invoke__">findOrFail</span>(<span class="variable">$id</span>); <span class="comment">// manual lookup</span></span><br><span class="line">    <span class="keyword">return</span> <span class="variable">$user</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>&#123;id&#125;</code> is the number in the URL</li>
+<li>You need to manually query the database using <code>User::findOrFail($id)</code></li>
+</ul>
+<hr>
+<h3 id="With-implicit-routing"><a href="#With-implicit-routing" class="headerlink" title="With implicit routing"></a>With implicit routing</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> <span class="title">App</span>\<span class="title">Models</span>\<span class="title">User</span>;</span><br><span class="line"></span><br><span class="line"><span class="title class_">Route</span>::<span class="title function_ invoke__">get</span>(<span class="string">&#x27;/users/&#123;user&#125;&#x27;</span>, function (User <span class="variable">$user</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable">$user</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>&#123;user&#125;</code> matches the route parameter name with the variable name in the function</li>
+<li><code>(User $user)</code> tells Laravel this is a <code>User</code> model</li>
+<li>Laravel will automatically run <code>User::findOrFail(parameter value)</code> and pass the found object to you</li>
+<li>If not found, Laravel will automatically return a 404</li>
+</ul>
+<hr>
+<h2 id="4-Advantages-of-Implicit-Routing"><a href="#4-Advantages-of-Implicit-Routing" class="headerlink" title="4. Advantages of Implicit Routing"></a>4. Advantages of Implicit Routing</h2><ol>
+<li><strong>Less code</strong><br> No need to manually write <code>find()</code> or <code>findOrFail()</code></li>
+<li><strong>Automatic 404</strong><br> If no record is found, Laravel automatically returns a 404 page</li>
+<li><strong>High readability</strong><br> Others can tell at a glance that <code>$user</code> is a model object, not just a number</li>
+</ol>
+<hr>
+<h2 id="5-Using-with-Slug"><a href="#5-Using-with-Slug" class="headerlink" title="5. Using with Slug"></a>5. Using with Slug</h2><p>By default, Laravel uses <strong>id</strong> for lookups. If you want to use a slug, add this to your model:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getRouteKeyName</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;slug&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Then:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Route</span>::<span class="title function_ invoke__">get</span>(<span class="string">&#x27;/users/&#123;user&#125;&#x27;</span>, function (User <span class="variable">$user</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable">$user</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>Accessing <code>/users/john-doe</code> will make Laravel run:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">User</span>::<span class="title function_ invoke__">where</span>(<span class="string">&#x27;slug&#x27;</span>, <span class="string">&#x27;john-doe&#x27;</span>)-&gt;<span class="title function_ invoke__">firstOrFail</span>();</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="6-Summary"><a href="#6-Summary" class="headerlink" title="6. Summary"></a>6. Summary</h2><ul>
+<li><strong>Implicit Routing</strong>: Laravel automatically converts URL parameters into the corresponding model object</li>
+<li>Requirements:<ol>
+<li>The route parameter name matches the method parameter name</li>
+<li>The method parameter has the model type declaration</li>
+</ol>
+</li>
+<li>Benefits: Less code, automatic 404, works nicely with slugs</li>
+</ul>
+<hr>
+<h2 id="1-Understanding-“Slug”-with-a-Real-life-Example"><a href="#1-Understanding-“Slug”-with-a-Real-life-Example" class="headerlink" title="1. Understanding “Slug” with a Real-life Example"></a>1. Understanding “Slug” with a Real-life Example</h2><p>Imagine looking for a book on a bookshelf:</p>
+<ul>
+<li>If the label says <strong>“123”</strong>, you must check the catalog to know that 123 is <em>The Three-Body Problem</em></li>
+<li>If the label says <strong>“san-ti”</strong>, you immediately know it’s <em>The Three-Body Problem</em></li>
+</ul>
+<p><strong>A slug is such a “meaningful label”</strong>—it uses words (instead of numeric IDs) in URLs to represent a piece of content.</p>
+<hr>
+<h2 id="2-How-Slugs-Look-in-URLs"><a href="#2-How-Slugs-Look-in-URLs" class="headerlink" title="2. How Slugs Look in URLs"></a>2. How Slugs Look in URLs</h2><p>Typical URL with an ID:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/posts/123</span><br></pre></td></tr></table></figure>
+
+<p>Here, <code>123</code> is just a database ID; you can’t guess the content.<br> With a slug:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/posts/hello-world</span><br></pre></td></tr></table></figure>
+
+<p>Now users can guess it’s the “Hello World” post without opening it.</p>
+<hr>
+<h2 id="3-Rules-for-Slugs-URL-friendly"><a href="#3-Rules-for-Slugs-URL-friendly" class="headerlink" title="3. Rules for Slugs (URL-friendly)"></a>3. Rules for Slugs (URL-friendly)</h2><p>Slugs usually:</p>
+<ul>
+<li>Contain only lowercase letters</li>
+<li>Use <strong><code>-</code></strong> to separate words (no spaces)</li>
+<li>Avoid special characters (like ?, &amp;, #)</li>
+<li>Are generally generated from the title</li>
+</ul>
+<p>Examples:</p>
+<table>
+<thead>
+<tr>
+<th>Title</th>
+<th>Slug</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Hello World</td>
+<td>hello-world</td>
+</tr>
+<tr>
+<td>Laravel 隐式路由</td>
+<td>laravel-yin-shi-lu-you</td>
+</tr>
+<tr>
+<td>我爱PHP</td>
+<td>wo-ai-php</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="4-Benefits-of-Slugs"><a href="#4-Benefits-of-Slugs" class="headerlink" title="4. Benefits of Slugs"></a>4. Benefits of Slugs</h2><ol>
+<li><strong>Aesthetic</strong>: Clean, meaningful URLs</li>
+<li><strong>Memorable</strong>: Easy for users to remember</li>
+<li><strong>SEO-friendly</strong>: Search engines can read keywords directly from URLs</li>
+<li><strong>Better UX</strong>: Users can guess the content from the link itself</li>
+</ol>
+<hr>
+<h2 id="5-Slug-Usage-in-Laravel"><a href="#5-Slug-Usage-in-Laravel" class="headerlink" title="5. Slug Usage in Laravel"></a>5. Slug Usage in Laravel</h2><p>In Laravel:</p>
+<ul>
+<li>By default, lookups are done by ID (e.g., <code>/posts/5</code>)</li>
+<li>To use slugs (e.g., <code>/posts/hello-world</code>), add this to your model:</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getRouteKeyName</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;slug&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Then Laravel will use the slug for implicit model binding without you writing query code.</p>
+<hr>
+<h2 id="6-Summary-1"><a href="#6-Summary-1" class="headerlink" title="6. Summary"></a>6. Summary</h2><ul>
+<li><strong>Slug &#x3D; Meaningful name in the URL</strong></li>
+<li>Purpose: Replace numeric IDs, making URLs more readable and user-friendly</li>
+<li>In Laravel: Can be combined with implicit route binding for cleaner code</li>
+</ul>
+<hr>
+<h2 id="Teacher-style-Explanation-How-Implicit-Routing-and-Slugs-Work-Together"><a href="#Teacher-style-Explanation-How-Implicit-Routing-and-Slugs-Work-Together" class="headerlink" title="Teacher-style Explanation: How Implicit Routing and Slugs Work Together"></a>Teacher-style Explanation: How Implicit Routing and Slugs Work Together</h2><hr>
+<h3 id="1-Meet-the-Two-Players"><a href="#1-Meet-the-Two-Players" class="headerlink" title="1. Meet the Two Players"></a>1. Meet the Two Players</h3><ul>
+<li><strong>Implicit Route Model Binding</strong><br> When you declare a route or controller method parameter as an Eloquent model, Laravel <strong>automatically queries the database</strong>—no need for <code>find()</code> yourself.</li>
+<li><strong>Slug</strong><br> A URL-friendly string replacing numeric IDs, making links beautiful and meaningful (e.g., <code>/posts/hello-world</code>).</li>
+</ul>
+<hr>
+<h3 id="2-Default-Implicit-Route-Binding"><a href="#2-Default-Implicit-Route-Binding" class="headerlink" title="2. Default Implicit Route Binding"></a>2. Default Implicit Route Binding</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Route</span>::<span class="title function_ invoke__">get</span>(<span class="string">&#x27;/posts/&#123;post&#125;&#x27;</span>, function (Post <span class="variable">$post</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable">$post</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>When visiting <code>/posts/5</code>, Laravel will do:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Post</span>::<span class="title function_ invoke__">where</span>(<span class="string">&#x27;id&#x27;</span>, <span class="number">5</span>)-&gt;<span class="title function_ invoke__">firstOrFail</span>();</span><br></pre></td></tr></table></figure>
+
+<p>By default, it looks up by <code>id</code>.</p>
+<hr>
+<h3 id="3-Make-Implicit-Routing-Use-Slug"><a href="#3-Make-Implicit-Routing-Use-Slug" class="headerlink" title="3. Make Implicit Routing Use Slug"></a>3. Make Implicit Routing Use Slug</h3><p>If your <code>posts</code> table has:</p>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>title</th>
+<th>slug</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>Hello World</td>
+<td>hello-world</td>
+</tr>
+</tbody></table>
+<p>To access <code>/posts/hello-world</code>, add this in the model:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getRouteKeyName</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;slug&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Laravel will now run:</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Post</span>::<span class="title function_ invoke__">where</span>(<span class="string">&#x27;slug&#x27;</span>, <span class="string">&#x27;hello-world&#x27;</span>)-&gt;<span class="title function_ invoke__">firstOrFail</span>();</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="4-How-They-Work-Together"><a href="#4-How-They-Work-Together" class="headerlink" title="4. How They Work Together"></a>4. How They Work Together</h3><ol>
+<li>User visits <code>/posts/hello-world</code></li>
+<li>Laravel matches the route <code>/posts/&#123;post&#125;</code></li>
+<li>Sees parameter type <code>Post</code> → triggers <strong>implicit model binding</strong></li>
+<li>Laravel calls <code>Post::getRouteKeyName()</code><ul>
+<li>If not overridden: returns <code>&#39;id&#39;</code></li>
+<li>If overridden: returns <code>&#39;slug&#39;</code></li>
+</ul>
+</li>
+<li>Laravel decides which column to query:<ul>
+<li><code>id</code> → search by primary key</li>
+<li><code>slug</code> → search by slug</li>
+</ul>
+</li>
+<li>If found, injects the model object into your controller or closure</li>
+<li>If not found, automatically returns a 404</li>
+</ol>
+<hr>
+<h3 id="5-Example-Code"><a href="#5-Example-Code" class="headerlink" title="5. Example Code"></a>5. Example Code</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// routes/web.php</span></span><br><span class="line"><span class="keyword">use</span> <span class="title">App</span>\<span class="title">Models</span>\<span class="title">Post</span>;</span><br><span class="line"></span><br><span class="line"><span class="title class_">Route</span>::<span class="title function_ invoke__">get</span>(<span class="string">&#x27;/posts/&#123;post&#125;&#x27;</span>, function (Post <span class="variable">$post</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="title function_ invoke__">view</span>(<span class="string">&#x27;posts.show&#x27;</span>, <span class="title function_ invoke__">compact</span>(<span class="string">&#x27;post&#x27;</span>));</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// app/Models/Post.php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Post</span> <span class="keyword">extends</span> <span class="title">Model</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getRouteKeyName</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;slug&#x27;</span>; <span class="comment">// Tell Laravel to search by slug</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h2 id="1-先从“路由”说起"><a href="#1-先从“路由”说起" class="headerlink" title="1. 先从“路由”说起"></a>1. 先从“路由”说起</h2><p>在 Laravel 里，<strong>路由（Route）</strong> 就像一个交通指挥员：</p>
+<ul>
+<li>它看 URL 是什么</li>
+<li>然后决定把请求交给哪个控制器或函数去处理</li>
+</ul>
+<p>比如：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Route</span>::<span class="title function_ invoke__">get</span>(<span class="string">&#x27;/users/5&#x27;</span>, function () &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;用户 5 的信息&#x27;</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>这里的 <code>/users/5</code> 就是访问地址，<code>function () &#123;...&#125;</code> 就是处理逻辑。</p>
+<hr>
+<h2 id="2-什么叫“隐式路由”"><a href="#2-什么叫“隐式路由”" class="headerlink" title="2. 什么叫“隐式路由”"></a>2. 什么叫“隐式路由”</h2><p>“隐式”这个词的意思是 <strong>不用你手动写明中间的细节，系统自动帮你做了</strong>。<br> 在 Laravel 里，<strong>隐式路由模型绑定（Implicit Route Model Binding）</strong> 就是：</p>
+<blockquote>
+<p>你只要在路由参数中写上一个模型类的类型，Laravel 会自动帮你去数据库查找对应的数据，并直接给你模型对象。</p>
+</blockquote>
+<hr>
+<h2 id="3-对比一下：有隐式路由和没有隐式路由"><a href="#3-对比一下：有隐式路由和没有隐式路由" class="headerlink" title="3. 对比一下：有隐式路由和没有隐式路由"></a>3. 对比一下：有隐式路由和没有隐式路由</h2><h3 id="没有隐式路由（自己手动查）"><a href="#没有隐式路由（自己手动查）" class="headerlink" title="没有隐式路由（自己手动查）"></a>没有隐式路由（自己手动查）</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> <span class="title">App</span>\<span class="title">Models</span>\<span class="title">User</span>;</span><br><span class="line"></span><br><span class="line"><span class="title class_">Route</span>::<span class="title function_ invoke__">get</span>(<span class="string">&#x27;/users/&#123;id&#125;&#x27;</span>, function (<span class="variable">$id</span>) &#123;</span><br><span class="line">    <span class="variable">$user</span> = <span class="title class_">User</span>::<span class="title function_ invoke__">findOrFail</span>(<span class="variable">$id</span>); <span class="comment">// 自己查</span></span><br><span class="line">    <span class="keyword">return</span> <span class="variable">$user</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>&#123;id&#125;</code> 是 URL 里的数字</li>
+<li>你要手动 <code>User::findOrFail($id)</code> 查数据库</li>
+</ul>
+<hr>
+<h3 id="使用隐式路由"><a href="#使用隐式路由" class="headerlink" title="使用隐式路由"></a>使用隐式路由</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> <span class="title">App</span>\<span class="title">Models</span>\<span class="title">User</span>;</span><br><span class="line"></span><br><span class="line"><span class="title class_">Route</span>::<span class="title function_ invoke__">get</span>(<span class="string">&#x27;/users/&#123;user&#125;&#x27;</span>, function (User <span class="variable">$user</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable">$user</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>&#123;user&#125;</code> 路由参数名和模型变量名一致</li>
+<li><code>(User $user)</code> 告诉 Laravel：这是一个 <code>User</code> 模型</li>
+<li>Laravel 会自动执行 <code>User::findOrFail(参数值)</code>，把查到的对象给你</li>
+<li>如果找不到，自动返回 404</li>
+</ul>
+<hr>
+<h2 id="4-隐式路由的优点"><a href="#4-隐式路由的优点" class="headerlink" title="4. 隐式路由的优点"></a>4. 隐式路由的优点</h2><ol>
+<li><strong>少写代码</strong><br>不用手动写 <code>find()</code> 或 <code>findOrFail()</code></li>
+<li><strong>自动 404</strong><br>找不到记录时，Laravel 自动返回 404 页面</li>
+<li><strong>可读性高</strong><br>别人一看就知道这个 <code>$user</code> 是模型对象，不是普通数字</li>
+</ol>
+<hr>
+<h2 id="5-配合-slug-使用"><a href="#5-配合-slug-使用" class="headerlink" title="5. 配合 slug 使用"></a>5. 配合 slug 使用</h2><p>默认 Laravel 会用 <strong>id</strong> 查找，如果你想用 slug 查找，可以在模型里加：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getRouteKeyName</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;slug&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Route</span>::<span class="title function_ invoke__">get</span>(<span class="string">&#x27;/users/&#123;user&#125;&#x27;</span>, function (User <span class="variable">$user</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable">$user</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>访问 <code>/users/john-doe</code> 时，Laravel 会自动执行：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">User</span>::<span class="title function_ invoke__">where</span>(<span class="string">&#x27;slug&#x27;</span>, <span class="string">&#x27;john-doe&#x27;</span>)-&gt;<span class="title function_ invoke__">firstOrFail</span>();</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="6-小结"><a href="#6-小结" class="headerlink" title="6. 小结"></a>6. 小结</h2><ul>
+<li><strong>隐式路由</strong>就是：Laravel 自动帮你把 URL 参数转换成对应的模型对象</li>
+<li>使用条件：<ol>
+<li>路由参数名和方法参数名对应</li>
+<li>方法参数要加模型类型声明</li>
+</ol>
+</li>
+<li>好处：省代码、自动 404、配合 slug 更友好</li>
+</ul>
+<hr>
+<hr>
+<h2 id="1-用生活例子理解-slug"><a href="#1-用生活例子理解-slug" class="headerlink" title="1. 用生活例子理解 slug"></a>1. 用生活例子理解 slug</h2><p>想象一下，你在一个书架上找一本书。</p>
+<ul>
+<li>如果书架上的标签写的是 <strong>“123”</strong>，你要先查目录，才能知道 123 号是《三体》</li>
+<li>如果书架上的标签直接写 <strong>“san-ti”</strong>，你一眼就知道就是《三体》</li>
+</ul>
+<p><strong>slug 就是这样一个“有意义的标签”</strong>，它用文字（而不是纯数字 ID）在网址中表示一条内容。</p>
+<hr>
+<h2 id="2-slug-在网址中的样子"><a href="#2-slug-在网址中的样子" class="headerlink" title="2. slug 在网址中的样子"></a>2. slug 在网址中的样子</h2><p>一般网站的网址里会包含内容的标识：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/posts/123</span><br></pre></td></tr></table></figure>
+
+<p>这种 <code>123</code> 只是数据库的 id，看不出内容是什么。<br> 如果用 slug，就变成：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/posts/hello-world</span><br></pre></td></tr></table></figure>
+
+<p>这样用户不用打开，就能猜到是“Hello World”这篇文章。</p>
+<hr>
+<h2 id="3-slug-的规则（URL-友好）"><a href="#3-slug-的规则（URL-友好）" class="headerlink" title="3. slug 的规则（URL 友好）"></a>3. slug 的规则（URL 友好）</h2><p>slug 通常：</p>
+<ul>
+<li>全部是小写字母</li>
+<li>单词之间用 <strong><code>-</code></strong> 连接（不用空格）</li>
+<li>不包含特殊符号（比如 ?、&amp;、# 这种 URL 控制字符）</li>
+<li>一般从标题生成</li>
+</ul>
+<p>例子：</p>
+<table>
+<thead>
+<tr>
+<th>标题</th>
+<th>slug</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Hello World</td>
+<td>hello-world</td>
+</tr>
+<tr>
+<td>Laravel 隐式路由</td>
+<td>laravel-yin-shi-lu-you</td>
+</tr>
+<tr>
+<td>我爱PHP</td>
+<td>wo-ai-php</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="4-slug-的好处"><a href="#4-slug-的好处" class="headerlink" title="4. slug 的好处"></a>4. slug 的好处</h2><ol>
+<li><strong>好看</strong>：网址简洁、有意义</li>
+<li><strong>好记</strong>：用户记得住</li>
+<li><strong>SEO 友好</strong>：搜索引擎能直接读懂 URL 中的关键词</li>
+<li><strong>用户体验好</strong>：看到链接就知道大概内容</li>
+</ol>
+<hr>
+<h2 id="5-Laravel-中-slug-的作用"><a href="#5-Laravel-中-slug-的作用" class="headerlink" title="5. Laravel 中 slug 的作用"></a>5. Laravel 中 slug 的作用</h2><p>在 Laravel 里：</p>
+<ul>
+<li>默认是用 id 查找数据，比如 <code>/posts/5</code></li>
+<li>如果你想用 slug（例如 <code>/posts/hello-world</code>），可以在模型里加：</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getRouteKeyName</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;slug&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样 Laravel 在隐式路由绑定时，会自动用 slug 查找，不用你手写查询代码。</p>
+<hr>
+<h2 id="6-小结-1"><a href="#6-小结-1" class="headerlink" title="6. 小结"></a>6. 小结</h2><ul>
+<li><strong>slug &#x3D; URL 里的有意义的名字</strong></li>
+<li>作用是<strong>替代数字 ID</strong>，让网址更易读、更友好</li>
+<li>在 Laravel 中，可以配合隐式路由绑定使用，让代码更简洁</li>
+</ul>
+<hr>
+<p>我给你用“老师带学生”的方式，把 <strong>隐式路由</strong> 和 <strong>slug</strong> 怎么配合工作讲清楚，让你一下子看懂。</p>
+<hr>
+<h2 id="1-两个角色先认识一下"><a href="#1-两个角色先认识一下" class="headerlink" title="1. 两个角色先认识一下"></a>1. 两个角色先认识一下</h2><ul>
+<li><strong>隐式路由模型绑定</strong><br>你在路由或控制器方法里声明参数类型是某个 Eloquent 模型时，Laravel 会<strong>自动帮你去数据库查记录</strong>，不需要自己 <code>find()</code>。</li>
+<li><strong>slug</strong><br>一个 URL 友好的字符串，用来代替数字 ID，让链接好看又有意义，例如 <code>/posts/hello-world</code>。</li>
+</ul>
+<hr>
+<h2 id="2-默认情况下的隐式路由绑定"><a href="#2-默认情况下的隐式路由绑定" class="headerlink" title="2. 默认情况下的隐式路由绑定"></a>2. 默认情况下的隐式路由绑定</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Route</span>::<span class="title function_ invoke__">get</span>(<span class="string">&#x27;/posts/&#123;post&#125;&#x27;</span>, function (Post <span class="variable">$post</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable">$post</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>访问 <code>/posts/5</code> 时，Laravel 会做：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Post</span>::<span class="title function_ invoke__">where</span>(<span class="string">&#x27;id&#x27;</span>, <span class="number">5</span>)-&gt;<span class="title function_ invoke__">firstOrFail</span>();</span><br></pre></td></tr></table></figure>
+
+<p><strong>默认用 id 查找</strong>。</p>
+<hr>
+<h2 id="3-让隐式路由按-slug-查找"><a href="#3-让隐式路由按-slug-查找" class="headerlink" title="3. 让隐式路由按 slug 查找"></a>3. 让隐式路由按 slug 查找</h2><p>如果你的 <code>posts</code> 表里有：</p>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>title</th>
+<th>slug</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>Hello World</td>
+<td>hello-world</td>
+</tr>
+</tbody></table>
+<p>想要访问 <code>/posts/hello-world</code>，只要在模型里加：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getRouteKeyName</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;slug&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Laravel 绑定时就会自动执行：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Post</span>::<span class="title function_ invoke__">where</span>(<span class="string">&#x27;slug&#x27;</span>, <span class="string">&#x27;hello-world&#x27;</span>)-&gt;<span class="title function_ invoke__">firstOrFail</span>();</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="4-它们配合的运行流程"><a href="#4-它们配合的运行流程" class="headerlink" title="4. 它们配合的运行流程"></a>4. 它们配合的运行流程</h2><ol>
+<li>用户访问 <code>/posts/hello-world</code></li>
+<li>Laravel 匹配到路由 <code>/posts/&#123;post&#125;</code></li>
+<li>发现参数类型是 <code>Post</code> → 触发<strong>隐式模型绑定</strong></li>
+<li>Laravel 调用 <code>Post::getRouteKeyName()</code><ul>
+<li>如果没重写：默认返回 <code>&#39;id&#39;</code></li>
+<li>如果重写了：返回 <code>&#39;slug&#39;</code></li>
+</ul>
+</li>
+<li>Laravel 根据返回值决定查找字段：<ul>
+<li><code>id</code> → 按主键找</li>
+<li><code>slug</code> → 按 slug 找</li>
+</ul>
+</li>
+<li>找到模型对象后，注入到你的控制器或闭包中</li>
+<li>找不到就自动返回 404</li>
+</ol>
+<hr>
+<h2 id="5-代码示例"><a href="#5-代码示例" class="headerlink" title="5. 代码示例"></a>5. 代码示例</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// routes/web.php</span></span><br><span class="line"><span class="keyword">use</span> <span class="title">App</span>\<span class="title">Models</span>\<span class="title">Post</span>;</span><br><span class="line"></span><br><span class="line"><span class="title class_">Route</span>::<span class="title function_ invoke__">get</span>(<span class="string">&#x27;/posts/&#123;post&#125;&#x27;</span>, function (Post <span class="variable">$post</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="title function_ invoke__">view</span>(<span class="string">&#x27;posts.show&#x27;</span>, <span class="title function_ invoke__">compact</span>(<span class="string">&#x27;post&#x27;</span>));</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">// app/Models/Post.php</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Post</span> <span class="keyword">extends</span> <span class="title">Model</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">getRouteKeyName</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;slug&#x27;</span>; <span class="comment">// 告诉 Laravel 用 slug 查</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">张一鸣</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2025/08/15/Implicit-Routing-Slug/">http://example.com/2025/08/15/Implicit-Routing-Slug/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://example.com" target="_blank">张一鸣的博客</a>！</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/avatar.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2025/08/14/Restful/" title="Restful"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Restful</div></div><div class="info-2"><div class="info-item-1">1. First, understand what REST isREST (Representational State Transfer) is a design style, not a specific technology or protocol. Its core ideas are:  Use URLs to represent resources Use HTTP verbs to represent actions The server can return resources in different formats (JSON, HTML, etc.)  For example, you have a “photos” resource:  GET /photos → Retrieve all photos POST /photos → Create a new photo GET /photos/1 → Retrieve the photo with ID 1 PUT&#x2F;PATCH /photos/1 → Update the photo with...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">张一鸣</div><div class="author-info-description">一步一个脚印，记录学习与生活</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">8</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Start-with-%E2%80%9CRouting%E2%80%9D"><span class="toc-number">1.</span> <span class="toc-text">1. Start with “Routing”</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-What-is-%E2%80%9CImplicit-Routing%E2%80%9D"><span class="toc-number">2.</span> <span class="toc-text">2. What is “Implicit Routing”</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Comparing-with-and-without-Implicit-Routing"><span class="toc-number">3.</span> <span class="toc-text">3. Comparing with and without Implicit Routing</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Without-implicit-routing-manual-lookup"><span class="toc-number">3.1.</span> <span class="toc-text">Without implicit routing (manual lookup)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#With-implicit-routing"><span class="toc-number">3.2.</span> <span class="toc-text">With implicit routing</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Advantages-of-Implicit-Routing"><span class="toc-number">4.</span> <span class="toc-text">4. Advantages of Implicit Routing</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Using-with-Slug"><span class="toc-number">5.</span> <span class="toc-text">5. Using with Slug</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-Summary"><span class="toc-number">6.</span> <span class="toc-text">6. Summary</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-Understanding-%E2%80%9CSlug%E2%80%9D-with-a-Real-life-Example"><span class="toc-number">7.</span> <span class="toc-text">1. Understanding “Slug” with a Real-life Example</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-How-Slugs-Look-in-URLs"><span class="toc-number">8.</span> <span class="toc-text">2. How Slugs Look in URLs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-Rules-for-Slugs-URL-friendly"><span class="toc-number">9.</span> <span class="toc-text">3. Rules for Slugs (URL-friendly)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-Benefits-of-Slugs"><span class="toc-number">10.</span> <span class="toc-text">4. Benefits of Slugs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Slug-Usage-in-Laravel"><span class="toc-number">11.</span> <span class="toc-text">5. Slug Usage in Laravel</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-Summary-1"><span class="toc-number">12.</span> <span class="toc-text">6. Summary</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Teacher-style-Explanation-How-Implicit-Routing-and-Slugs-Work-Together"><span class="toc-number">13.</span> <span class="toc-text">Teacher-style Explanation: How Implicit Routing and Slugs Work Together</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Meet-the-Two-Players"><span class="toc-number">13.1.</span> <span class="toc-text">1. Meet the Two Players</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Default-Implicit-Route-Binding"><span class="toc-number">13.2.</span> <span class="toc-text">2. Default Implicit Route Binding</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Make-Implicit-Routing-Use-Slug"><span class="toc-number">13.3.</span> <span class="toc-text">3. Make Implicit Routing Use Slug</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-How-They-Work-Together"><span class="toc-number">13.4.</span> <span class="toc-text">4. How They Work Together</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-Example-Code"><span class="toc-number">13.5.</span> <span class="toc-text">5. Example Code</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%85%88%E4%BB%8E%E2%80%9C%E8%B7%AF%E7%94%B1%E2%80%9D%E8%AF%B4%E8%B5%B7"><span class="toc-number">14.</span> <span class="toc-text">1. 先从“路由”说起</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E4%BB%80%E4%B9%88%E5%8F%AB%E2%80%9C%E9%9A%90%E5%BC%8F%E8%B7%AF%E7%94%B1%E2%80%9D"><span class="toc-number">15.</span> <span class="toc-text">2. 什么叫“隐式路由”</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%AF%B9%E6%AF%94%E4%B8%80%E4%B8%8B%EF%BC%9A%E6%9C%89%E9%9A%90%E5%BC%8F%E8%B7%AF%E7%94%B1%E5%92%8C%E6%B2%A1%E6%9C%89%E9%9A%90%E5%BC%8F%E8%B7%AF%E7%94%B1"><span class="toc-number">16.</span> <span class="toc-text">3. 对比一下：有隐式路由和没有隐式路由</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B2%A1%E6%9C%89%E9%9A%90%E5%BC%8F%E8%B7%AF%E7%94%B1%EF%BC%88%E8%87%AA%E5%B7%B1%E6%89%8B%E5%8A%A8%E6%9F%A5%EF%BC%89"><span class="toc-number">16.1.</span> <span class="toc-text">没有隐式路由（自己手动查）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E9%9A%90%E5%BC%8F%E8%B7%AF%E7%94%B1"><span class="toc-number">16.2.</span> <span class="toc-text">使用隐式路由</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E9%9A%90%E5%BC%8F%E8%B7%AF%E7%94%B1%E7%9A%84%E4%BC%98%E7%82%B9"><span class="toc-number">17.</span> <span class="toc-text">4. 隐式路由的优点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E9%85%8D%E5%90%88-slug-%E4%BD%BF%E7%94%A8"><span class="toc-number">18.</span> <span class="toc-text">5. 配合 slug 使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E5%B0%8F%E7%BB%93"><span class="toc-number">19.</span> <span class="toc-text">6. 小结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E7%94%A8%E7%94%9F%E6%B4%BB%E4%BE%8B%E5%AD%90%E7%90%86%E8%A7%A3-slug"><span class="toc-number">20.</span> <span class="toc-text">1. 用生活例子理解 slug</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-slug-%E5%9C%A8%E7%BD%91%E5%9D%80%E4%B8%AD%E7%9A%84%E6%A0%B7%E5%AD%90"><span class="toc-number">21.</span> <span class="toc-text">2. slug 在网址中的样子</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-slug-%E7%9A%84%E8%A7%84%E5%88%99%EF%BC%88URL-%E5%8F%8B%E5%A5%BD%EF%BC%89"><span class="toc-number">22.</span> <span class="toc-text">3. slug 的规则（URL 友好）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-slug-%E7%9A%84%E5%A5%BD%E5%A4%84"><span class="toc-number">23.</span> <span class="toc-text">4. slug 的好处</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-Laravel-%E4%B8%AD-slug-%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="toc-number">24.</span> <span class="toc-text">5. Laravel 中 slug 的作用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#6-%E5%B0%8F%E7%BB%93-1"><span class="toc-number">25.</span> <span class="toc-text">6. 小结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%B8%A4%E4%B8%AA%E8%A7%92%E8%89%B2%E5%85%88%E8%AE%A4%E8%AF%86%E4%B8%80%E4%B8%8B"><span class="toc-number">26.</span> <span class="toc-text">1. 两个角色先认识一下</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E9%BB%98%E8%AE%A4%E6%83%85%E5%86%B5%E4%B8%8B%E7%9A%84%E9%9A%90%E5%BC%8F%E8%B7%AF%E7%94%B1%E7%BB%91%E5%AE%9A"><span class="toc-number">27.</span> <span class="toc-text">2. 默认情况下的隐式路由绑定</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E8%AE%A9%E9%9A%90%E5%BC%8F%E8%B7%AF%E7%94%B1%E6%8C%89-slug-%E6%9F%A5%E6%89%BE"><span class="toc-number">28.</span> <span class="toc-text">3. 让隐式路由按 slug 查找</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%AE%83%E4%BB%AC%E9%85%8D%E5%90%88%E7%9A%84%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B"><span class="toc-number">29.</span> <span class="toc-text">4. 它们配合的运行流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E4%BB%A3%E7%A0%81%E7%A4%BA%E4%BE%8B"><span class="toc-number">30.</span> <span class="toc-text">5. 代码示例</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/08/15/Implicit-Routing-Slug/" title="Implicit Routing + Slug(隐式路由 + Slug)">Implicit Routing + Slug(隐式路由 + Slug)</a><time datetime="2025-08-15T09:35:33.000Z" title="发表于 2025-08-15 17:35:33">2025-08-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/08/14/Restful/" title="Restful">Restful</a><time datetime="2025-08-14T10:17:10.000Z" title="发表于 2025-08-14 18:17:10">2025-08-14</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/08/14/Laravel-Lifecycle-Explained/" title="Laravel Lifecycle Explained">Laravel Lifecycle Explained</a><time datetime="2025-08-14T09:50:06.000Z" title="发表于 2025-08-14 17:50:06">2025-08-14</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/08/14/Principle-of-Implementing-the-User-Activation-Feature-Coordination-Between-Code-Files/" title="Principle of Implementing the User Activation Feature (Coordination Between Code Files)">Principle of Implementing the User Activation Feature (Coordination Between Code Files)</a><time datetime="2025-08-14T09:46:46.000Z" title="发表于 2025-08-14 17:46:46">2025-08-14</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/08/11/Laravel%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%9F%BA%E7%A1%80%E7%AF%87/" title="Laravel学习之基础篇">Laravel学习之基础篇</a><time datetime="2025-08-11T09:54:34.000Z" title="发表于 2025-08-11 17:54:34">2025-08-11</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By 张一鸣</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.3</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
