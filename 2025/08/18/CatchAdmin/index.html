@@ -1,0 +1,1977 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>CatchAdmin | 张一鸣的博客</title><meta name="author" content="张一鸣"><meta name="copyright" content="张一鸣"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="#CatchAdmin 1. CatchAdmin 是什么？一句话： 👉 CatchAdmin 是一个基于 Laravel + Vue 的开源后台管理系统（Admin Management System）。  后端：用 Laravel 做 API 服务（权限、数据、模块管理）。 前端：用 Vue 3 + Vite + TailwindCSS 做管理界面。 定位：不是一个小组件库，而是一个完整的“">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CatchAdmin">
+<meta property="og:url" content="http://example.com/2025/08/18/CatchAdmin/index.html">
+<meta property="og:site_name" content="张一鸣的博客">
+<meta property="og:description" content="#CatchAdmin 1. CatchAdmin 是什么？一句话： 👉 CatchAdmin 是一个基于 Laravel + Vue 的开源后台管理系统（Admin Management System）。  后端：用 Laravel 做 API 服务（权限、数据、模块管理）。 前端：用 Vue 3 + Vite + TailwindCSS 做管理界面。 定位：不是一个小组件库，而是一个完整的“">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/avatar.jpg">
+<meta property="article:published_time" content="2025-08-18T10:08:13.000Z">
+<meta property="article:modified_time" content="2025-08-18T10:09:20.543Z">
+<meta property="article:author" content="张一鸣">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/avatar.jpg"><script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "CatchAdmin",
+  "url": "http://example.com/2025/08/18/CatchAdmin/",
+  "image": "http://example.com/img/avatar.jpg",
+  "datePublished": "2025-08-18T10:08:13.000Z",
+  "dateModified": "2025-08-18T10:09:20.543Z",
+  "author": [
+    {
+      "@type": "Person",
+      "name": "张一鸣",
+      "url": "http://example.com"
+    }
+  ]
+}</script><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2025/08/18/CatchAdmin/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
+      
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'CatchAdmin',
+  isHighlightShrink: false,
+  isToc: true,
+  pageType: 'post'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">张一鸣的博客</span></a><a class="nav-page-title" href="/"><span class="site-name">CatchAdmin</span><span class="site-name"><i class="fa-solid fa-circle-arrow-left"></i><span>  返回首页</span></span></a></span><div id="menus"></div></nav><div id="post-info"><h1 class="post-title">CatchAdmin</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2025-08-18T10:08:13.000Z" title="发表于 2025-08-18 18:08:13">2025-08-18</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2025-08-18T10:09:20.543Z" title="更新于 2025-08-18 18:09:20">2025-08-18</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">浏览量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><p>#CatchAdmin</p>
+<h2 id="1-CatchAdmin-是什么？"><a href="#1-CatchAdmin-是什么？" class="headerlink" title="1. CatchAdmin 是什么？"></a>1. CatchAdmin 是什么？</h2><p>一句话：<br> 👉 <strong>CatchAdmin 是一个基于 Laravel + Vue 的开源后台管理系统（Admin Management System）</strong>。</p>
+<ul>
+<li><strong>后端</strong>：用 Laravel 做 API 服务（权限、数据、模块管理）。</li>
+<li><strong>前端</strong>：用 Vue 3 + Vite + TailwindCSS 做管理界面。</li>
+<li><strong>定位</strong>：不是一个小组件库，而是一个完整的“后台开发框架”。</li>
+</ul>
+<hr>
+<h2 id="2-它解决了什么问题？"><a href="#2-它解决了什么问题？" class="headerlink" title="2. 它解决了什么问题？"></a>2. 它解决了什么问题？</h2><p>在实际项目里，如果你要做一个管理后台，通常要解决这些重复性工作：</p>
+<ul>
+<li><strong>权限管理</strong>：用户、角色、部门、菜单、按钮级别的权限。</li>
+<li><strong>通用模块</strong>：日志、上传、配置、字典枚举。</li>
+<li><strong>后台 UI</strong>：前端的布局、菜单、表格、表单、分页、弹窗。</li>
+<li><strong>前后端对接</strong>：接口统一、鉴权机制、动态菜单。</li>
+<li><strong>开发规范</strong>：模块化目录、CRUD 快速生成、统一异常处理。</li>
+</ul>
+<p>👉 CatchAdmin 帮你把这些“80% 的通用后台功能”做成了 <strong>内置模块 + 约定规范</strong>，开发者只需要专注写自己的业务模块。</p>
+<hr>
+<h2 id="3-CatchAdmin-的核心特点"><a href="#3-CatchAdmin-的核心特点" class="headerlink" title="3. CatchAdmin 的核心特点"></a>3. CatchAdmin 的核心特点</h2><ol>
+<li><strong>模块化</strong><ul>
+<li>每个功能都是一个模块，放在 <code>modules/</code> 目录里。</li>
+<li>模块有自己的路由、控制器、模型、Provider，可以独立启用&#x2F;卸载&#x2F;分享。</li>
+</ul>
+</li>
+<li><strong>前后端分离</strong><ul>
+<li>前端（Vue）和后端（Laravel）分开，RESTful API 通信。</li>
+<li>前端支持动态菜单，从后端权限表里生成。</li>
+</ul>
+</li>
+<li><strong>约定大于配置</strong><ul>
+<li>后台业务必须放在 <code>modules/</code> 下。</li>
+<li>前端页面放在 <code>web/src/views/</code>。</li>
+<li>枚举必须从 1 开始，公共功能放在 Common 模块。<br>👉 遵循规则，就能少写配置。</li>
+</ul>
+</li>
+<li><strong>增强的模型层（CatchModel）</strong><ul>
+<li>封装 CRUD 方法（storeBy, updateBy, deleteBy）。</li>
+<li>内置软删除、树结构、状态切换、创建人追踪。</li>
+<li>内置搜索、分页、事务支持。</li>
+</ul>
+</li>
+<li><strong>后台常见模块开箱即用</strong><ul>
+<li>用户管理、角色权限、部门、菜单、操作日志、字典。</li>
+<li>这些你不需要再重复造轮子。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="4-CatchAdmin-适合谁？"><a href="#4-CatchAdmin-适合谁？" class="headerlink" title="4. CatchAdmin 适合谁？"></a>4. CatchAdmin 适合谁？</h2><ul>
+<li>如果你只是想做一个很简单的小后台 → <strong>Laravel Nova &#x2F; Backpack</strong> 可能更轻便。</li>
+<li>如果你要做一个<strong>大型后台系统</strong>（权限复杂、多模块、多人协作），CatchAdmin 非常适合，因为：<ul>
+<li>模块化清晰。</li>
+<li>扩展性强。</li>
+<li>约定和工具链完整。</li>
+</ul>
+</li>
+</ul>
+<h2 id="5-打个比喻"><a href="#5-打个比喻" class="headerlink" title="5. 打个比喻"></a>5. 打个比喻</h2><ul>
+<li><strong>Laravel</strong> 就像是一套“积木底座”。</li>
+<li><strong>CatchAdmin</strong> 就像是基于这套积木提前搭好了“别墅骨架”：<ul>
+<li>大门（权限系统）</li>
+<li>楼梯（路由 + 模块化）</li>
+<li>水电（日志、配置、上传）</li>
+<li>房间（模块）</li>
+</ul>
+</li>
+</ul>
+<p>开发者只需要：<br> 👉 在这些房间里装修（写业务模块），而不是自己从地基开始建房。</p>
+<hr>
+<p>✅ <strong>一句话总结</strong>：<br> <strong>CatchAdmin &#x3D; Laravel + Vue 的后台管理系统开发框架，提供了权限、模块化、模型增强、前后端分离等一整套后台常用解决方案，让你专注写业务而不是重复造轮子。</strong></p>
+<hr>
+<p>#配置</p>
+<p>这份配置文件在讲什么？</p>
+<p>文档展示的是一个<strong>返回数组的配置</strong>（典型的 Laravel 风格），涵盖 CatchAdmin 的核心行为：<strong>超管账号、模块体系、统一响应、认证、SQL 日志、路由前缀与中间件</strong>等。理解这些键位，就等于掌握了后台的“系统开关”。配置大致结构如下（我用白话解释每段的作用）：</p>
+<p>A. <code>super_admin</code> —— 超级管理员 ID</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;super_admin&#x27;</span> =&gt; <span class="number">1</span>,</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>含义</strong>：把数据库里 <strong>ID&#x3D;1</strong> 的管理员视为“超管”。超管往往拥有所有权限，很多鉴权判断会直接放行。</li>
+<li><strong>什么时候改</strong>：如果你的真实超管用户不是 <code>1</code>，或你希望迁移数据后指定其他ID为超管，需要在这里同步修改。</li>
+<li><strong>课堂小贴士</strong>：无论如何，<strong>至少要有一个可登录的超管</strong>，否则后续<strong>菜单&#x2F;权限配置</strong>都举步维艰。</li>
+</ul>
+<p>B. <code>module</code> —— 模块化体系（CatchAdmin 的灵魂）</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;module&#x27;</span> =&gt; [</span><br><span class="line">  <span class="string">&#x27;root&#x27;</span> =&gt; <span class="string">&#x27;modules&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;namespace&#x27;</span> =&gt; <span class="string">&#x27;Modules&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;default&#x27;</span> =&gt; [<span class="string">&#x27;develop&#x27;</span>, <span class="string">&#x27;user&#x27;</span>, <span class="string">&#x27;permission&#x27;</span>],</span><br><span class="line">  <span class="string">&#x27;default_dirs&#x27;</span> =&gt; [</span><br><span class="line">      <span class="string">&#x27;Http&#x27;</span> . DIRECTORY_SEPARATOR,</span><br><span class="line">      <span class="string">&#x27;Http&#x27;</span> . DIRECTORY_SEPARATOR . <span class="string">&#x27;Requests&#x27;</span> . DIRECTORY_SEPARATOR,</span><br><span class="line">      <span class="string">&#x27;Http&#x27;</span> . DIRECTORY_SEPARATOR . <span class="string">&#x27;Controllers&#x27;</span> . DIRECTORY_SEPARATOR,</span><br><span class="line">      <span class="string">&#x27;Models&#x27;</span> . DIRECTORY_SEPARATOR,</span><br><span class="line">      <span class="string">&#x27;views&#x27;</span> . DIRECTORY_SEPARATOR,</span><br><span class="line">  ],</span><br><span class="line">  <span class="string">&#x27;driver&#x27;</span> =&gt; [</span><br><span class="line">      <span class="string">&#x27;default&#x27;</span> =&gt; <span class="string">&#x27;file&#x27;</span>,       <span class="comment">// 也可选 database</span></span><br><span class="line">      <span class="string">&#x27;table_name&#x27;</span> =&gt; <span class="string">&#x27;admin_modules&#x27;</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="string">&#x27;routes&#x27;</span> =&gt; [],</span><br><span class="line">],</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>root &#x2F; namespace</strong>：定义<strong>模块代码放哪</strong>、<strong>命名空间从哪开始</strong>。默认放在项目根的 <code>modules/</code>，命名空间 <code>Modules\...</code>。</li>
+<li><strong>default</strong>：初始化时会生成的<strong>默认模块列表</strong>（示例里是 <code>develop / user / permission</code>）。</li>
+<li><strong>default_dirs</strong>：新建模块时<strong>自动生成的目录结构</strong>（控制器、表单请求、模型、视图等常用骨架）。</li>
+<li><strong>driver</strong>：<strong>模块的“启停&#x2F;元数据”存放位置</strong>。<ul>
+<li><code>file</code>（默认）：以<strong>文件</strong>形式存储模块信息，简单易用。</li>
+<li><code>database</code>：以<strong>数据库表</strong>（<code>admin_modules</code>）存储，适合团队协作&#x2F;多环境一致。</li>
+</ul>
+</li>
+<li><strong>routes</strong>：可集中登记<strong>模块路由集合</strong>（通常各模块自带路由即可，不必强行集中）。</li>
+</ul>
+<p><strong>为什么强调“模块化”</strong>：</p>
+<ul>
+<li>模块&#x3D;功能边界（用户&#x2F;权限&#x2F;报表&#x2F;… 各自为模块），方便<strong>独立开发、上线、回滚</strong>。</li>
+<li>目录、命名空间、路由都被规范化，<strong>大型项目的可维护性</strong>会好很多。</li>
+</ul>
+<p>C. <code>response</code> —— 统一响应格式（全局“返回 JSON”）</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;response&#x27;</span> =&gt; [</span><br><span class="line">  <span class="string">&#x27;always_json&#x27;</span> =&gt; <span class="title class_">\Catch\Middleware\JsonResponseMiddleware</span>::<span class="variable language_">class</span>,</span><br><span class="line">  <span class="string">&#x27;request_handled_listener&#x27;</span> =&gt; \Catch\Listeners\RequestHandledListener,</span><br><span class="line">],</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>always_json</strong>：通过控制器基类中间件，<strong>把返回统一规范为 JSON</strong>（API 风格后端的关键）。<ul>
+<li>如果你<strong>不想统一 JSON</strong>，那就<strong>不要继承</strong> Catch 提供的控制器基类。</li>
+</ul>
+</li>
+<li><strong>request_handled_listener</strong>：监听 <code>RequestHandled</code> 事件，对<strong>响应结构做二次处理</strong>（比如包一层 <code>&#123;code, message, data&#125;</code> 统一格式）。</li>
+</ul>
+<p><strong>实际开发建议</strong>：</p>
+<ul>
+<li>写接口时<strong>只专注数据&#x2F;业务</strong>，格式交给统一层处理；</li>
+<li>前端拿到任何接口，能拿到<strong>一致的数据结构</strong>，<strong>联调成本更低</strong>。</li>
+</ul>
+<p>D. <code>auth</code> —— 认证配置（基于 JWT 的后台守门员）</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;auth&#x27;</span> =&gt; [</span><br><span class="line">  <span class="string">&#x27;guards&#x27;</span> =&gt; [</span><br><span class="line">    <span class="string">&#x27;admin&#x27;</span> =&gt; [</span><br><span class="line">      <span class="string">&#x27;driver&#x27;</span> =&gt; <span class="string">&#x27;jwt&#x27;</span>,</span><br><span class="line">      <span class="string">&#x27;provider&#x27;</span> =&gt; <span class="string">&#x27;admin_users&#x27;</span>,</span><br><span class="line">    ],</span><br><span class="line">  ],</span><br><span class="line">  <span class="string">&#x27;providers&#x27;</span> =&gt; [</span><br><span class="line">    <span class="string">&#x27;admin_users&#x27;</span> =&gt; [</span><br><span class="line">      <span class="string">&#x27;driver&#x27;</span> =&gt; <span class="string">&#x27;eloquent&#x27;</span>,</span><br><span class="line">      <span class="string">&#x27;model&#x27;</span> =&gt; <span class="title class_">\Modules\User\Models\User</span>::<span class="variable language_">class</span></span><br><span class="line">    ]</span><br><span class="line">  ]</span><br><span class="line">],</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>guards.admin.driver &#x3D; jwt</strong>：后台登录后发放 <strong>JWT Token</strong>，后续接口走<strong>无状态鉴权</strong>。</li>
+<li><strong>provider.admin_users</strong>：指定认证所用的<strong>用户模型</strong>（这里是模块中的 <code>\Modules\User\Models\User</code>）。</li>
+</ul>
+<p><strong>课堂小贴士</strong>：</p>
+<ul>
+<li>你的<strong>登录、刷新 Token、退出</strong>等接口，需要<strong>和 JWT 配置呼应</strong>；</li>
+<li>本地调试先跑通<strong>登录→拿到 Token→携带 Token 调接口</strong>这条链路。</li>
+</ul>
+<p>E. <code>listen_db_log</code> —— SQL 日志</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;listen_db_log&#x27;</span> =&gt; <span class="literal">true</span>,</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>true</strong>：监听并记录数据库 SQL（方便<strong>调试与性能排查</strong>）。</li>
+<li><strong>生产建议</strong>：谨慎开启，避免<strong>日志过大</strong>或<strong>泄露敏感信息</strong>；可通过环境变量区分线上&#x2F;线下行为。</li>
+</ul>
+<p>F. <code>route</code> —— 路由前缀与默认中间件</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&#x27;route&#x27;</span> =&gt; [</span><br><span class="line">  <span class="string">&#x27;prefix&#x27;</span> =&gt; <span class="string">&#x27;api&#x27;</span>,</span><br><span class="line">  <span class="string">&#x27;middlewares&#x27;</span> =&gt; [</span><br><span class="line">    <span class="title class_">\Catch\Middleware\AuthMiddleware</span>::<span class="variable language_">class</span>,</span><br><span class="line">    <span class="title class_">\Catch\Middleware\JsonResponseMiddleware</span>::<span class="variable language_">class</span></span><br><span class="line">  ]</span><br><span class="line">],</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>prefix</strong>：所有接口默认以 <code>/api</code> 开头（例如 <code>/api/login</code>、<code>/api/users</code>）。</li>
+<li><strong>middlewares</strong>：<ul>
+<li><code>AuthMiddleware</code>：做<strong>权限&#x2F;登录校验</strong>；</li>
+<li><code>JsonResponseMiddleware</code>：确保<strong>统一 JSON</strong>。</li>
+</ul>
+</li>
+</ul>
+<p><strong>实践建议</strong>：</p>
+<ul>
+<li>如果你希望兼容旧接口或和网关配合，<strong>prefix 可调</strong>（比如 <code>v1</code> &#x2F; <code>admin/api</code>）。</li>
+<li><strong>路由中间件统一挂</strong>在这里，模块路由不用重复声明，<strong>减少漏配</strong>。</li>
+</ul>
+<p>2）模块级配置（给“每个模块”单独开小灶）</p>
+<blockquote>
+<p>“系统配置是一套，<strong>每个模块</strong>也可以有<strong>自己的配置</strong>，互不干扰。”</p>
+</blockquote>
+<p>写在哪？</p>
+<ul>
+<li>在目标模块下新建 <code>config/</code> 目录与配置文件（例如：<code>modules/Permissions/config/one.php</code>、<code>two.php</code>）。</li>
+<li>CatchAdmin 会<strong>自动加载</strong>这个目录的配置文件。</li>
+<li>如果你想<strong>自定义加载路径</strong>，在模块的 <strong>ServiceProvider</strong> 里重写（文档示例函数名写成了 <code>confitPath</code>，语义应为配置路径）：</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestServiceProvider</span> <span class="keyword">extends</span> <span class="title">CatchModuleServiceProvider</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">confitPath</span>(<span class="params"></span>): <span class="title">string</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> config_path; <span class="comment">// 返回该模块配置所在路径</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>（按 Laravel 习惯可能叫 <code>configPath()</code>，以你实际代码为准） </p>
+<p>目录结构示例</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Permissions/</span><br><span class="line">  config/</span><br><span class="line">    one.php</span><br><span class="line">    two.php</span><br></pre></td></tr></table></figure>
+
+
+
+<p>如何读取？</p>
+<ul>
+<li><strong>Laravel 全局读法</strong>：<code>config(&#39;one&#39;)</code>（但这会和系统 config 池子冲突&#x2F;混淆）。</li>
+<li><strong>推荐（模块化读法）</strong>：<strong>带上模块名前缀</strong>，如：</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_ invoke__">config</span>(<span class="string">&#x27;permissions.one.some_key&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>这样可以<strong>明确从哪个模块取配置</strong>，避免命名污染。 </p>
+<p>3）你应该如何使用这些配置（实战准则）</p>
+<ol>
+<li><strong>先能跑起来</strong><ul>
+<li>确保有一个<strong>可登录的超管</strong>；</li>
+<li>保持 <code>route.prefix=api</code> 不动，先把登录、用户接口跑通；</li>
+<li><code>listen_db_log</code> 在本地开，线上关。</li>
+</ul>
+</li>
+<li><strong>按模块切功能</strong><ul>
+<li>新功能&#x3D;新模块（或落在现有模块），目录自动生成，<strong>控制器&#x2F;模型&#x2F;表单请求</strong>就位；</li>
+<li>模块自己的开关&#x2F;常量&#x2F;策略，写到 <strong>模块 <code>config/</code></strong> 下。</li>
+</ul>
+</li>
+<li><strong>统一响应别乱动</strong><ul>
+<li>保持 <code>response</code> 这套中间件与监听，<strong>让前端永远拿到一致的 JSON</strong>；</li>
+<li>业务里只 <code>return data</code>，格式化交给统一层。</li>
+</ul>
+</li>
+<li><strong>JWT 流程最关键</strong><ul>
+<li>先打通：<code>登录 -&gt; 返回 Token -&gt; 带 Token 访问受保护接口 -&gt; 刷新 Token/退出</code>；</li>
+<li>模拟前端在 Postman&#x2F;Apifox 里<strong>加 Authorization 头</strong>测试。</li>
+</ul>
+</li>
+<li><strong>必要时再上数据库驱动</strong><ul>
+<li>模块元信息先用 <code>file</code> 驱动省事；多人协作、灰度&#x2F;回滚需要更可控时再切 <code>database</code>。</li>
+</ul>
+</li>
+</ol>
+<p>4）常见坑位与排查思路</p>
+<ul>
+<li><strong>接口返回不是 JSON？</strong><br>看是否<strong>没有继承</strong> Catch 的控制器基类，或者把 <code>JsonResponseMiddleware</code> 移除了。</li>
+<li><strong>鉴权总是失败？</strong><br>检查 <code>guards.admin.driver=jwt</code> 是否生效、Token 是否正确放在请求头、用户模型路径是否对。</li>
+<li><strong>读不到模块配置？</strong><br>确认<strong>模块 <code>config/</code> 目录存在</strong>、<strong>文件名&#x2F;键名</strong>正确；使用 <code>config(&#39;模块名.文件名.键路径&#39;)</code>。</li>
+<li><strong>多环境不一致？</strong><br>把与环境相关的开关（如 <code>listen_db_log</code>、路由前缀）结合 <code>.env</code> 管理，避免手改代码。</li>
+</ul>
+<p>一句话总结</p>
+<ul>
+<li><strong>系统级配置</strong>决定“平台骨架”（超管、模块根、统一响应、认证、日志、路由前缀）。</li>
+<li><strong>模块级配置</strong>让“每个功能块”有自己的开关与常量，<strong>低耦合、好维护</strong>。</li>
+<li>有了这套认知，你就能<strong>自信地新增模块、改前缀、接 JWT、控响应、查 SQL</strong>。</li>
+</ul>
+<p>#约定</p>
+<p>CatchAdmin 强调 <strong>“约定大于配置”</strong>。意思是：只要你遵循框架约定好的规则，就能少写配置，项目会更简洁可维护。</p>
+<ol>
+<li>后台功能的存放位置</li>
+</ol>
+<ul>
+<li><strong>后台业务模块</strong> → 都放在 <code>modules</code> 目录下。</li>
+<li><strong>页面文件（前端 Vue 部分）</strong> → 放在 <code>web/src/views/</code>。</li>
+</ul>
+<p>👉 这就是 <strong>后端业务（Laravel 模块化）</strong> 和 <strong>前端页面（Vue 模块化）</strong> 的分工。</p>
+<ol start="2">
+<li>枚举类型（Enums）的约定</li>
+</ol>
+<ul>
+<li>必须实现接口 <code>Catch\Enums\Enum</code>。</li>
+<li>PHP 版本最低要求是 <strong>8.1</strong>，可以直接使用原生 <code>enum</code>。</li>
+<li><strong>如果枚举是整型，一定要从 1 开始</strong>。<ul>
+<li>原因：在查询或对比时，PHP 的弱类型机制会把 <code>0</code>、<code>null</code>、<code>&#39;&#39;</code> 当成相等，很容易出错。</li>
+<li>所以从 <code>1</code> 开始，避免歧义。</li>
+</ul>
+</li>
+</ul>
+<ol start="3">
+<li>公共功能的归类</li>
+</ol>
+<ul>
+<li><strong>公共请求 &#x2F; 公共方法</strong> → 放在内置的 <strong>Common 模块</strong>里。</li>
+<li><strong>上传功能、前端的枚举集合请求</strong> → 都集中处理，不要分散在多个模块。</li>
+</ul>
+<ol start="4">
+<li>前端路由的约定</li>
+</ol>
+<ul>
+<li>如果项目 <strong>不需要动态菜单</strong>，那前端路由必须放在模块的 <code>views/</code> 目录下，并且命名为 <code>route.js</code>。</li>
+<li>动态菜单指的是：菜单和路由绑定到后端数据库，由后台统一分发。静态路由则是写死在前端的。</li>
+</ul>
+<hr>
+<p>✅ <strong>总结（约定篇）</strong><br> CatchAdmin 通过这些约定，减少了重复配置：</p>
+<ul>
+<li>模块放哪、页面放哪 → 统一。</li>
+<li>枚举要怎么写 → 统一。</li>
+<li>公共功能放哪 → 统一。</li>
+<li>前端路由写法 → 统一。</li>
+</ul>
+<p>这样整个团队写代码时，就能“拿来即用”，降低沟通成本。</p>
+<p>#模块化</p>
+<p>CatchAdmin 的核心就是 <strong>模块化</strong>。所有后台功能都被拆成一个个独立模块。</p>
+<ol>
+<li>模块的存储与安装</li>
+</ol>
+<ul>
+<li><p>模块信息统一存放在 <code>storage/app/modules.json</code> 文件里。</p>
+</li>
+<li><p>如果你发现模块路由失效，或者模块“消失”，往往是这个文件的问题。</p>
+</li>
+<li><p>安装模块命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php artisan catch:module:install &lt;module&gt;</span><br></pre></td></tr></table></figure>
+
+<p>运行后会自动更新 <code>modules.json</code>，记录模块信息。</p>
+</li>
+</ul>
+<ol start="2">
+<li>模块的目录结构</li>
+</ol>
+<p>一个模块（如 <code>Test</code>）会包含：</p>
+<ul>
+<li><code>Http/</code> → 控制器、请求类（Request）</li>
+<li><code>Models/</code> → 数据模型</li>
+<li><code>database/</code> → migration 和 seed（表结构和初始数据）</li>
+<li><code>Providers/</code> → <strong>最重要</strong>，类似 Laravel 的 ServiceProvider，负责加载路由、事件、配置等。</li>
+<li><code>route.php</code> → 路由文件</li>
+</ul>
+<ol start="3">
+<li>Provider 的作用</li>
+</ol>
+<ul>
+<li><strong>自动加载路由</strong>：不用你手动 <code>include</code>。</li>
+<li><strong>事件机制</strong>：在 <code>$events</code> 数组里声明即可。</li>
+<li><strong>中间件</strong>：通过 <code>middlewares()</code> 方法定义，作用范围是整个模块。</li>
+</ul>
+<p>⚠️ 注意：Provider 里加的中间件会影响整个模块，要谨慎使用。</p>
+<p>（</p>
+<ol>
+<li>什么是 Provider？</li>
+</ol>
+<p>在 Laravel 里，<strong>ServiceProvider</strong> 就像是“应用的启动器”。<br> CatchAdmin 的每个模块也有自己的 Provider，继承自 <code>CatchModuleServiceProvider</code>。</p>
+<p>它的任务是：</p>
+<ul>
+<li>模块加载时，把 <strong>路由、配置、事件、中间件</strong> 等信息注册进系统。</li>
+<li>保证模块是<strong>独立的</strong>，但在启动时可以自动融入整个后台。</li>
+</ul>
+<ol start="2">
+<li>自动加载路由</li>
+</ol>
+<p>在 Provider 里，你不用手动 <code>include routes.php</code>，框架会自动扫描模块里的 <code>route.php</code> 并加载。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title class_">Modules</span>\<span class="title class_">Test</span>\<span class="title class_">Providers</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">use</span> <span class="title">Catch</span>\<span class="title">Providers</span>\<span class="title">CatchModuleServiceProvider</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestServiceProvider</span> <span class="keyword">extends</span> <span class="title">CatchModuleServiceProvider</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">moduleName</span>(<span class="params"></span>): <span class="title">string</span>|<span class="title">array</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;test&#x27;</span>; <span class="comment">// 模块名</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样，<code>modules/Test/route.php</code> 的路由就会被自动注册。<br> 👉 优点：写模块时只管写 <code>route.php</code>，不用担心“主路由文件”在哪里。</p>
+<ol start="3">
+<li>事件机制</li>
+</ol>
+<p>如果模块里有事件要监听，可以在 Provider 里定义：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestServiceProvider</span> <span class="keyword">extends</span> <span class="title">CatchModuleServiceProvider</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$events</span> = [</span><br><span class="line">        <span class="comment">// &#x27;事件类&#x27; =&gt; [&#x27;监听器类1&#x27;, &#x27;监听器类2&#x27;]</span></span><br><span class="line">    ];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>作用：</p>
+<ul>
+<li>当某个事件触发时，这里定义的监听器就会执行。</li>
+<li>例如：用户登录事件 → 写入操作日志。</li>
+</ul>
+<p>👉 这和 Laravel 默认的事件系统一样，只不过 CatchAdmin 给你放到了模块级别，方便拆分。</p>
+<ol start="4">
+<li>中间件</li>
+</ol>
+<p>Provider 还能为模块注册专属中间件：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TestServiceProvider</span> <span class="keyword">extends</span> <span class="title">CatchModuleServiceProvider</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="function"><span class="keyword">function</span> <span class="title">middlewares</span>(<span class="params"></span>): <span class="title">array</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> [</span><br><span class="line">            <span class="title class_">\App\Http\Middleware\CheckModuleAccess</span>::<span class="variable language_">class</span>,</span><br><span class="line">        ];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>特点：</p>
+<ul>
+<li>这里的中间件会<strong>作用于整个模块的所有路由</strong>。</li>
+<li>例如：权限检查、日志记录、模块专属拦截逻辑。</li>
+</ul>
+<p>⚠️ <strong>注意</strong>：</p>
+<ul>
+<li>文档里特别提醒：这里注册的中间件会影响模块下的所有接口，所以要谨慎。</li>
+<li>如果只想在个别路由用，可以在 <code>route.php</code> 里单独 <code>-&gt;middleware()</code>，不要全局加。</li>
+</ul>
+<ol start="5">
+<li>小结</li>
+</ol>
+<p><strong>Provider 就是模块的“注册中心”</strong>，负责告诉系统：</p>
+<ul>
+<li>我的路由在哪里（自动加载）</li>
+<li>我有哪些事件要监听（<code>$events</code>）</li>
+<li>我有哪些中间件要启用（<code>middlewares()</code>）</li>
+</ul>
+<p>通过这种机制，CatchAdmin 实现了<strong>真正的模块解耦</strong>：每个模块可以独立开发、打包、移植，不用修改全局文件。</p>
+<hr>
+<p>如果把一个模块比作一家公司：</p>
+<ul>
+<li><strong>route.php</strong> 就是这家公司“前台接待”（对外提供的接口）。</li>
+<li><strong>events</strong> 就是公司内部“响应机制”（有人按门铃，触发动作）。</li>
+<li><strong>middlewares</strong> 就是“门口的保安”（每个人进来都要检查）。</li>
+<li><strong>Provider</strong> 则是“总经理”，负责把这些角色安排好，让公司正常运作。）</li>
+</ul>
+<p>####为什么在 Provider 里要加载路由？手动 include 和自动加载有什么区别？」</p>
+<p>#####1. Laravel 原生里是怎么做的？</p>
+<p>在一个纯 Laravel 应用里，如果没有 CatchAdmin，你要让系统知道路由在哪里，一般有两种方式：</p>
+<ol>
+<li><p><strong>在 <code>routes/web.php</code> 或 <code>routes/api.php</code> 写死</strong>：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Route</span>::<span class="title function_ invoke__">get</span>(<span class="string">&#x27;/users&#x27;</span>, [<span class="title class_">UserController</span>::<span class="variable language_">class</span>, <span class="string">&#x27;index&#x27;</span>]);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>如果你写了一个“包”或独立模块</strong>，就需要在它的 ServiceProvider 里手动引入路由文件：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserServiceProvider</span> <span class="keyword">extends</span> <span class="title">ServiceProvider</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">boot</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;<span class="title function_ invoke__">loadRoutesFrom</span>(<span class="keyword">__DIR__</span>.<span class="string">&#x27;/../routes/web.php&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这行 <code>loadRoutesFrom()</code> 实际上就是一种 <strong>手动 include</strong>，它告诉 Laravel：<br> “我的这个模块有路由文件，请你把它加载进来”。</p>
+</li>
+</ol>
+<p>👉 <strong>所以：如果你不用 Provider 注册，Laravel 根本不知道你模块里的路由文件在哪里。</strong></p>
+<p>#####2. CatchAdmin 为什么不用你写 <code>include</code>？</p>
+<p>CatchAdmin 在它的基类 <code>CatchModuleServiceProvider</code> 里已经帮你做好了这件事：</p>
+<ul>
+<li>它会自动去找模块目录下的 <code>route.php</code> 文件；</li>
+<li>找到以后，自动 <code>require</code> 或 <code>loadRoutesFrom()</code>；</li>
+<li>这样你写模块时，只要提供 <code>modules/YourModule/route.php</code>，不用再关心“怎么加载”。</li>
+</ul>
+<p>也就是说：</p>
+<ul>
+<li><strong>普通 Laravel 包</strong>：你得在 <code>Provider</code> 里 <code>loadRoutesFrom()</code> → 这是手动 include。</li>
+<li><strong>CatchAdmin 模块</strong>：继承 <code>CatchModuleServiceProvider</code> → 它会自动帮你 include 模块的 <code>route.php</code>。</li>
+</ul>
+<p>#####3. 如果没有 Provider，你得怎么写？（手动 include 版）</p>
+<p>比如你在 <code>modules/User/route.php</code> 写了：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> <span class="title">Illuminate</span>\<span class="title">Support</span>\<span class="title">Facades</span>\<span class="title">Route</span>;</span><br><span class="line"></span><br><span class="line"><span class="title class_">Route</span>::<span class="title function_ invoke__">get</span>(<span class="string">&#x27;/users&#x27;</span>, [<span class="title class_">UserController</span>::<span class="variable language_">class</span>, <span class="string">&#x27;index&#x27;</span>]);</span><br></pre></td></tr></table></figure>
+
+<p>那在 Laravel 里，要想让它生效，你得在某个地方写：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">require</span> <span class="title function_ invoke__">base_path</span>(<span class="string">&#x27;modules/User/route.php&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>或者写在 ServiceProvider 里：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">$this</span>-&gt;<span class="title function_ invoke__">loadRoutesFrom</span>(<span class="title function_ invoke__">base_path</span>(<span class="string">&#x27;modules/User/route.php&#x27;</span>));</span><br></pre></td></tr></table></figure>
+
+<p>否则，Laravel 根本不会去扫描 <code>modules/User/</code> 目录。<br> <strong>这就是所谓的“手动 include”。</strong></p>
+<p>#####4. 为什么要放在 Provider 里？</p>
+<p>因为 <strong>Provider 是 Laravel 启动时专门用来“注册东西”的机制</strong>。</p>
+<ul>
+<li>你要注册路由 → 放 Provider 里</li>
+<li>你要注册事件监听器 → 放 Provider 里</li>
+<li>你要注册中间件 → 放 Provider 里</li>
+</ul>
+<p>好处：</p>
+<ul>
+<li><strong>集中管理</strong>：所有模块只要有 Provider，框架启动时会自动执行它们的 <code>boot()</code>。</li>
+<li><strong>模块化</strong>：不同模块的路由不会散落在全局配置，而是各自独立。</li>
+<li><strong>可插拔</strong>：启用&#x2F;禁用模块，只要加载&#x2F;不加载对应 Provider 即可，路由也随之生效或消失。</li>
+</ul>
+<hr>
+<p>✅ <strong>一句话总结</strong>：</p>
+<ul>
+<li>“手动 include” 就是你在代码里写 <code>require modules/User/route.php</code>。</li>
+<li>“自动 include” 就是 CatchAdmin 在它的 <code>CatchModuleServiceProvider</code> 里替你写了这句。</li>
+<li>放在 Provider 里，是因为 Provider 是 Laravel 的官方推荐入口，保证在框架启动时加载模块的路由。</li>
+</ul>
+<p>####为什么我写一个包要在ServiceProvider 里手动引入路由文件？</p>
+<p> 我们换个角度来想：<strong>Laravel 本身只会加载它“知道的”路由文件</strong>，比如框架内置的：</p>
+<ul>
+<li><code>routes/web.php</code></li>
+<li><code>routes/api.php</code></li>
+<li><code>routes/console.php</code></li>
+<li><code>routes/channels.php</code></li>
+</ul>
+<p>除此之外，Laravel 启动的时候是不会自己去扫描你写的“包”目录的。</p>
+<ol>
+<li><strong>为什么写包要在 ServiceProvider 里引入路由？</strong></li>
+</ol>
+<p>因为 <strong>ServiceProvider 是 Laravel 提供的官方“注册入口”机制</strong>。</p>
+<ul>
+<li>Laravel 在启动时，会逐个执行所有已注册的 ServiceProvider；</li>
+<li>如果你写了一个包，它的 ServiceProvider 就是 Laravel 认识这个包的唯一方式；</li>
+<li>在 <code>boot()</code> 方法里，你就可以告诉 Laravel：<ul>
+<li>我要加载一份路由文件（<code>loadRoutesFrom()</code> &#x2F; <code>require</code>）；</li>
+<li>我要加载一份配置文件（<code>mergeConfigFrom()</code>）；</li>
+<li>我要加载一份迁移（<code>loadMigrationsFrom()</code>）。</li>
+</ul>
+</li>
+</ul>
+<p>所以，如果你不在 ServiceProvider 里写 <code>loadRoutesFrom()</code>，Laravel 根本不知道这个包的路由文件存在。</p>
+<p>👉 <strong>一句话：写在 ServiceProvider 里，是为了让 Laravel 知道“这个包自带了路由”，否则框架不会自己找。</strong></p>
+<ol start="2">
+<li>举个例子</li>
+</ol>
+<p>假设你写了一个 “Blog” 包，目录结构是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">packages/</span><br><span class="line">  Blog/</span><br><span class="line">    routes/web.php</span><br><span class="line">    src/Providers/BlogServiceProvider.php</span><br></pre></td></tr></table></figure>
+
+<p>在 <code>routes/web.php</code> 里写：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> <span class="title">Illuminate</span>\<span class="title">Support</span>\<span class="title">Facades</span>\<span class="title">Route</span>;</span><br><span class="line"></span><br><span class="line"><span class="title class_">Route</span>::<span class="title function_ invoke__">get</span>(<span class="string">&#x27;/blog&#x27;</span>, function () &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&#x27;Hello from Blog package!&#x27;</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>如果你不做额外操作，这个路由不会生效。<br> 你需要在 <code>BlogServiceProvider</code> 里手动引入：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BlogServiceProvider</span> <span class="keyword">extends</span> <span class="title">ServiceProvider</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">boot</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="variable language_">$this</span>-&gt;<span class="title function_ invoke__">loadRoutesFrom</span>(<span class="keyword">__DIR__</span>.<span class="string">&#x27;/../../routes/web.php&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样 Laravel 才能在启动时加载你包里的路由。</p>
+<ol start="3">
+<li>和应用本身的区别</li>
+</ol>
+<ul>
+<li><strong>应用（App）</strong>：Laravel 已经帮你约定好了路由文件，开箱即用。</li>
+<li><strong>包（Package）</strong>：是你扩展出来的，Laravel 不会“瞎猜”包里会有什么文件，所以需要你在 ServiceProvider 明确告诉它。</li>
+</ul>
+<ol start="4">
+<li>CatchAdmin 为什么不用你手动写？</li>
+</ol>
+<p>因为 CatchAdmin 自己做了一层“基类 ServiceProvider”（<code>CatchModuleServiceProvider</code>）。<br> 它在里面已经实现了“自动去找 <code>modules/*/route.php</code> 并引入”的逻辑，所以你写模块的时候不用自己 <code>loadRoutesFrom()</code>。</p>
+<hr>
+<p>✅ 总结：</p>
+<ul>
+<li><strong>写包要在 ServiceProvider 里手动引入路由文件</strong>，是因为 Laravel 不知道包的路由在哪里，必须靠你在 Provider 里告诉它。</li>
+<li><strong>Provider 的作用</strong>：就是模块&#x2F;包与 Laravel 核心之间的“桥梁”，负责注册路由、事件、配置、迁移等资源。</li>
+</ul>
+<hr>
+<p>我发现很多代码文件里都有叫boot（）这个函数，我想知道为什么要起这个名字呢？</p>
+<p>好问题 👏，你注意到 <strong>很多 ServiceProvider 里都有 <code>boot()</code> 方法</strong>，这个不是随便起的，而是 Laravel 里一个“约定俗成 + 框架规定”的名字。我们分几步拆开：</p>
+<ol>
+<li><code>boot()</code> 为什么叫这个名字？</li>
+</ol>
+<ul>
+<li>英文里 <strong>boot</strong> 有“启动 &#x2F; 引导”的意思（比如 boot up &#x3D; 启动电脑）。</li>
+<li>在 Laravel 里，<strong>ServiceProvider 是一个“服务提供者”</strong>，它的生命周期分两个阶段：<ol>
+<li><strong>register()</strong> → 注册服务、绑定容器里的对象（这里应该只写“准备”工作）。</li>
+<li><strong>boot()</strong> → 框架加载完所有 ServiceProvider 之后，执行“引导”逻辑。</li>
+</ol>
+</li>
+</ul>
+<p>所以 <code>boot()</code> 不是你随便取的名字，而是 Laravel 框架会在启动过程中 <strong>自动调用的一个钩子方法</strong>。</p>
+<ol start="2">
+<li>生命周期差别</li>
+</ol>
+<ul>
+<li><p><strong><code>register()</code> 阶段</strong>：只做绑定，不能依赖其它服务，因为还没全部加载完。<br>例：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">register</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="variable language_">$this</span>-&gt;app-&gt;<span class="title function_ invoke__">bind</span>(<span class="title class_">MyService</span>::<span class="variable language_">class</span>, function (<span class="variable">$app</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">MyService</span>();</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong><code>boot()</code> 阶段</strong>：一切都准备好了，可以做“需要依赖其它服务”的操作，比如加载路由、事件、视图等。<br>例：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">boot</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="variable language_">$this</span>-&gt;<span class="title function_ invoke__">loadRoutesFrom</span>(<span class="keyword">__DIR__</span>.<span class="string">&#x27;/../routes/web.php&#x27;</span>);</span><br><span class="line">    <span class="title class_">\Event</span>::<span class="title function_ invoke__">listen</span>(...);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>👉 所以路由一般放在 <code>boot()</code> 里，而不是 <code>register()</code>。</p>
+<ol start="3">
+<li>框架为什么固定用 <code>boot()</code>？</li>
+</ol>
+<ul>
+<li><p>因为 Laravel 的 <code>Illuminate\Support\ServiceProvider</code> 基类里，定义了 <code>boot()</code> 这个方法作为 <strong>约定</strong>：<br>框架在启动时会扫描所有 Provider，如果有 <code>boot()</code>，就执行它。</p>
+</li>
+<li><p>你起别的名字，比如 <code>startup()</code>，Laravel 就不会自动调用。</p>
+</li>
+</ul>
+<ol start="4">
+<li>和你看到的“很多代码文件里的 boot()”</li>
+</ol>
+<p>不仅 ServiceProvider 里有 <code>boot()</code>，像 <strong>模型（Model）</strong>、<strong>中间件</strong>、<strong>一些扩展包</strong>也可能用 <code>boot()</code>。<br> 原因是：</p>
+<ul>
+<li>Laravel 通过 <strong>trait &#x2F; 基类约定</strong> 提供了“booting hooks”。</li>
+<li>比如 Eloquent 模型里有 <code>boot()</code> &#x2F; <code>booted()</code>，用来在模型初始化时做一些全局设置（添加全局 Scope、观察者等）。</li>
+</ul>
+<p>同样逻辑：</p>
+<ul>
+<li><strong>boot() &#x3D; 在对象&#x2F;服务真正“可用了”之后执行一些初始化逻辑。</strong></li>
+</ul>
+<ol start="5">
+<li>一句话总结</li>
+</ol>
+<ul>
+<li><strong><code>boot()</code> &#x3D; 启动&#x2F;引导钩子</strong>。</li>
+<li>它之所以叫这个名字，是因为 Laravel 框架 <strong>规定并自动调用</strong>它（不是开发者随便起的）。</li>
+<li><strong>register() 负责“注册”，boot() 负责“启动”</strong>。</li>
+</ul>
+<hr>
+<p>要不要我帮你画一个「Laravel 启动生命周期」的简图，把 <strong>register() → boot() → 应用可用</strong> 这个流程直观画出来？</p>
+<p>####trait是什么？</p>
+<p>你在 Laravel 代码里看到很多 <strong>trait</strong>，比如：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> <span class="title">Illuminate</span>\<span class="title">Database</span>\<span class="title">Eloquent</span>\<span class="title">SoftDeletes</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">Catch</span>\<span class="title">Traits</span>\<span class="title">DB</span>\<span class="title">BaseOperate</span>;</span><br></pre></td></tr></table></figure>
+
+<p>那 <strong>trait 到底是什么呢？</strong></p>
+<ol>
+<li>trait 是什么？</li>
+</ol>
+<p>在 PHP 里，<strong>trait 是一种代码复用机制</strong>。</p>
+<ul>
+<li>类只能单继承（<code>class A extends B</code>）。</li>
+<li>但很多时候，我们想让一个类“同时拥有多个功能”，又不能多继承，这时就用 <strong>trait</strong>。</li>
+<li>trait 其实就是一段“可以被插入到类里”的代码块。</li>
+</ul>
+<p>👉 你可以理解成：</p>
+<ul>
+<li><strong>class</strong> &#x3D; 建房子</li>
+<li><strong>trait</strong> &#x3D; 模块化的装修包（插上去就能用）</li>
+</ul>
+<ol start="2">
+<li>trait 怎么用？</li>
+</ol>
+<p>例子：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">trait</span> <span class="title">Loggable</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">log</span>(<span class="params"><span class="variable">$msg</span></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">echo</span> <span class="string">&quot;[LOG]: <span class="subst">$msg</span>\n&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">use</span> <span class="title">Loggable</span>;   <span class="comment">// 引入 trait</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$user</span> = <span class="keyword">new</span> <span class="title class_">User</span>();</span><br><span class="line"><span class="variable">$user</span>-&gt;<span class="title function_ invoke__">log</span>(<span class="string">&quot;用户登录成功&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[LOG]: 用户登录成功</span><br></pre></td></tr></table></figure>
+
+<p>这里：</p>
+<ul>
+<li><code>User</code> 没有继承任何基类，但通过 <code>use Loggable</code> 就获得了 <code>log()</code> 方法。</li>
+</ul>
+<ol start="3">
+<li>Laravel &#x2F; CatchAdmin 里常见的 trait</li>
+</ol>
+<p>在 CatchAdmin 的 <code>CatchModel</code> 里，你就看到过：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> <span class="title">BaseOperate</span>, <span class="title">Trans</span>, <span class="title">SoftDeletes</span>, <span class="title">ScopeTrait</span>;</span><br></pre></td></tr></table></figure>
+
+<p>这些 trait 各自封装了一类功能：</p>
+<ul>
+<li><strong>SoftDeletes</strong> → 软删除功能（deleted_at 字段自动管理）</li>
+<li><strong>BaseOperate</strong> → 封装基础的 CRUD 方法（createBy &#x2F; updateBy &#x2F; deleteBy）</li>
+<li><strong>Trans</strong> → 数据库事务相关操作（beginTransaction 等）</li>
+<li><strong>ScopeTrait</strong> → 全局查询作用域（creator() 等）</li>
+</ul>
+<p>👉 换句话说：<br> <strong>通过 use trait，一个模型就像“插上了外挂”，一下子多了很多功能。</strong></p>
+<ol start="4">
+<li>trait 和继承的区别</li>
+</ol>
+<ul>
+<li><strong>继承 (extends)</strong>：一个类只能继承一个父类。</li>
+<li><strong>trait (use)</strong>：一个类可以同时 <code>use</code> 多个 trait。</li>
+<li><strong>组合使用</strong>：通常类继承一个父类（比如 Eloquent Model），再用多个 trait 扩展功能。</li>
+</ul>
+<ol start="5">
+<li>一句话总结</li>
+</ol>
+<ul>
+<li><strong>trait &#x3D; PHP 提供的“代码复用小工具”</strong>。</li>
+<li>它不是类，也不是接口，而是一段能被“粘贴”进类里的代码。</li>
+<li>好处是：打破了“单继承限制”，让类可以 <strong>像乐高积木一样组合功能</strong>。</li>
+</ul>
+<p>#模型</p>
+<p>一、为什么要特别讲模型？</p>
+<p>在后台系统里，<strong>绝大多数业务逻辑都离不开数据库操作</strong>。而 Laravel 的 Eloquent 已经提供了强大的 ORM，CatchAdmin 在此基础上做了二次封装，形成了自己的 <strong>CatchModel</strong>。<br> 这样一来：</p>
+<ul>
+<li>常见的字段（时间戳、软删除等） → 自动处理</li>
+<li>常见的操作（增删改查、事务、搜索） → 一行代码搞定</li>
+<li>后台特性（树结构、状态切换、创建人追踪） → 内置支持</li>
+</ul>
+<p>二、CatchModel 的核心特点</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">CatchModel</span> <span class="keyword">extends</span> <span class="title">Model</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">use</span> <span class="title">BaseOperate</span>, <span class="title">Trans</span>, <span class="title">SoftDeletes</span>, <span class="title">ScopeTrait</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$dateFormat</span> = <span class="string">&#x27;U&#x27;</span>;  <span class="comment">// 使用 Unix 时间戳存储</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$perPage</span> = <span class="number">10</span>;      <span class="comment">// 默认分页大小</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">array</span> <span class="variable">$defaultCasts</span> = [</span><br><span class="line">        <span class="string">&#x27;created_at&#x27;</span> =&gt; <span class="string">&#x27;datetime:Y-m-d H:i:s&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;updated_at&#x27;</span> =&gt; <span class="string">&#x27;datetime:Y-m-d H:i:s&#x27;</span>,</span><br><span class="line">    ];</span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">array</span> <span class="variable">$defaultHidden</span> = [<span class="string">&#x27;deleted_at&#x27;</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>时间戳处理</li>
+</ol>
+<ul>
+<li>CatchAdmin 默认把 <code>created_at</code> &#x2F; <code>updated_at</code> 存成 <strong>整数时间戳</strong>。</li>
+<li>但返回给前端时，会自动转换成 <code>Y-m-d H:i:s</code> 格式，更直观。</li>
+<li>为什么不用 <code>$casts</code> 而要搞个 <code>$defaultCasts</code>？<br>👉 因为 <code>$casts</code> 如果被用户覆盖，就失效了。<code>defaultCasts</code> 可以<strong>统一注入</strong>，更稳妥。</li>
+</ul>
+<ol start="2">
+<li>软删除</li>
+</ol>
+<ul>
+<li>默认软删除字段 <code>deleted_at = 0</code>，而不是 <code>null</code>。</li>
+<li>CatchModel 重写了 <code>SoftDeleteScope</code>，保证查询时自动加上 <code>where deleted_at = 0</code>。</li>
+<li>如果某些表（如日志）不需要软删除，可以直接继承 Laravel 自带的 <code>Model</code>，但要手动 use 这 3 个 trait：<ul>
+<li><code>BaseOperate</code>（基础操作）</li>
+<li><code>ScopeTrait</code>（全局查询作用域）</li>
+<li><code>Trans</code>（事务支持）</li>
+</ul>
+</li>
+</ul>
+<p>（好 👌，我们专门来讲一讲 <strong>CatchAdmin 里的软删除（SoftDeletes）</strong>。你在学模型的时候已经看到过，这部分是 <strong>后台系统非常常用的功能</strong>。</p>
+<ol>
+<li>什么是软删除？</li>
+</ol>
+<ul>
+<li><strong>普通删除（硬删除）</strong>：直接在数据库里 <code>DELETE</code>，数据没了。</li>
+<li><strong>软删除</strong>：只是“标记删除”，数据还在数据库里，但不会在正常查询结果里出现。</li>
+</ul>
+<p>👉 好处：</p>
+<ul>
+<li>防止误删，可以恢复。</li>
+<li>日志、审计场景下，保留历史。</li>
+</ul>
+<ol start="2">
+<li>Laravel 原生的软删除</li>
+</ol>
+<p>Laravel 原生的写法是：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> <span class="title">Illuminate</span>\<span class="title">Database</span>\<span class="title">Eloquent</span>\<span class="title">SoftDeletes</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span> <span class="keyword">extends</span> <span class="title">Model</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">use</span> <span class="title">SoftDeletes</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>它默认会在表里加一个 <code>deleted_at</code> 字段（时间戳），</p>
+<ul>
+<li>未删除时 → <code>deleted_at = null</code></li>
+<li>删除时 → <code>deleted_at = 某个时间</code></li>
+</ul>
+<ol start="3">
+<li>CatchAdmin 的改造</li>
+</ol>
+<p>CatchAdmin 在原生 SoftDeletes 基础上做了二次封装：</p>
+<ol>
+<li><p><strong>字段改造</strong></p>
+<ul>
+<li><code>deleted_at</code> 默认是 <code>0</code>（未删除），而不是 <code>null</code>。</li>
+<li>删除时会改成当前时间戳。</li>
+</ul>
+<p>👉 这样设计的原因是：整个框架里都倾向用“整型时间戳”，统一风格。</p>
+</li>
+<li><p><strong>全局 Scope 改造</strong></p>
+<ul>
+<li>在 <code>CatchModel</code> 里重写了 <code>SoftDeleteScope</code>。</li>
+<li>所有查询自动带上 <code>where deleted_at = 0</code>。</li>
+<li>除非你显式调用 <code>withTrashed()</code> 或 <code>onlyTrashed()</code>，否则不会查出已删除的数据。</li>
+</ul>
+</li>
+<li><p>在 CatchAdmin 里的用法</p>
+</li>
+</ol>
+<p>假设你有一个模型 <code>User</code>：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> <span class="title">Catch</span>\<span class="title">Base</span>\<span class="title">CatchModel</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">User</span> <span class="keyword">extends</span> <span class="title">CatchModel</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$table</span> = <span class="string">&#x27;users&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>因为 <code>CatchModel</code> 已经默认 use 了 <code>SoftDeletes</code>，所以不用你再写。</p>
+<p>（1）软删除</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">User</span>::<span class="title function_ invoke__">find</span>(<span class="number">1</span>)-&gt;<span class="title function_ invoke__">delete</span>(); </span><br><span class="line"><span class="comment">// 实际效果：把 id=1 的 deleted_at 更新为当前时间戳，而不是物理删除</span></span><br></pre></td></tr></table></figure>
+
+<p>（2）查询（默认不包含软删除数据）</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">User</span>::<span class="title function_ invoke__">all</span>(); </span><br><span class="line"><span class="comment">// 只会返回 deleted_at = 0 的记录</span></span><br></pre></td></tr></table></figure>
+
+<p>（3）查询已删除的数据</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">User</span>::<span class="title function_ invoke__">onlyTrashed</span>()-&gt;<span class="title function_ invoke__">get</span>(); </span><br></pre></td></tr></table></figure>
+
+<p>（4）查询包含已删除的数据</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">User</span>::<span class="title function_ invoke__">withTrashed</span>()-&gt;<span class="title function_ invoke__">get</span>();</span><br></pre></td></tr></table></figure>
+
+<p>（5）恢复数据</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$user</span> = <span class="title class_">User</span>::<span class="title function_ invoke__">onlyTrashed</span>()-&gt;<span class="title function_ invoke__">find</span>(<span class="number">1</span>);</span><br><span class="line"><span class="variable">$user</span>-&gt;<span class="title function_ invoke__">restore</span>();  <span class="comment">// 恢复，把 deleted_at 重新置 0</span></span><br></pre></td></tr></table></figure>
+
+<p>（6）强制删除（物理删除）</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$user</span> = <span class="title class_">User</span>::<span class="title function_ invoke__">find</span>(<span class="number">1</span>);</span><br><span class="line"><span class="variable">$user</span>-&gt;<span class="title function_ invoke__">forceDelete</span>(); </span><br><span class="line"><span class="comment">// 或者 CatchAdmin 提供的封装：</span></span><br><span class="line"><span class="variable">$model</span>-&gt;<span class="title function_ invoke__">deleteBy</span>(<span class="variable">$id</span>, <span class="literal">true</span>);  <span class="comment">// 第二个参数 true = 强制删除</span></span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>CatchAdmin 封装的方法</li>
+</ol>
+<p>CatchModel 已经帮你封装了常用操作：</p>
+<ul>
+<li><code>$model-&gt;deleteBy($id);</code> → 软删除</li>
+<li><code>$model-&gt;deleteBy($id, true);</code> → 强制删除</li>
+</ul>
+<p>这样你写业务逻辑时不用管底层细节，保持统一风格。</p>
+<ol start="6">
+<li>总结</li>
+</ol>
+<ul>
+<li><strong>Laravel 原生软删</strong>：<code>deleted_at = null</code> &#x2F; 时间戳</li>
+<li><strong>CatchAdmin 软删</strong>：<code>deleted_at = 0</code>（未删），时间戳（已删）</li>
+<li><strong>默认查询自动排除已删数据</strong>（Scope）</li>
+<li><strong>提供了 deleteBy &#x2F; restore &#x2F; withTrashed 等封装方法</strong>，更贴合后台业务需求</li>
+</ul>
+<hr>
+<p>✅ <strong>一句话理解</strong>：<br> CatchAdmin 的软删除 &#x3D; <strong>时间戳式软删 + 全局作用域 + 封装方法</strong>，你只管用 <code>deleteBy()</code> &#x2F; <code>restore()</code>，底层会自动帮你处理 <code>deleted_at</code>。</p>
+<p>）</p>
+<p>​	</p>
+<p>三、CatchModel 新增的属性</p>
+<ol>
+<li><strong>树结构相关</strong><ul>
+<li><code>$parentIdColumn = &#39;parent_id&#39;</code> → 父级字段</li>
+<li><code>$asTree = false</code> → 是否返回树形结构<br>👉 适合部门、菜单这种上下级关系的数据。</li>
+</ul>
+</li>
+<li><strong>排序相关</strong><ul>
+<li><code>$sortField = &#39;sort&#39;</code> → 排序字段</li>
+<li><code>$sortDesc = true</code> → 默认降序</li>
+</ul>
+</li>
+<li><strong>表单 &amp; 关联</strong><ul>
+<li><code>$form = []</code> → 创建&#x2F;更新允许写入的字段</li>
+<li><code>$formRelations = []</code> → 允许一起提交的关联（比如用户和角色关系）。</li>
+</ul>
+</li>
+<li><strong>分页</strong><ul>
+<li><code>$isPaginate = true</code> → 默认分页返回</li>
+</ul>
+</li>
+</ol>
+<p>四、模型方法（封装的常用操作）</p>
+<ol>
+<li>查询数据</li>
+</ol>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$model</span>-&gt;<span class="title function_ invoke__">getList</span>(); <span class="comment">// 获取列表（支持钩子）</span></span><br><span class="line"><span class="variable">$model</span>-&gt;<span class="title function_ invoke__">setBeforeGetList</span>(fn(<span class="variable">$query</span>) =&gt; <span class="variable">$query</span>-&gt;<span class="title function_ invoke__">orderByDesc</span>(<span class="string">&#x27;sort&#x27;</span>))-&gt;<span class="title function_ invoke__">getList</span>();</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>可以在查询前加入 <strong>排序、join、with</strong> 等操作，非常灵活。</li>
+</ul>
+<ol start="2">
+<li>新增数据</li>
+</ol>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$model</span>-&gt;<span class="title function_ invoke__">storeBy</span>(<span class="variable">$data</span>);   <span class="comment">// 保存（不支持循环）</span></span><br><span class="line"><span class="variable">$model</span>-&gt;<span class="title function_ invoke__">createBy</span>(<span class="variable">$data</span>);  <span class="comment">// 保存（支持循环）</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>更新数据</li>
+</ol>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$model</span>-&gt;<span class="title function_ invoke__">updateBy</span>(<span class="variable">$id</span>, <span class="variable">$data</span>);</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>删除数据</li>
+</ol>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$model</span>-&gt;<span class="title function_ invoke__">deleteBy</span>(<span class="variable">$id</span>);           <span class="comment">// 软删除</span></span><br><span class="line"><span class="variable">$model</span>-&gt;<span class="title function_ invoke__">deleteBy</span>(<span class="variable">$id</span>, <span class="literal">true</span>);     <span class="comment">// 强制删除（物理删除）</span></span><br></pre></td></tr></table></figure>
+
+<ol start="5">
+<li>查询单条</li>
+</ol>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$model</span>-&gt;<span class="title function_ invoke__">firstBy</span>(<span class="variable">$value</span>, <span class="variable">$field</span> = <span class="string">&#x27;id&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<ol start="6">
+<li>状态切换</li>
+</ol>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$model</span>-&gt;<span class="title function_ invoke__">toggleBy</span>(<span class="variable">$id</span>, <span class="string">&#x27;status&#x27;</span>);  <span class="comment">// 默认切换 status 字段</span></span><br></pre></td></tr></table></figure>
+
+<ol start="7">
+<li>树形更新</li>
+</ol>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$model</span>-&gt;<span class="title function_ invoke__">updateChildren</span>(<span class="variable">$parentId</span>, <span class="string">&#x27;status&#x27;</span>, <span class="number">0</span>); <span class="comment">// 批量更新下级</span></span><br></pre></td></tr></table></figure>
+
+<p>五、搜索与 Scope 支持</p>
+<ol>
+<li><strong>搜索字段</strong></li>
+</ol>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">protected</span> <span class="keyword">array</span> <span class="variable">$searchable</span> = [</span><br><span class="line">    <span class="string">&#x27;status&#x27;</span> =&gt; <span class="string">&#x27;=&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;nickname&#x27;</span> =&gt; <span class="string">&#x27;like&#x27;</span></span><br><span class="line">];</span><br></pre></td></tr></table></figure>
+
+<p>这样写以后，就可以用 <code>quickSearch</code> 快速搜索：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$model</span>-&gt;<span class="title function_ invoke__">quickSearch</span>(<span class="variable">$request</span>-&gt;<span class="title function_ invoke__">all</span>());</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><strong>模糊搜索</strong></li>
+</ol>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$model</span>-&gt;<span class="title function_ invoke__">whereLike</span>(<span class="string">&#x27;nickname&#x27;</span>, <span class="string">&#x27;张&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li><strong>作用域 Scope</strong></li>
+</ol>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Model</span>::<span class="title function_ invoke__">creator</span>()-&gt;<span class="title function_ invoke__">get</span>(); <span class="comment">// 自动加上 creator_id 条件</span></span><br></pre></td></tr></table></figure>
+
+<p>六、事务支持</p>
+<p>以前要写：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DB::<span class="title function_ invoke__">beginTransaction</span>();</span><br></pre></td></tr></table></figure>
+
+<p>在 CatchModel 中可以直接：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">$this</span>-&gt;<span class="title function_ invoke__">beginTransaction</span>();</span><br></pre></td></tr></table></figure>
+
+<p>其他事务方法也都封装好了，开发时更简洁。</p>
+<p>七、后台特有的小功能</p>
+<ol>
+<li><p><strong>自动写入创建人</strong></p>
+<ul>
+<li><code>setCreatorId()</code> → 自动把 <code>creator_id</code> 字段填上当前用户。</li>
+<li>如果不需要，可以 <code>fillCreatorId(false)</code> 关闭。</li>
+</ul>
+</li>
+<li><p><strong>字段别名</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$model</span>-&gt;<span class="title function_ invoke__">aliasField</span>([<span class="string">&#x27;name&#x27;</span>, <span class="string">&#x27;email&#x27;</span>]);</span><br></pre></td></tr></table></figure>
+
+<p>可以快速生成带表前缀的字段名，避免 join 时冲突。</p>
+</li>
+</ol>
+<p>八、总结</p>
+<p>CatchAdmin 的 <strong>CatchModel</strong> 在 Laravel Eloquent 的基础上做了：</p>
+<ul>
+<li><strong>统一的时间戳 &amp; 软删除处理</strong></li>
+<li><strong>增删改查的链式封装</strong></li>
+<li><strong>树形结构 &amp; 状态切换支持</strong></li>
+<li><strong>快速搜索 &amp; Scope 支持</strong></li>
+<li><strong>自动记录创建人 &amp; 事务简化</strong></li>
+</ul>
+<p>👉 对开发者的意义：</p>
+<ul>
+<li>写后台时不用每次都写重复的 CRUD 逻辑。</li>
+<li>写代码更统一，前后端协作更顺畅。</li>
+<li>项目更符合后台的常见业务场景。</li>
+</ul>
+<p>#RBAC</p>
+<p>一、为什么需要 RBAC？</p>
+<p>在传统的 UNIX 系统里，只有 <strong>root（超级用户）</strong> 可以执行一切操作：读写所有文件、修改防火墙、停机重启等等。<br> 但这样有两个问题：</p>
+<ol>
+<li><strong>权限过大</strong>：任何拿到 root 的人都能做所有事，风险极高。</li>
+<li><strong>审计困难</strong>：很难追踪到底是谁在 root 身份下执行了危险操作。</li>
+</ol>
+<p>👉 为了解决这些问题，Solaris 引入了 <strong>RBAC</strong>，它可以把 root 的“全有或全无”权限，分解成多个更小的权限组（叫 <strong>权限配置文件</strong>），再分配给不同的 <strong>角色</strong>。</p>
+<p>二、RBAC 的核心思想</p>
+<ul>
+<li><strong>最小权限原则</strong>：用户只获得完成工作所需的最少权限。</li>
+<li><strong>角色代替超级用户</strong>：root 的能力被拆分成不同角色，每个角色只负责某一部分任务。</li>
+<li><strong>灵活组合</strong>：角色可以大到相当于 root（主管理员），也可以小到只负责 cron 作业或打印机管理。</li>
+</ul>
+<p>三、RBAC 的关键元素</p>
+<ol>
+<li><strong>授权（Authorization）</strong><ul>
+<li>授予用户或角色的一种权限。</li>
+<li>例如：<code>solaris.device.cdrw</code> 允许用户读写光驱设备。</li>
+</ul>
+</li>
+<li><strong>权限（Privilege）</strong><ul>
+<li>内核层面的权限，允许进程执行某种操作，比如 <code>proc_exec</code> 允许调用 <code>execve()</code>。</li>
+<li>用户一般只有基础权限，高级操作需要额外的权限。</li>
+</ul>
+</li>
+<li><strong>安全属性（Security Attributes）</strong><ul>
+<li>程序运行时携带的“身份”，比如 <code>setuid</code>、<code>setgid</code>。</li>
+<li>在 RBAC 中，授权和权限也属于安全属性。</li>
+</ul>
+</li>
+<li><strong>特权应用程序（Privileged Application）</strong><ul>
+<li>需要安全属性、权限或授权才能执行的命令。</li>
+<li>例如：<code>ifconfig</code>、<code>mount</code>、<code>kill</code> 等。</li>
+</ul>
+</li>
+<li><strong>权限配置文件（Profiles）</strong><ul>
+<li>把多个授权、特权命令和其他配置文件打包在一起，形成一个功能集。</li>
+<li>例如：<ul>
+<li>“主管理员配置文件” → 几乎等同于 root。</li>
+<li>“打印机管理配置文件” → 只负责打印机相关操作。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>角色（Role）</strong><ul>
+<li>一种特殊账户，拥有某些权限配置文件。</li>
+<li>用户登录后可以切换成角色来执行特权任务。</li>
+<li>角色不能直接登录，必须由用户承担。</li>
+</ul>
+</li>
+</ol>
+<p>四、RBAC 的实际应用</p>
+<ul>
+<li>Solaris 提供了三种推荐角色：<ol>
+<li><strong>主管理员（equivalent to root）</strong></li>
+<li><strong>系统管理员（System Administrator）</strong>：管理文件系统、邮件、软件安装，但不能改密码。</li>
+<li><strong>操作员（Operator）</strong>：负责备份和打印机管理。</li>
+</ol>
+</li>
+<li>通过灵活配置，你可以：<ul>
+<li>给安全管理员一个专门角色（负责安全）。</li>
+<li>给网络管理员一个专门角色（负责防火墙）。</li>
+<li>给开发人员一个高级用户角色（能维护自己机器，但不能越权）。</li>
+</ul>
+</li>
+</ul>
+<p>五、RBAC 的运行机制</p>
+<ul>
+<li>用户先用自己的账号登录。</li>
+<li>然后切换到某个角色（<code>su &lt;role&gt;</code>，输入角色密码）。</li>
+<li>此时用户拥有该角色对应的权限配置文件，能执行特权命令。</li>
+<li>所有操作都会记录审计日志（包括真实用户和所承担的角色），便于安全追踪。</li>
+</ul>
+<p>六、RBAC vs 传统 root 模型</p>
+<table>
+<thead>
+<tr>
+<th>功能</th>
+<th>传统 root</th>
+<th>RBAC</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>超级用户权限</td>
+<td>一个 root 用户，全部权限</td>
+<td>可以拆分为多个角色</td>
+</tr>
+<tr>
+<td>最小权限原则</td>
+<td>不支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>审计可追踪性</td>
+<td>难追踪</td>
+<td>明确记录是谁承担了角色</td>
+</tr>
+<tr>
+<td>安全性</td>
+<td>风险集中，容易被攻破</td>
+<td>权限分散，降低单点风险</td>
+</tr>
+</tbody></table>
+<hr>
+<p>✅ <strong>总结</strong>：<br> 这一章的重点是—— <strong>RBAC 是 Solaris 对传统 root 模型的改进，它把超级用户的全能权限拆分为多个更小的角色和配置文件，用户按需承担角色，从而实现最小权限、可追踪和更安全的系统管理模式</strong>。</p>
+<p>#权限</p>
+<hr>
+<h2 id="一、权限体系的基础思想"><a href="#一、权限体系的基础思想" class="headerlink" title="一、权限体系的基础思想"></a>一、权限体系的基础思想</h2><ul>
+<li>CatchAdmin 的权限模型基于 <strong>RBAC（基于角色的访问控制）</strong>：<ul>
+<li><strong>用户</strong> → 可以拥有多个角色</li>
+<li><strong>角色</strong> → 可以绑定多个权限</li>
+</ul>
+</li>
+<li><strong>超级管理员</strong>不受任何权限限制。</li>
+<li>默认情况下：<ul>
+<li><strong>GET 请求自动放行</strong>（主要是查询类请求，不做拦截）。</li>
+<li>权限模块默认是关闭的，需要手动开启（命令：<code>php artisan catch:module:install permissions</code>）。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="二、权限元数据的组成"><a href="#二、权限元数据的组成" class="headerlink" title="二、权限元数据的组成"></a>二、权限元数据的组成</h2><p>因为 CatchAdmin 是 <strong>前后端分离</strong> 的项目，权限控制不仅仅是后端，还涉及前端路由，所以它把权限拆分成几个部分：</p>
+<ol>
+<li><strong>目录</strong>：<ul>
+<li>对应前端的一级菜单，一般使用 <code>Layout</code> 组件。</li>
+</ul>
+</li>
+<li><strong>菜单</strong>：<ul>
+<li>对应前端的主要页面，绑定具体组件。</li>
+</ul>
+</li>
+<li><strong>按钮</strong>：<ul>
+<li>对应页面上的某个操作按钮。</li>
+<li>每个按钮都映射到后端控制器的一个 action（方法）。</li>
+<li>⚠️ <strong>这是后端权限控制的重点</strong>。</li>
+</ul>
+</li>
+</ol>
+<p><strong>目录权限</strong>：决定左侧的一级菜单能不能看到（更多是前端 UI 的权限）。</p>
+<ul>
+<li>例子：没有【系统管理】目录权限，就看不到那一块入口。</li>
+</ul>
+<p><strong>菜单权限</strong>：决定能不能进入某个页面。</p>
+<ul>
+<li>例子：有【用户管理】菜单权限，就能打开用户列表页；没有就完全进不去。</li>
+</ul>
+<p><strong>按钮权限</strong>：决定在页面里能不能执行某个具体操作（和后端 API 绑定）。</p>
+<ul>
+<li>例子：有【删除用户】按钮权限，页面上能看到删除按钮，点击时后端也会放行；<br>没有权限 → 按钮直接不显示，就算伪造请求也会被中间件拦截。</li>
+</ul>
+<p>（好问题 👍，我来举个特别直观的例子。</p>
+<p>什么是左侧的一级菜单？</p>
+<ol>
+<li>什么是“左侧的一级菜单”？</li>
+</ol>
+<p>你用过大部分后台管理系统（比如阿里云后台、WordPress、各种 ERP 系统），都会发现<strong>左边有一排大菜单</strong>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">系统管理</span><br><span class="line">内容管理</span><br><span class="line">统计报表</span><br><span class="line">用户权限</span><br></pre></td></tr></table></figure>
+
+<p>这些大块的入口就是 <strong>一级菜单（目录）</strong>。</p>
+<p>在 CatchAdmin 前端（Vue + element-ui 风格）里，左侧就是一个 <strong>树形菜单栏</strong>：</p>
+<ul>
+<li>顶层 &#x3D; <strong>目录</strong>（一级菜单）</li>
+<li>展开目录 &#x3D; <strong>菜单</strong>（二级菜单&#x2F;页面）</li>
+</ul>
+<ol start="2">
+<li>“决定左侧一级菜单能不能看到”是什么意思？</li>
+</ol>
+<p>CatchAdmin 把目录也当作权限来管理。</p>
+<ul>
+<li>如果你有某个目录的权限 → 登录后在左侧就能看到这一级目录入口。</li>
+<li>如果你没有这个权限 → 这一整块目录在左侧菜单里就<strong>完全消失</strong>，你甚至不会知道它存在。</li>
+</ul>
+<ol start="3">
+<li>举个例子</li>
+</ol>
+<p>比如后台有两个目录：</p>
+<ul>
+<li><strong>系统管理</strong>（下面有 用户管理 &#x2F; 角色管理）</li>
+<li><strong>内容管理</strong>（下面有 文章管理 &#x2F; 分类管理）</li>
+</ul>
+<p>现在有两个人登录：</p>
+<ul>
+<li><strong>超级管理员</strong><ul>
+<li>有所有目录权限 → 左侧看到“系统管理”和“内容管理”。</li>
+</ul>
+</li>
+<li><strong>普通编辑</strong><ul>
+<li>只有“内容管理”目录权限 → 左侧只能看到“内容管理”，</li>
+<li>“系统管理”那一整块菜单在他眼里完全不存在。</li>
+</ul>
+</li>
+</ul>
+<ol start="4">
+<li>为什么要这样做？</li>
+</ol>
+<ul>
+<li>安全性：普通用户不应该知道还有“系统管理”这种功能。</li>
+<li>体验：减少干扰，不用的东西不显示，界面更简洁。</li>
+</ul>
+<hr>
+<p>✅ <strong>总结一句话</strong>：<br> “左侧的一级菜单能不能看到”指的就是——<strong>用户登录后台后，在左侧导航栏里是否显示某个顶级目录</strong>。有没有权限，决定这块菜单入口对他是“可见”还是“不可见”。）</p>
+<p>额外元数据：</p>
+<ul>
+<li><strong>路由 Path</strong> → 对应前端 Vue Router 的 path。</li>
+<li><strong>组件 Component</strong> → 对应前端 Vue Router 的 component。</li>
+</ul>
+<p>👉 简单说：目录和菜单更多是前端的 UI 结构，按钮才是和后端 API 权限绑定的关键点。</p>
+<hr>
+<h2 id="三、权限控制的中间件"><a href="#三、权限控制的中间件" class="headerlink" title="三、权限控制的中间件"></a>三、权限控制的中间件</h2><p>CatchAdmin 提供了 <code>PermissionGate</code> 中间件：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PermissionGate</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">handle</span>(<span class="params">Request <span class="variable">$request</span>, \<span class="built_in">Closure</span> <span class="variable">$next</span></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">// GET 请求全部通过</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="variable">$request</span>-&gt;<span class="title function_ invoke__">isMethod</span>(<span class="string">&#x27;get&#x27;</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="variable">$next</span>(<span class="variable">$request</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="variable">$user</span> = <span class="variable">$request</span>-&gt;<span class="title function_ invoke__">user</span>(<span class="title function_ invoke__">getGuardName</span>());</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 没有权限则被拦截</span></span><br><span class="line">        <span class="keyword">if</span> (! <span class="variable">$user</span>-&gt;<span class="title function_ invoke__">can</span>()) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">PermissionForbidden</span>();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="variable">$next</span>(<span class="variable">$request</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>GET 请求</strong>：直接放行。</li>
+<li><strong>其他请求（POST&#x2F;PUT&#x2F;DELETE）</strong>：会去检查用户是否有相应权限。</li>
+<li>如果没有权限 → 抛出 <code>PermissionForbidden</code> 异常，拒绝访问。</li>
+</ul>
+<hr>
+<h2 id="四、权限标识的规则"><a href="#四、权限标识的规则" class="headerlink" title="四、权限标识的规则"></a>四、权限标识的规则</h2><p>由于 CatchAdmin 是模块化的，权限标识遵循固定格式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">module@controller@action</span><br></pre></td></tr></table></figure>
+
+<p>例如：</p>
+<ul>
+<li>权限模块里的角色列表页面 → 属于 <code>Permissions</code> 模块</li>
+<li>控制器：<code>RolesController</code></li>
+<li>方法：<code>index</code></li>
+<li>权限标识就是：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">permission@Roles@index</span><br></pre></td></tr></table></figure>
+
+<p>👉 如果出现“权限认证失败”，大概率是后台菜单里的 <code>module</code> 和 <code>permission_mark</code> 字段没配置对，需要检查数据库。</p>
+<hr>
+<h2 id="五、权限的实际应用"><a href="#五、权限的实际应用" class="headerlink" title="五、权限的实际应用"></a>五、权限的实际应用</h2><ul>
+<li><strong>前后端分离后的 RBAC 要点</strong>：<ul>
+<li>前端负责控制菜单、页面、按钮的可见性。</li>
+<li>后端负责控制 API 是否能访问。</li>
+</ul>
+</li>
+<li>后端的重点在 <strong>按钮权限</strong>：必须为控制器的每一个 action 添加权限点，并分配给角色。</li>
+<li>用户在代码中可以通过：</li>
+</ul>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Auth</span>::<span class="title function_ invoke__">user</span>()-&gt;<span class="title function_ invoke__">can</span>(<span class="string">&#x27;permission@Roles@index&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>来判断自己是否有权限访问某个接口。</p>
+<hr>
+<h2 id="六、总结"><a href="#六、总结" class="headerlink" title="六、总结"></a>六、总结</h2><ul>
+<li>CatchAdmin 的权限体系基于 <strong>RBAC</strong>，核心是 <strong>用户-角色-权限的绑定关系</strong>。</li>
+<li>权限分为 <strong>目录 &#x2F; 菜单 &#x2F; 按钮</strong>，其中 <strong>按钮权限最关键</strong>，它直接对应后端的控制器方法。</li>
+<li>模块化下权限标识的规则是：<code>module@controller@action</code>。</li>
+<li>系统通过 <strong>中间件 <code>PermissionGate</code></strong> 统一拦截请求，确保用户只能调用自己有权限的 API。</li>
+</ul>
+<hr>
+<p>✅ <strong>一句话总结</strong>：<br> CatchAdmin 的权限系统实现了前后端分离下的 <strong>RBAC 控制</strong>：前端控制菜单与按钮可见性，后端通过中间件校验 API 权限，最终实现 <strong>最小权限原则</strong>。</p>
+<p>#Gate</p>
+<p>一、Laravel 原生 Gate 用法</p>
+<p>1）定义 Gate（一般放在 <code>App\Providers\AuthServiceProvider</code>）</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> <span class="title">Illuminate</span>\<span class="title">Support</span>\<span class="title">Facades</span>\<span class="title">Gate</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">App</span>\<span class="title">Models</span>\<span class="title">Article</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">App</span>\<span class="title">Models</span>\<span class="title">User</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AuthServiceProvider</span> <span class="keyword">extends</span> <span class="title">ServiceProvider</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">boot</span>(<span class="params"></span>): <span class="title">void</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">// 规则：只有作者本人能删除自己的文章</span></span><br><span class="line">        <span class="title class_">Gate</span>::<span class="title function_ invoke__">define</span>(<span class="string">&#x27;article.delete&#x27;</span>, function (User <span class="variable">$user</span>, Article <span class="variable">$article</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="variable">$user</span>-&gt;id === <span class="variable">$article</span>-&gt;user_id;</span><br><span class="line">        &#125;);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 规则：编辑或管理员能发布文章</span></span><br><span class="line">        <span class="title class_">Gate</span>::<span class="title function_ invoke__">define</span>(<span class="string">&#x27;article.publish&#x27;</span>, fn(User <span class="variable">$user</span>) =&gt;</span><br><span class="line">            <span class="title function_ invoke__">in_array</span>(<span class="variable">$user</span>-&gt;role, [<span class="string">&#x27;editor&#x27;</span>, <span class="string">&#x27;admin&#x27;</span>])</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>2）控制器里检查</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> <span class="title">Illuminate</span>\<span class="title">Support</span>\<span class="title">Facades</span>\<span class="title">Gate</span>;</span><br><span class="line"><span class="keyword">use</span> <span class="title">App</span>\<span class="title">Models</span>\<span class="title">Article</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">destroy</span>(<span class="params">Article <span class="variable">$article</span></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="title class_">Gate</span>::<span class="title function_ invoke__">authorize</span>(<span class="string">&#x27;article.delete&#x27;</span>, <span class="variable">$article</span>); <span class="comment">// 不通过会自动抛 403</span></span><br><span class="line">    <span class="variable">$article</span>-&gt;<span class="title function_ invoke__">delete</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="title function_ invoke__">response</span>()-&gt;<span class="title function_ invoke__">noContent</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>3）在服务层&#x2F;任意位置判断</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="title class_">Gate</span>::<span class="title function_ invoke__">allows</span>(<span class="string">&#x27;article.publish&#x27;</span>)) &#123;</span><br><span class="line">    <span class="comment">// … 允许发布</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="title function_ invoke__">abort</span>(<span class="number">403</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>4）Blade 里控制按钮是否显示</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">@can(&#x27;article.publish&#x27;)</span><br><span class="line">  &lt;button class=&quot;btn&quot;&gt;发布&lt;/button&gt;</span><br><span class="line">@endcan</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>小结：<strong>定义</strong>在 AuthServiceProvider → <strong>检查</strong>用 <code>Gate::allows/authorize</code> 或 <code>$user-&gt;can()</code> → <strong>Blade</strong> 用 <code>@can</code>。</p>
+</blockquote>
+<p>二、CatchAdmin 中的 Gate（PermissionGate 中间件）</p>
+<p>在 CatchAdmin 里，按钮权限与后端接口 <strong>一一对应</strong>，标识格式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">module@controller@action</span><br></pre></td></tr></table></figure>
+
+<p>例如：<code>articles@Articles@destroy</code></p>
+<p>1）在“权限菜单（按钮）”中建立权限点</p>
+<ul>
+<li>按钮名：删除文章</li>
+<li>permission_mark：<code>articles@Articles@destroy</code></li>
+</ul>
+<blockquote>
+<p>这一步决定“你拥有什么证件”。</p>
+</blockquote>
+<p>2）中间件统一拦截（核心思想）</p>
+<p><code>PermissionGate</code> 在请求到达控制器前会做类似的事：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 伪代码说明机制</span></span><br><span class="line"><span class="keyword">if</span> (<span class="variable">$request</span>-&gt;<span class="title function_ invoke__">isMethod</span>(<span class="string">&#x27;get&#x27;</span>)) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable">$next</span>(<span class="variable">$request</span>); <span class="comment">//（可改成 GET 也校验）</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable">$user</span> = <span class="variable">$request</span>-&gt;<span class="title function_ invoke__">user</span>(<span class="title function_ invoke__">getGuardName</span>()); <span class="comment">// 拿到后台登录用户</span></span><br><span class="line"><span class="variable">$permissionMark</span> = <span class="title function_ invoke__">resolvePermissionMarkFrom</span>(<span class="variable">$request</span>); <span class="comment">// 解析为 module@controller@action</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (! <span class="variable">$user</span>-&gt;<span class="title function_ invoke__">can</span>(<span class="variable">$permissionMark</span>)) &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">PermissionForbidden</span>(); <span class="comment">// 返回 403</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> <span class="variable">$next</span>(<span class="variable">$request</span>);</span><br></pre></td></tr></table></figure>
+
+<p>3）控制器保持“干净”的业务代码</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ArticlesController</span> <span class="keyword">extends</span> <span class="title">Controller</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="comment">// DELETE /api/articles/&#123;id&#125;</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">destroy</span>(<span class="params"><span class="variable">$id</span></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">// 能执行到这里，说明已经通过了 PermissionGate 的校验：</span></span><br><span class="line">        <span class="comment">// 用户具备 `articles@Articles@destroy`</span></span><br><span class="line">        <span class="title class_">Article</span>::<span class="title function_ invoke__">findOrFail</span>(<span class="variable">$id</span>)-&gt;<span class="title function_ invoke__">delete</span>();</span><br><span class="line">        <span class="keyword">return</span> [<span class="string">&#x27;message&#x27;</span> =&gt; <span class="string">&#x27;deleted&#x27;</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>4）在代码里手动做一次权限判断（可选）</p>
+<p>有时你也会在业务中二次校验：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> <span class="title">Illuminate</span>\<span class="title">Support</span>\<span class="title">Facades</span>\<span class="title">Auth</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (! <span class="title class_">Auth</span>::<span class="title function_ invoke__">user</span>()-&gt;<span class="title function_ invoke__">can</span>(<span class="string">&#x27;articles@Articles@destroy&#x27;</span>)) &#123;</span><br><span class="line">    <span class="title function_ invoke__">abort</span>(<span class="number">403</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>5）前端视图（Vue）里根据权限隐藏&#x2F;显示按钮（示意）</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 假设从后端拿到了当前用户的权限数组 perms:string[]</span></span><br><span class="line"><span class="keyword">const</span> canDelete = perms.<span class="title function_">includes</span>(<span class="string">&#x27;articles@Articles@destroy&#x27;</span>);</span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">button</span> <span class="attr">v-if</span>=<span class="string">&quot;canDelete&quot;</span> @<span class="attr">click</span>=<span class="string">&quot;onDelete&quot;</span>&gt;</span>删除<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>小结：<strong>按钮是否显示</strong>由前端 <code>perms</code> 决定；<strong>接口是否放行</strong>由后端 <code>PermissionGate</code> 决定（双保险）。</p>
+</blockquote>
+<p>三、把两者融合（复杂场景示例）</p>
+<p>有时你既要<strong>角色&#x2F;按钮</strong>的 RBAC，又要<strong>对象级</strong>的细粒度控制（比如“只能删自己的文章”）。可以这么做：</p>
+<p>1）仍用 CatchAdmin 的按钮权限做第一层（是否具备 <code>articles@Articles@destroy</code>）；<br> 2）通过 Laravel Gate&#x2F;Policy 做第二层对象级判断：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// AuthServiceProvider 里</span></span><br><span class="line"><span class="title class_">Gate</span>::<span class="title function_ invoke__">define</span>(<span class="string">&#x27;article.delete.own&#x27;</span>, fn(User <span class="variable">$user</span>, Article <span class="variable">$a</span>) =&gt; <span class="variable">$a</span>-&gt;user_id === <span class="variable">$user</span>-&gt;id);</span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">destroy</span>(<span class="params">Article <span class="variable">$article</span></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 先经过 PermissionGate（按钮层）→ 再做对象层校验</span></span><br><span class="line">    <span class="title class_">Gate</span>::<span class="title function_ invoke__">authorize</span>(<span class="string">&#x27;article.delete.own&#x27;</span>, <span class="variable">$article</span>); <span class="comment">// 不满足抛 403</span></span><br><span class="line">    <span class="variable">$article</span>-&gt;<span class="title function_ invoke__">delete</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="title function_ invoke__">response</span>()-&gt;<span class="title function_ invoke__">noContent</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这样能同时满足“<strong>有没有这类操作权限</strong>”与“<strong>对这个具体资源有没有权限</strong>”。</p>
+</blockquote>
+<p>速查清单</p>
+<ul>
+<li><strong>Laravel 原生 Gate</strong>：<code>Gate::define()</code> &#x2F; <code>Gate::allows()</code> &#x2F; <code>Gate::authorize()</code> &#x2F; <code>@can</code></li>
+<li><strong>CatchAdmin 按钮权限</strong>：<code>module@controller@action</code> → <code>PermissionGate</code> 自动拦截</li>
+<li><strong>前端</strong>：根据权限数组隐藏&#x2F;显示按钮</li>
+<li><strong>进阶</strong>：按钮权限 + Gate&#x2F;Policy 做对象级细粒度控制</li>
+</ul>
+<p>#Auth</p>
+<ol>
+<li>Auth 是什么（一句话）</li>
+</ol>
+<p><strong>Auth &#x3D; 认证（Authentication） → 确认“你是谁”</strong>。<br> 在接口世界里，就是把来访者和系统中的用户对应起来：未登录（匿名） → 登录（有身份）。</p>
+<blockquote>
+<p>与之相对：<strong>Gate&#x2F;权限 &#x3D; 授权（Authorization） → 你能做什么</strong>。先 Auth，后 Gate。</p>
+</blockquote>
+<ol start="2">
+<li><p><strong>Laravel Auth 的四块积木</strong></p>
+</li>
+<li><p><strong>User 模型</strong></p>
+</li>
+</ol>
+<ul>
+<li>代表“谁在登录”。通常是 <code>App\Models\User</code>；在 CatchAdmin 后台是 <strong>管理员模型</strong>。</li>
+</ul>
+<ol start="2">
+<li><strong>Provider（用户源）</strong></li>
+</ol>
+<ul>
+<li>告诉 Auth 去哪里“查用户”。最常用是 <code>eloquent</code>，并指定模型类。</li>
+</ul>
+<ol start="3">
+<li><strong>Guard（守卫）</strong></li>
+</ol>
+<ul>
+<li>决定“如何”认证：<ul>
+<li><code>session</code>（Cookie 会话，适合传统 Blade 网站）</li>
+<li><code>token/sanctum</code>（API Token）</li>
+<li><strong><code>jwt</code>（CatchAdmin 后台常用，前后端分离）</strong></li>
+</ul>
+</li>
+</ul>
+<ol start="4">
+<li><strong>Middleware（中间件）</strong></li>
+</ol>
+<ul>
+<li><code>auth:guardName</code>：保护路由，没身份就 401。</li>
+<li>在 CatchAdmin 里还会配合 <strong>PermissionGate</strong> 做“授权”。</li>
+</ul>
+<blockquote>
+<p>这四块积木在 <code>config/auth.php</code> 里配置：<strong>guards &#x2F; providers &#x2F; passwords</strong>。</p>
+</blockquote>
+<ol start="3">
+<li>CatchAdmin 中的 Auth（你关心的重点）</li>
+</ol>
+<ul>
+<li><strong>Guard</strong>：<code>admin</code>（驱动一般是 <code>jwt</code>）</li>
+<li><strong>Provider</strong>：<code>admin_users</code>（<code>eloquent</code>，模型通常是 <code>\Modules\User\Models\User</code>）</li>
+<li><strong>拿到当前后台用户</strong>：<code>$request-&gt;user(getGuardName())</code> 或 <code>Auth::guard(&#39;admin&#39;)-&gt;user()</code></li>
+<li><strong>路由保护</strong>：在后端接口上挂认证中间件（<code>auth:admin</code> 或框架自带的 AuthMiddleware）</li>
+</ul>
+<p>一个典型配置（示意）：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// config/auth.php</span></span><br><span class="line"><span class="string">&#x27;guards&#x27;</span> =&gt; [</span><br><span class="line">    <span class="string">&#x27;admin&#x27;</span> =&gt; [</span><br><span class="line">        <span class="string">&#x27;driver&#x27;</span> =&gt; <span class="string">&#x27;jwt&#x27;</span>,                <span class="comment">// 后台用 JWT 无状态认证</span></span><br><span class="line">        <span class="string">&#x27;provider&#x27;</span> =&gt; <span class="string">&#x27;admin_users&#x27;</span>,</span><br><span class="line">    ],</span><br><span class="line">],</span><br><span class="line"><span class="string">&#x27;providers&#x27;</span> =&gt; [</span><br><span class="line">    <span class="string">&#x27;admin_users&#x27;</span> =&gt; [</span><br><span class="line">        <span class="string">&#x27;driver&#x27;</span> =&gt; <span class="string">&#x27;eloquent&#x27;</span>,</span><br><span class="line">        <span class="string">&#x27;model&#x27;</span>  =&gt; <span class="title class_">\Modules\User\Models\User</span>::<span class="variable language_">class</span>,</span><br><span class="line">    ],</span><br><span class="line">],</span><br></pre></td></tr></table></figure>
+
+<p><strong>4. JWT 在 CatchAdmin 的登录-鉴权闭环</strong></p>
+<p>4.1 登录（签发 Token）</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">login</span>(<span class="params">Request <span class="variable">$request</span></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="variable">$credentials</span> = <span class="variable">$request</span>-&gt;<span class="title function_ invoke__">only</span>(<span class="string">&#x27;username&#x27;</span>, <span class="string">&#x27;password&#x27;</span>);</span><br><span class="line">    <span class="comment">// auth(&#x27;admin&#x27;) 绑定 admin guard；attempt 成功返回 JWT 字符串</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="variable">$token</span> = <span class="title function_ invoke__">auth</span>(<span class="string">&#x27;admin&#x27;</span>)-&gt;<span class="title function_ invoke__">attempt</span>(<span class="variable">$credentials</span>)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="title function_ invoke__">response</span>()-&gt;<span class="title function_ invoke__">json</span>([</span><br><span class="line">            <span class="string">&#x27;token&#x27;</span> =&gt; <span class="variable">$token</span>,        // 访问令牌</span><br><span class="line">            <span class="string">&#x27;token_type&#x27;</span> =&gt; <span class="string">&#x27;bearer&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;expires_in&#x27;</span> =&gt; <span class="title function_ invoke__">auth</span>(<span class="string">&#x27;admin&#x27;</span>)-&gt;<span class="title function_ invoke__">factory</span>()-&gt;<span class="title function_ invoke__">getTTL</span>() * <span class="number">60</span>, // 秒</span><br><span class="line">        ]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="title function_ invoke__">response</span>()-&gt;<span class="title function_ invoke__">json</span>([<span class="string">&#x27;message&#x27;</span> =&gt; <span class="string">&#x27;Invalid credentials&#x27;</span>], <span class="number">401</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>4.2 前端携带 Token 调接口</p>
+<figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GET /api/profile</span><br><span class="line"><span class="attribute">Authorization</span><span class="punctuation">: </span>Bearer &lt;登录返回的token&gt;</span><br></pre></td></tr></table></figure>
+
+<p>4.3 路由保护（未带&#x2F;过期 → 401）</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Route</span>::<span class="title function_ invoke__">prefix</span>(<span class="string">&#x27;api&#x27;</span>)</span><br><span class="line">  -&gt;<span class="title function_ invoke__">middleware</span>([<span class="string">&#x27;auth:admin&#x27;</span>]) <span class="comment">// 或框架提供的 AuthMiddleware</span></span><br><span class="line">  -&gt;<span class="title function_ invoke__">group</span>(function () &#123;</span><br><span class="line">      <span class="title class_">Route</span>::<span class="title function_ invoke__">get</span>(<span class="string">&#x27;/profile&#x27;</span>, [<span class="title class_">ProfileController</span>::<span class="variable language_">class</span>, <span class="string">&#x27;show&#x27;</span>]);</span><br><span class="line">  &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>4.4 控制器拿“当前用户”</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">show</span>(<span class="params">Request <span class="variable">$request</span></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="variable">$admin</span> = <span class="variable">$request</span>-&gt;<span class="title function_ invoke__">user</span>(<span class="string">&#x27;admin&#x27;</span>);     <span class="comment">// 同 $request-&gt;user(getGuardName())</span></span><br><span class="line">    <span class="keyword">return</span> [<span class="string">&#x27;id&#x27;</span> =&gt; <span class="variable">$admin</span>-&gt;id, <span class="string">&#x27;name&#x27;</span> =&gt; <span class="variable">$admin</span>-&gt;nickname];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>4.5 刷新 &#x2F; 退出（可选）</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">refresh</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="string">&#x27;token&#x27;</span> =&gt; <span class="title function_ invoke__">auth</span>(<span class="string">&#x27;admin&#x27;</span>)-&gt;<span class="title function_ invoke__">refresh</span>()];</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">logout</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="title function_ invoke__">auth</span>(<span class="string">&#x27;admin&#x27;</span>)-&gt;<span class="title function_ invoke__">logout</span>(); <span class="comment">// 作废当前 token（若启用黑名单）</span></span><br><span class="line">    <span class="keyword">return</span> [<span class="string">&#x27;message&#x27;</span> =&gt; <span class="string">&#x27;logged out&#x27;</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>状态码对照</strong>：</p>
+<ul>
+<li><strong>401 Unauthenticated</strong>：没身份&#x2F;Token 失效（Auth 阶段失败）</li>
+<li><strong>403 Forbidden</strong>：有身份但没权限（Gate&#x2F;Permission 阶段失败）</li>
+</ul>
+</blockquote>
+<ol start="5">
+<li><p>Auth 与 Permission 的配合（完整链路）</p>
+</li>
+<li><p><strong>Auth</strong>：<code>auth:admin</code> 先确认“是谁”（JWT → 当前管理员）。</p>
+</li>
+<li><p><strong>Gate&#x2F;Permission</strong>：<code>PermissionGate</code> 再判断“能不能做”（是否拥有 <code>module@controller@action</code>）。</p>
+</li>
+<li><p><strong>Controller</strong>：只写业务逻辑，前两步通过才能执行。</p>
+</li>
+</ol>
+<p>你可以用一行伪代码理解：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">请求 → [auth:admin] 认证通过？ → [PermissionGate] 有权？ → 控制器</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<ol start="6">
+<li>常见坑位与排查清单</li>
+</ol>
+<ul>
+<li><strong>混用 Guard</strong>：<ul>
+<li><code>$request-&gt;user()</code> 默认拿“默认 guard”，后台要 <code>user(&#39;admin&#39;)</code> 或统一用 <code>getGuardName()</code>。</li>
+<li>路由中间件也要对应 <code>auth:admin</code>，否则拿不到人。</li>
+</ul>
+</li>
+<li><strong>Token 没带&#x2F;前缀错误</strong>：<ul>
+<li>必须 <code>Authorization: Bearer &lt;token&gt;</code>；不是 <code>Token</code>、不是放在 query。</li>
+</ul>
+</li>
+<li><strong>跨域（CORS）</strong>：<ul>
+<li>前端 302&#x2F;被拦截看起来像“没登录”，先确认 CORS 允许 <code>Authorization</code> 头。</li>
+</ul>
+</li>
+<li><strong>密码校验失败</strong>：<ul>
+<li>确认创建管理员时用 <code>Hash::make()</code>；登陆时 <code>attempt</code> 会自动 <code>Hash::check()</code>。</li>
+</ul>
+</li>
+<li><strong>时区&#x2F;过期</strong>：<ul>
+<li>JWT 过期返回 401；若启用黑名单，登出后老 Token 也失效。</li>
+</ul>
+</li>
+<li><strong>区分 401 &#x2F; 403</strong>：<ul>
+<li>401：没通过 <strong>Auth</strong>；403：Auth 通过但 <strong>Gate</strong> 不通过。</li>
+</ul>
+</li>
+</ul>
+<ol start="7">
+<li>最小可用模板（你复制即可跑）</li>
+</ol>
+<p><strong>路由</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Route</span>::<span class="title function_ invoke__">post</span>(<span class="string">&#x27;/api/login&#x27;</span>, [<span class="title class_">AuthController</span>::<span class="variable language_">class</span>, <span class="string">&#x27;login&#x27;</span>]);</span><br><span class="line"><span class="title class_">Route</span>::<span class="title function_ invoke__">middleware</span>([<span class="string">&#x27;auth:admin&#x27;</span>])-&gt;<span class="title function_ invoke__">group</span>(function () &#123;</span><br><span class="line">    <span class="title class_">Route</span>::<span class="title function_ invoke__">get</span>(<span class="string">&#x27;/api/me&#x27;</span>, [<span class="title class_">AuthController</span>::<span class="variable language_">class</span>, <span class="string">&#x27;me&#x27;</span>]);</span><br><span class="line">    <span class="title class_">Route</span>::<span class="title function_ invoke__">post</span>(<span class="string">&#x27;/api/logout&#x27;</span>, [<span class="title class_">AuthController</span>::<span class="variable language_">class</span>, <span class="string">&#x27;logout&#x27;</span>]);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p><strong>控制器</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AuthController</span> <span class="keyword">extends</span> <span class="title">Controller</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">login</span>(<span class="params">Request <span class="variable">$r</span></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="variable">$cred</span> = <span class="variable">$r</span>-&gt;<span class="title function_ invoke__">only</span>(<span class="string">&#x27;username&#x27;</span>,<span class="string">&#x27;password&#x27;</span>);</span><br><span class="line">        <span class="keyword">if</span> (<span class="variable">$token</span> = <span class="title function_ invoke__">auth</span>(<span class="string">&#x27;admin&#x27;</span>)-&gt;<span class="title function_ invoke__">attempt</span>(<span class="variable">$cred</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> [<span class="string">&#x27;token&#x27;</span>=&gt;<span class="variable">$token</span>,<span class="string">&#x27;token_type&#x27;</span>=&gt;<span class="string">&#x27;bearer&#x27;</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="title function_ invoke__">response</span>()-&gt;<span class="title function_ invoke__">json</span>([<span class="string">&#x27;message&#x27;</span>=&gt;<span class="string">&#x27;Unauthorized&#x27;</span>], <span class="number">401</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">me</span>(<span class="params">Request <span class="variable">$r</span></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable">$r</span>-&gt;<span class="title function_ invoke__">user</span>(<span class="string">&#x27;admin&#x27;</span>); <span class="comment">// 当前管理员信息</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">logout</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="title function_ invoke__">auth</span>(<span class="string">&#x27;admin&#x27;</span>)-&gt;<span class="title function_ invoke__">logout</span>();</span><br><span class="line">        <span class="keyword">return</span> [<span class="string">&#x27;message&#x27;</span> =&gt; <span class="string">&#x27;ok&#x27;</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>然后把需要鉴权的业务接口放到 <code>auth:admin</code> 分组里即可。</p>
+</blockquote>
+<ol start="8">
+<li>一句话复盘</li>
+</ol>
+<ul>
+<li><strong>Auth</strong> 确认“你是谁”（JWT + guard + provider）。</li>
+<li><strong>Permission&#x2F;Gate</strong> 决定“你能做什么”。</li>
+<li>在 CatchAdmin：<strong>admin@jwt guard</strong> + <strong>PermissionGate</strong> 一起把“认证 + 授权”打通，前端再配合“目录&#x2F;菜单&#x2F;按钮”做可见性，形成完整后台安全闭环。</li>
+</ul>
+<p>#Auth和Gate</p>
+<ol>
+<li>Auth 是什么？</li>
+</ol>
+<ul>
+<li><strong>Auth（认证 Authentication）</strong> &#x3D; “你是谁？”</li>
+<li>它解决的问题是：<strong>用户身份验证</strong>。</li>
+<li>在 Laravel &#x2F; CatchAdmin 里，<code>Auth</code> 负责：<ul>
+<li>登录 &#x2F; 退出</li>
+<li>记住用户是谁</li>
+<li>通过 <code>Auth::user()</code> 拿到当前用户</li>
+<li>通过 guard（比如 <code>admin</code> guard）区分不同类型的用户</li>
+</ul>
+</li>
+</ul>
+<p>👉 简单说：<strong>Auth 关心的是身份</strong>。</p>
+<ol start="2">
+<li>Gate 是什么？</li>
+</ol>
+<ul>
+<li><strong>Gate（授权 Authorization）</strong> &#x3D; “你能做什么？”</li>
+<li>它解决的问题是：<strong>用户是否有权限做某个操作</strong>。</li>
+<li>Gate 的职责：<ul>
+<li>定义某个操作是否允许</li>
+<li>用 <code>Gate::allows()</code> &#x2F; <code>$user-&gt;can()</code> 来判断</li>
+</ul>
+</li>
+</ul>
+<p>👉 简单说：<strong>Gate 关心的是权限</strong>。</p>
+<ol start="3">
+<li>Auth 和 Gate 的关系</li>
+</ol>
+<p>两者关系可以总结为：</p>
+<ol>
+<li><strong>Auth 确认“你是谁”</strong>（比如你是张三，ID&#x3D;5）。</li>
+<li><strong>Gate 决定“你能做什么”</strong>（比如张三是否能删除文章 123）。</li>
+</ol>
+<p>换句话说：</p>
+<ul>
+<li><p>Auth &#x3D; “门禁卡的主人是谁”</p>
+</li>
+<li><p>Gate &#x3D; “这张门禁卡能开哪几道门”</p>
+</li>
+</ul>
+<ol start="4">
+<li>在 CatchAdmin 中</li>
+</ol>
+<ul>
+<li><strong>Auth</strong>：<ul>
+<li>使用 JWT 做认证。</li>
+<li>登录时生成 token，后续请求用 token 来识别用户。</li>
+<li>代码里常见：<code>$user = $request-&gt;user(getGuardName());</code>。</li>
+</ul>
+</li>
+<li><strong>Gate</strong>：<ul>
+<li>用 <code>PermissionGate</code> 中间件来做授权。</li>
+<li>根据 <code>module@controller@action</code> 检查用户是否有这个权限点。</li>
+<li>代码里常见：<code>$user-&gt;can(&#39;articles@Articles@destroy&#39;)</code>。</li>
+</ul>
+</li>
+</ul>
+<p>👉 所以在 CatchAdmin 的请求流程里：</p>
+<ol>
+<li><p><strong>Auth</strong> 先根据 JWT 识别出你是谁（比如当前登录的是张三）。</p>
+</li>
+<li><p><strong>Gate</strong> 再检查张三有没有权限做当前请求（比如能不能删除文章）。</p>
+</li>
+<li><p>总结</p>
+</li>
+</ol>
+<ul>
+<li><strong>Auth &#x3D; 身份认证</strong>（Who are you?）</li>
+<li><strong>Gate &#x3D; 授权控制</strong>（What can you do?）</li>
+<li><strong>关系</strong>：<ul>
+<li>先有 Auth，才能做 Gate。</li>
+<li>没有认证（未登录） → 连 Gate 都不用检查，直接拒绝。</li>
+<li>有认证 → 再去检查授权，决定能否操作。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p>✅ 一句话记忆：<br> <strong>Auth 负责“确认你是谁”，Gate 负责“决定你能做什么”。</strong></p>
+<hr>
+<p>#📖 数据权限（Data Permission）</p>
+<p>在 CatchAdmin 里，除了功能权限（目录 &#x2F; 菜单 &#x2F; 按钮），还可以对 <strong>数据访问范围</strong> 进行限制。这一块叫 <strong>数据权限</strong>。</p>
+<ol>
+<li>为什么需要数据权限？</li>
+</ol>
+<p>功能权限只能控制你“能不能点按钮 &#x2F; 调接口”。<br> 但很多时候，还需要限制“你能看到多少数据”。</p>
+<p>举个例子：</p>
+<ul>
+<li>张三（普通员工） → 只能看到自己创建的订单。</li>
+<li>李四（部门经理） → 可以看到自己部门的所有订单。</li>
+<li>王五（总监） → 可以看到公司所有订单。</li>
+</ul>
+<p>👉 这就是 <strong>数据权限的价值</strong>。</p>
+<ol start="2">
+<li>数据权限和角色的关系</li>
+</ol>
+<p>数据权限是 <strong>绑定在角色上的</strong>。</p>
+<ul>
+<li>角色 A：只能看自己数据。</li>
+<li>角色 B：可以看部门数据。</li>
+<li>角色 C：可以看所有数据。</li>
+</ul>
+<p>所以用户被分配角色后，就自动拥有该角色的数据访问范围。</p>
+<ol start="3">
+<li>数据权限的几种类型</li>
+</ol>
+<p>CatchAdmin 内置了常见的几种范围：</p>
+<ol>
+<li><p><strong>全部数据权限</strong> → 能看到所有数据。</p>
+</li>
+<li><p><strong>自定数据权限</strong> → 由管理员自定义选择。</p>
+</li>
+<li><p><strong>部门数据权限</strong> → 只能看到自己部门的数据。</p>
+</li>
+<li><p><strong>部门及以下数据权限</strong> → 看到自己部门和下属部门的数据。</p>
+</li>
+<li><p><strong>仅本人数据权限</strong> → 只能看到自己创建的数据。</p>
+</li>
+<li><p>数据权限的实现约定</p>
+</li>
+</ol>
+<p>要使用数据权限，模型表必须有一个字段，用来标记“数据属于谁”。</p>
+<ul>
+<li>CatchAdmin 默认用：<code>creator_id</code> 字段<ul>
+<li>用于标记数据创建人。</li>
+</ul>
+</li>
+</ul>
+<p>如果用的是 <strong>部门级别权限</strong>，还需要保证用户表里配置了所属部门。</p>
+<ol start="5">
+<li><p>怎么启用数据权限？</p>
+</li>
+<li><p>确认 <strong>权限模块</strong> 已经启用（数据权限依赖权限模块）。</p>
+</li>
+<li><p>在角色配置里，设置该角色的数据权限范围（如“仅本人”）。</p>
+</li>
+<li><p>确保数据表里有 <code>creator_id</code> 字段（否则无法判断数据归属）。</p>
+</li>
+</ol>
+<p>这样就会在查询时自动进行数据过滤。</p>
+<ol start="6">
+<li>开发使用方法</li>
+</ol>
+<p>🔹 方式一：使用 <code>DataRange</code> Trait（推荐）</p>
+<p>在模型里引入 <code>DataRange</code> Trait，就会在查询列表时自动加上数据权限过滤：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> <span class="title">Modules</span>\<span class="title">Permissions</span>\<span class="title">Models</span>\<span class="title">Traits</span>\<span class="title">DataRange</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Order</span> <span class="keyword">extends</span> <span class="title">CatchModel</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">use</span> <span class="title">DataRange</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样你直接调用：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Order</span>::<span class="title function_ invoke__">all</span>();</span><br></pre></td></tr></table></figure>
+
+<p>系统会根据当前用户角色的权限范围自动过滤数据。</p>
+<p>🔹 方式二：手动调用 Scope</p>
+<p>数据权限本质上就是一个 <strong>scope 查询</strong>，你也可以手动加上：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Order</span>::<span class="title function_ invoke__">select</span>(<span class="string">&#x27;*&#x27;</span>)-&gt;<span class="title function_ invoke__">dataRange</span>()-&gt;<span class="title function_ invoke__">get</span>();</span><br></pre></td></tr></table></figure>
+
+<p>这会主动在查询里加入数据范围限制。</p>
+<p>✅ 总结</p>
+<ul>
+<li><strong>功能权限</strong> 控制你“能不能点按钮 &#x2F; 调接口”。</li>
+<li><strong>数据权限</strong> 控制你“能看到多少数据”。</li>
+<li>数据权限类型包括：全部、自定、部门、部门及以下、仅本人。</li>
+<li>表必须有 <code>creator_id</code> 字段，用户必须配置部门。</li>
+<li>开启方法：角色设置范围 + 模型引入 <code>DataRange</code> Trait。</li>
+<li>本质：就是给模型加了一个 <strong>scope 查询</strong>，在查询时自动拼接 <code>where</code> 条件。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>对比项</th>
+<th>功能权限（目录 &#x2F; 菜单 &#x2F; 按钮）</th>
+<th>数据权限（Data Permission）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>控制对象</strong></td>
+<td>操作功能（页面、按钮、API）</td>
+<td>数据范围（能看到哪些数据）</td>
+</tr>
+<tr>
+<td><strong>作用位置</strong></td>
+<td>前端按钮可见性 + 后端 API 接口</td>
+<td>后端模型查询（where 条件）</td>
+</tr>
+<tr>
+<td><strong>典型问题</strong></td>
+<td>“能不能新增用户？”</td>
+<td>“能不能看到别的部门的订单？”</td>
+</tr>
+<tr>
+<td><strong>绑定方式</strong></td>
+<td>角色绑定功能点</td>
+<td>角色绑定数据范围</td>
+</tr>
+<tr>
+<td><strong>粒度</strong></td>
+<td>粒度细，精确到单个按钮&#x2F;接口</td>
+<td>粒度大，按用户&#x2F;部门&#x2F;组织层级</td>
+</tr>
+<tr>
+<td><strong>范围类型</strong></td>
+<td>目录 → 菜单 → 按钮</td>
+<td>全部 &#x2F; 自定 &#x2F; 部门 &#x2F; 部门及以下 &#x2F; 仅本人</td>
+</tr>
+<tr>
+<td><strong>实现方式</strong></td>
+<td><code>PermissionGate</code> 中间件检查 <code>module@controller@action</code></td>
+<td>模型里 <code>DataRange</code> Trait 自动加 <code>where</code></td>
+</tr>
+<tr>
+<td><strong>依赖字段</strong></td>
+<td>不依赖表字段（只依赖权限配置）</td>
+<td>依赖 <code>creator_id</code> 和用户部门字段</td>
+</tr>
+<tr>
+<td><strong>拦截结果</strong></td>
+<td>没权限 → 403 Forbidden</td>
+<td>没权限 → 查询结果为空（看不到别人的数据）</td>
+</tr>
+</tbody></table>
+<p>#深入的理解一下功能权限和数据权限</p>
+<ol start="0">
+<li>先认识 4 个名词（用楼里安保打比方）</li>
+</ol>
+<ul>
+<li><strong>Middleware 中间件</strong>：像门口保安，决定“能不能继续往里走”。</li>
+<li><strong>Controller 控制器</strong>：真正办事的工作人员（删除订单、保存文章……）。</li>
+<li><strong>Model 模型</strong>：和数据库打交道的小秘书（查表、加条件）。</li>
+<li><strong>Trait</strong>：一包可插拔的功能（像外挂），<code>use TraitName</code> 就把这包功能装进来。</li>
+</ul>
+<ol>
+<li><strong>功能权限：PermissionGate 中间件逐行讲</strong></li>
+</ol>
+<p>你看到过类似这样的代码（我加上中文注释）：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">handle</span>(<span class="params">Request <span class="variable">$request</span>, \<span class="built_in">Closure</span> <span class="variable">$next</span></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// ① 如果是 GET 请求（查数据用得多），默认直接放行</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="variable">$request</span>-&gt;<span class="title function_ invoke__">isMethod</span>(<span class="string">&#x27;get&#x27;</span>)) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="variable">$next</span>(<span class="variable">$request</span>); <span class="comment">// 放过去给下一个中间件/控制器</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ② 拿到当前登录的后台用户（Auth 已经识别出“你是谁”）</span></span><br><span class="line">    <span class="variable">$user</span> = <span class="variable">$request</span>-&gt;<span class="title function_ invoke__">user</span>(<span class="title function_ invoke__">getGuardName</span>()); </span><br><span class="line">    <span class="comment">// getGuardName() 一般就是 &#x27;admin&#x27;，表示后台这套登录体系</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// ③ 解析当前这个请求“需要的权限标识”</span></span><br><span class="line">    <span class="comment">//    规则是：模块@控制器@方法，比如 orders@Orders@destroy</span></span><br><span class="line">    <span class="variable">$permissionMark</span> = <span class="title function_ invoke__">resolvePermissionMarkFrom</span>(<span class="variable">$request</span>);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ④ 判断这个用户有没有这个权限</span></span><br><span class="line">    <span class="keyword">if</span> (! <span class="variable">$user</span>-&gt;<span class="title function_ invoke__">can</span>(<span class="variable">$permissionMark</span>)) &#123;</span><br><span class="line">        <span class="comment">// 没有→直接拦截，抛出无权限异常（HTTP 403）</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">PermissionForbidden</span>();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ⑤ 有权限→放行，进入控制器真正执行业务</span></span><br><span class="line">    <span class="keyword">return</span> <span class="variable">$next</span>(<span class="variable">$request</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>一句话</strong>：</p>
+<blockquote>
+<p>进入门口 →（可选）GET 放行 → 拿“你是谁” → 看你手里有没有这道门的通行证（<code>module@controller@action</code>）→ 没证拦、有码放。</p>
+</blockquote>
+<ol start="2">
+<li><strong>控制器：真正“干活”的地方（删除订单的例子）</strong></li>
+</ol>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">OrdersController</span> <span class="keyword">extends</span> <span class="title">Controller</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="comment">// DELETE /api/orders/&#123;id&#125;</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">destroy</span>(<span class="params"><span class="variable">$id</span></span>)</span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="comment">// 能到这里，说明已经通过 PermissionGate 的检查，</span></span><br><span class="line">        <span class="comment">// 当前用户拥有 orders@Orders@destroy 这张“通行证”</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 找到这条订单并删除（软删）</span></span><br><span class="line">        <span class="title class_">Order</span>::<span class="title function_ invoke__">findOrFail</span>(<span class="variable">$id</span>)-&gt;<span class="title function_ invoke__">delete</span>();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> [<span class="string">&#x27;message&#x27;</span> =&gt; <span class="string">&#x27;deleted&#x27;</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>findOrFail($id)</code>：按主键找，不存在就抛 404。</li>
+<li><code>delete()</code>：软删除（CatchAdmin 里会把 <code>deleted_at</code> 设置为时间戳）。</li>
+</ul>
+<ol start="3">
+<li><strong>数据权限：模型引入 DataRange，自动加“只看该看”的条件</strong></li>
+</ol>
+<blockquote>
+<p>数据权限解决“你<strong>能看到哪些数据</strong>”，不是“能不能点按钮”。</p>
+</blockquote>
+<p>模型这样写：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">use</span> <span class="title">Catch</span>\<span class="title">Permissions</span>\<span class="title">DataRange</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Order</span> <span class="keyword">extends</span> <span class="title">CatchModel</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">use</span> <span class="title">DataRange</span>; <span class="comment">// ← 挂上这包功能：自动在查询里加数据范围</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后在<strong>控制器里随便查</strong>：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">index</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// 你写的是“查全部”</span></span><br><span class="line">    <span class="keyword">return</span> <span class="title class_">Order</span>::<span class="title function_ invoke__">paginate</span>(<span class="number">10</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>但<strong>实际上执行的 SQL</strong> 会被 <code>DataRange</code> 悄悄加上“范围条件”（举例）：</p>
+<ul>
+<li><p>角色 &#x3D; “仅本人”：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> orders <span class="keyword">where</span> creator_id <span class="operator">=</span> 当前用户ID <span class="keyword">and</span> deleted_at <span class="operator">=</span> <span class="number">0</span> limit <span class="number">10</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>角色 &#x3D; “本部门”：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> orders <span class="keyword">where</span> dept_id <span class="operator">=</span> 当前用户部门ID <span class="keyword">and</span> deleted_at <span class="operator">=</span> <span class="number">0</span> limit <span class="number">10</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>角色 &#x3D; “全部”：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> orders <span class="keyword">where</span> deleted_at <span class="operator">=</span> <span class="number">0</span> limit <span class="number">10</span>;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<blockquote>
+<p>你只写了 <code>Order::paginate(10)</code>，但因为 <code>use DataRange</code>，数据范围自动生效。<br>这就是“<strong>你能看多大范围</strong>”这件事在代码里的体现。</p>
+</blockquote>
+<blockquote>
+<p>万一你项目里 DataRange 不是全局生效，也可以<strong>手动</strong>加：<br><code>Order::query()-&gt;dataRange()-&gt;paginate(10);</code></p>
+</blockquote>
+<ol start="4">
+<li><p><strong>两者如何配合？（一步步带你过一遍“删除订单”）</strong></p>
+</li>
+<li><p><strong>请求来了</strong>：<code>DELETE /api/orders/100</code></p>
+</li>
+<li><p><strong>Auth 认证</strong>（先确定“你是谁”）：JWT 解析出你是张三（admin guard）。</p>
+</li>
+<li><p><strong>PermissionGate 授权</strong>：</p>
+<ul>
+<li>解析需要的权限标识是 <code>orders@Orders@destroy</code></li>
+<li>检查张三有没有这个权限 → 有就放、没有就 403</li>
+</ul>
+</li>
+<li><p><strong>进入控制器</strong>：执行 <code>Order::findOrFail(100)-&gt;delete()</code></p>
+</li>
+<li><p><strong>数据权限影响查找</strong>（如果 DataRange 是全局范围）：</p>
+<ul>
+<li>张三是“仅本人” → <code>findOrFail(100)</code> 只能查到“自己创建”的那条订单</li>
+<li>如果订单 100 不是张三的 → 查不到 → <code>findOrFail</code> 直接 404</li>
+<li>如果订单 100 是张三的 → 找到 → delete 成功</li>
+</ul>
+</li>
+<li><p><strong>返回结果</strong>：前端拿到 <code>&#123;&quot;message&quot;:&quot;deleted&quot;&#125;</code></p>
+</li>
+</ol>
+<blockquote>
+<p>你看到的效果是：</p>
+<ul>
+<li>没有“删除按钮权限”→ 过不了第 3 步（403）</li>
+<li>有“删除按钮权限”但数据权限是“仅本人”，且这单不是你创建的 → 卡在第 5 步（404&#x2F;找不到）</li>
+<li>两个都满足 → 顺利删除</li>
+</ul>
+</blockquote>
+<ol start="5">
+<li><strong>你可能被哪些语法&#x2F;概念卡住？</strong></li>
+</ol>
+<ul>
+<li><code>return $next($request);</code>：中间件的固定写法，意思是“放行到下一个环节”。</li>
+<li><code>$request-&gt;user(&#39;admin&#39;)</code>：从请求里拿“当前登陆的后台用户”。</li>
+<li><code>Trait（use DataRange;）</code>：像外挂，把一坨功能“粘”进来。</li>
+<li><code>findOrFail()</code>：找不到就抛 404，常用来避免后续对 <code>null</code> 操作。</li>
+<li><code>delete()</code> vs “软删除”：CatchAdmin 改造了软删，<code>deleted_at=0</code> 表示未删；删时写入时间戳。</li>
+</ul>
+<ol start="6">
+<li><strong>给你一份“最小可跑”的骨架（照着放到项目里）</strong></li>
+</ol>
+<p><strong>模型：Order</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Order</span> <span class="keyword">extends</span> <span class="title">CatchModel</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">use</span> \<span class="title">Catch</span>\<span class="title">Permissions</span>\<span class="title">DataRange</span>; <span class="comment">// 自动数据范围</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$table</span> = <span class="string">&#x27;orders&#x27;</span>;      <span class="comment">// 表里记得有 creator_id、dept_id、deleted_at</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>控制器：OrdersController</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">OrdersController</span> <span class="keyword">extends</span> <span class="title">Controller</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="comment">// 列表（会自动按数据权限过滤）</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">index</span>(<span class="params"></span>) </span>&#123; <span class="keyword">return</span> <span class="title class_">Order</span>::<span class="title function_ invoke__">paginate</span>(<span class="number">10</span>); &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 删除（通过 PermissionGate 才能进来）</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">destroy</span>(<span class="params"><span class="variable">$id</span></span>)</span></span><br><span class="line"><span class="function">    </span>&#123; </span><br><span class="line">        <span class="title class_">Order</span>::<span class="title function_ invoke__">findOrFail</span>(<span class="variable">$id</span>)-&gt;<span class="title function_ invoke__">delete</span>();</span><br><span class="line">        <span class="keyword">return</span> [<span class="string">&#x27;message&#x27;</span> =&gt; <span class="string">&#x27;deleted&#x27;</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>（示例）中间件片段：PermissionGate</strong></p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">function</span> <span class="title">handle</span>(<span class="params">Request <span class="variable">$request</span>, \<span class="built_in">Closure</span> <span class="variable">$next</span></span>)</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="variable">$request</span>-&gt;<span class="title function_ invoke__">isMethod</span>(<span class="string">&#x27;get&#x27;</span>)) &#123; <span class="comment">// 想更严就把这段删掉</span></span><br><span class="line">        <span class="keyword">return</span> <span class="variable">$next</span>(<span class="variable">$request</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="variable">$user</span> = <span class="variable">$request</span>-&gt;<span class="title function_ invoke__">user</span>(<span class="string">&#x27;admin&#x27;</span>); <span class="comment">// 确认“你是谁”</span></span><br><span class="line">    <span class="variable">$mark</span> = <span class="title function_ invoke__">resolvePermissionMarkFrom</span>(<span class="variable">$request</span>); <span class="comment">// 解析成 模块@控制器@方法</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (! <span class="variable">$user</span> || ! <span class="variable">$user</span>-&gt;<span class="title function_ invoke__">can</span>(<span class="variable">$mark</span>)) &#123; <span class="comment">// “你能不能做”</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">PermissionForbidden</span>();   <span class="comment">// 403</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable">$next</span>(<span class="variable">$request</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>跑通步骤：<br>① 登录拿 token → ② 带 <code>Authorization: Bearer &lt;token&gt;</code> 调接口 → ③ 观察：无权限 403；有权限但数据不属于你 → 404；都满足 → 成功。</p>
+</blockquote>
+<ol start="7">
+<li>一句话再复习</li>
+</ol>
+<ul>
+<li><strong>PermissionGate</strong>：检查“你<strong>能不能做</strong>这个动作”（按钮&#x2F;接口权限）。</li>
+<li><strong>DataRange</strong>：限制“你<strong>能看到&#x2F;操作谁</strong>的数据”（自己&#x2F;部门&#x2F;全部）。</li>
+<li><strong>两者叠加</strong>：既要有这把“钥匙”，还得这扇“门”确实是你能管的。</li>
+</ul>
+<hr>
+<hr>
+<h1 id="📖-CatchAdmin-命令介绍"><a href="#📖-CatchAdmin-命令介绍" class="headerlink" title="📖 CatchAdmin 命令介绍"></a>📖 CatchAdmin 命令介绍</h1><p>在 CatchAdmin 中，几乎所有自定义命令都以 <strong><code>catch:</code></strong> 开头，你可以通过以下命令查看所有可用命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php artisan | grep catch</span><br></pre></td></tr></table></figure>
+
+<p>这会列出所有 CatchAdmin 提供的命令。</p>
+<ol>
+<li>基础命令</li>
+</ol>
+<ul>
+<li><p><strong>查看版本号</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php artisan catch:version</span><br></pre></td></tr></table></figure>
+
+<p>用来查看当前 CatchAdmin 的版本。</p>
+</li>
+<li><p><strong>项目安装</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php artisan catch:install</span><br></pre></td></tr></table></figure>
+
+<p>初始化项目时使用。</p>
+</li>
+</ul>
+<ol start="2">
+<li>模块相关命令</li>
+</ol>
+<p>CatchAdmin 是模块化架构，所以模块相关命令很常用。</p>
+<ul>
+<li><p><strong>安装模块</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php artisan catch:module:install &lt;module&gt;</span><br></pre></td></tr></table></figure>
+
+<p>安装指定模块，例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php artisan catch:module:install permissions</span><br></pre></td></tr></table></figure>
+
+<p>会安装权限模块。</p>
+</li>
+<li><p><strong>执行模块 Migrate</strong>（建表）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">php artisan catch:migrate &lt;module&gt;</span><br><span class="line">php artisan catch:migrate permissions</span><br></pre></td></tr></table></figure>
+
+<p>执行模块的迁移文件，创建对应的表结构。</p>
+</li>
+<li><p><strong>执行模块 Seed</strong>（填充数据）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php artisan catch:db:seed &lt;module&gt;</span><br></pre></td></tr></table></figure>
+
+<p>执行模块的 seed 文件，填充初始化数据。</p>
+</li>
+<li><p><strong>创建 Migration 文件</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php artisan catch:make:migration &lt;module&gt; &lt;migration_name&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在某个模块中创建新的迁移文件。</p>
+</li>
+<li><p><strong>创建 Seeder 文件</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php artisan catch:make:seeder &lt;module&gt; &lt;seeder_name&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在模块中创建新的数据填充文件。</p>
+</li>
+<li><p><strong>导出模块菜单</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php artisan catch:<span class="built_in">export</span>:menu &lt;module&gt; &lt;table?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>导出模块相关的菜单，并生成 seed 文件。<br> 这个命令主要在“打包模块”时有用，如果不共享模块，一般用不到。</p>
+</li>
+</ul>
+<ol start="3">
+<li>模型相关命令</li>
+</ol>
+<ul>
+<li><p><strong>生成模型</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php artisan catch:make:model &lt;module&gt; &lt;modelName&gt; &lt;table?&gt;</span><br></pre></td></tr></table></figure>
+
+<p>会在模块中生成一个模型文件，代码类似：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title class_">Modules</span>\<span class="title class_">Permissions</span>\<span class="title class_">Models</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">use</span> <span class="title">Catch</span>\<span class="title">Base</span>\<span class="title">CatchModel</span> <span class="keyword">as</span> <span class="title">Model</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Users</span> <span class="keyword">extends</span> <span class="title">Model</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$table</span> = <span class="string">&#x27;users&#x27;</span>;</span><br><span class="line">    <span class="keyword">protected</span> <span class="variable">$fillable</span> = [<span class="string">&#x27;id&#x27;</span>,<span class="string">&#x27;username&#x27;</span>,<span class="string">&#x27;password&#x27;</span>,<span class="string">&#x27;email&#x27;</span>,<span class="string">&#x27;avatar&#x27;</span>,<span class="string">&#x27;remember_token&#x27;</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<ol start="4">
+<li>路由相关命令</li>
+</ol>
+<p>CatchAdmin 新增了 3 个和路由优化相关的命令，用来<strong>分离前后端路由并加速应用访问</strong>（实验性功能）。</p>
+<ul>
+<li><p><strong>缓存路由</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php artisan catch:route:cache</span><br></pre></td></tr></table></figure>
+
+<p>将路由分开缓存，加快加载速度。可选参数：<code>--app</code>，默认查看后台（modules 目录下的应用）。</p>
+</li>
+<li><p><strong>清理路由缓存</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php artisan catch:route:clear</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>查看路由列表</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php artisan catch:route:list</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>✅ 总结</p>
+<p>CatchAdmin 的命令分为几类：</p>
+<ul>
+<li><strong>通用命令</strong>：查看版本、项目安装。</li>
+<li><strong>模块命令</strong>：模块安装、迁移、填充、导出菜单、生成 Migration&#x2F;Seeder。</li>
+<li><strong>模型命令</strong>：生成模型文件。</li>
+<li><strong>路由命令</strong>：路由缓存、清理、查看。</li>
+</ul>
+<p>👉 它们的作用就是让你在日常开发和部署时，更高效地管理模块、数据库和路由。</p>
+<table>
+<thead>
+<tr>
+<th>分类</th>
+<th>命令</th>
+<th>说明</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>通用</strong></td>
+<td><code>php artisan catch:version</code></td>
+<td>查看 CatchAdmin 版本</td>
+<td><code>php artisan catch:version</code></td>
+</tr>
+<tr>
+<td></td>
+<td><code>php artisan catch:install</code></td>
+<td>初始化安装 CatchAdmin 项目</td>
+<td><code>php artisan catch:install</code></td>
+</tr>
+<tr>
+<td><strong>模块管理</strong></td>
+<td><code>php artisan catch:module:install &lt;module&gt;</code></td>
+<td>安装模块</td>
+<td><code>php artisan catch:module:install permissions</code></td>
+</tr>
+<tr>
+<td></td>
+<td><code>php artisan catch:migrate &lt;module&gt;</code></td>
+<td>执行模块迁移文件（建表）</td>
+<td><code>php artisan catch:migrate user</code></td>
+</tr>
+<tr>
+<td></td>
+<td><code>php artisan catch:db:seed &lt;module&gt;</code></td>
+<td>执行模块数据填充</td>
+<td><code>php artisan catch:db:seed user</code></td>
+</tr>
+<tr>
+<td></td>
+<td><code>php artisan catch:make:migration &lt;module&gt; &lt;migration_name&gt;</code></td>
+<td>创建新的迁移文件</td>
+<td><code>php artisan catch:make:migration user add_user_status</code></td>
+</tr>
+<tr>
+<td></td>
+<td><code>php artisan catch:make:seeder &lt;module&gt; &lt;seeder_name&gt;</code></td>
+<td>创建新的 Seeder 文件</td>
+<td><code>php artisan catch:make:seeder user UserSeeder</code></td>
+</tr>
+<tr>
+<td></td>
+<td><code>php artisan catch:export:menu &lt;module&gt; [table]</code></td>
+<td>导出模块菜单并生成 seed</td>
+<td><code>php artisan catch:export:menu user</code></td>
+</tr>
+<tr>
+<td><strong>模型</strong></td>
+<td><code>php artisan catch:make:model &lt;module&gt; &lt;modelName&gt; [table]</code></td>
+<td>在模块中生成模型</td>
+<td><code>php artisan catch:make:model user User users</code></td>
+</tr>
+<tr>
+<td><strong>路由</strong></td>
+<td><code>php artisan catch:route:cache [--app]</code></td>
+<td>缓存路由，加快访问速度</td>
+<td><code>php artisan catch:route:cache --app</code></td>
+</tr>
+<tr>
+<td></td>
+<td><code>php artisan catch:route:clear</code></td>
+<td>清理路由缓存</td>
+<td><code>php artisan catch:route:clear</code></td>
+</tr>
+<tr>
+<td></td>
+<td><code>php artisan catch:route:list</code></td>
+<td>查看路由列表</td>
+<td><code>php artisan catch:route:list</code></td>
+</tr>
+</tbody></table>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">张一鸣</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2025/08/18/CatchAdmin/">http://example.com/2025/08/18/CatchAdmin/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://example.com" target="_blank">张一鸣的博客</a>！</span></div></div><div class="tag_share"><div class="post-share"><div class="social-share" data-image="/img/avatar.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><a class="pagination-related full-width" href="/2025/08/15/Implicit-Routing-Slug/" title="Implicit Routing + Slug(隐式路由 + Slug)"><div class="cover" style="background: var(--default-bg-color)"></div><div class="info text-right"><div class="info-1"><div class="info-item-1">下一篇</div><div class="info-item-2">Implicit Routing + Slug(隐式路由 + Slug)</div></div><div class="info-2"><div class="info-item-1">1. Start with “Routing”In Laravel, routes are like traffic controllers:  They check the URL Then decide which controller or function should handle the request  Example: 123Route::get(&#x27;/users/5&#x27;, function () &#123;    return &#x27;Information of user 5&#x27;;&#125;);  Here, /users/5 is the access address, and function () &#123;...&#125; is the processing logic.  2. What is “Implicit Routing”The word “implicit” means you don’t need to manually write the intermediate details; the syste...</div></div></div></a></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/avatar.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">张一鸣</div><div class="author-info-description">一步一个脚印，记录学习与生活</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">9</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">0</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-CatchAdmin-%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="toc-number">1.</span> <span class="toc-text">1. CatchAdmin 是什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%AE%83%E8%A7%A3%E5%86%B3%E4%BA%86%E4%BB%80%E4%B9%88%E9%97%AE%E9%A2%98%EF%BC%9F"><span class="toc-number">2.</span> <span class="toc-text">2. 它解决了什么问题？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-CatchAdmin-%E7%9A%84%E6%A0%B8%E5%BF%83%E7%89%B9%E7%82%B9"><span class="toc-number">3.</span> <span class="toc-text">3. CatchAdmin 的核心特点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-CatchAdmin-%E9%80%82%E5%90%88%E8%B0%81%EF%BC%9F"><span class="toc-number">4.</span> <span class="toc-text">4. CatchAdmin 适合谁？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E6%89%93%E4%B8%AA%E6%AF%94%E5%96%BB"><span class="toc-number">5.</span> <span class="toc-text">5. 打个比喻</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E6%9D%83%E9%99%90%E4%BD%93%E7%B3%BB%E7%9A%84%E5%9F%BA%E7%A1%80%E6%80%9D%E6%83%B3"><span class="toc-number">6.</span> <span class="toc-text">一、权限体系的基础思想</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E6%9D%83%E9%99%90%E5%85%83%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%84%E6%88%90"><span class="toc-number">7.</span> <span class="toc-text">二、权限元数据的组成</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6%E7%9A%84%E4%B8%AD%E9%97%B4%E4%BB%B6"><span class="toc-number">8.</span> <span class="toc-text">三、权限控制的中间件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E6%9D%83%E9%99%90%E6%A0%87%E8%AF%86%E7%9A%84%E8%A7%84%E5%88%99"><span class="toc-number">9.</span> <span class="toc-text">四、权限标识的规则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E6%9D%83%E9%99%90%E7%9A%84%E5%AE%9E%E9%99%85%E5%BA%94%E7%94%A8"><span class="toc-number">10.</span> <span class="toc-text">五、权限的实际应用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E6%80%BB%E7%BB%93"><span class="toc-number">11.</span> <span class="toc-text">六、总结</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%F0%9F%93%96-CatchAdmin-%E5%91%BD%E4%BB%A4%E4%BB%8B%E7%BB%8D"><span class="toc-number"></span> <span class="toc-text">📖 CatchAdmin 命令介绍</span></a></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/08/18/CatchAdmin/" title="CatchAdmin">CatchAdmin</a><time datetime="2025-08-18T10:08:13.000Z" title="发表于 2025-08-18 18:08:13">2025-08-18</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/08/15/Implicit-Routing-Slug/" title="Implicit Routing + Slug(隐式路由 + Slug)">Implicit Routing + Slug(隐式路由 + Slug)</a><time datetime="2025-08-15T09:35:33.000Z" title="发表于 2025-08-15 17:35:33">2025-08-15</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/08/14/Restful/" title="Restful">Restful</a><time datetime="2025-08-14T10:17:10.000Z" title="发表于 2025-08-14 18:17:10">2025-08-14</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/08/14/Laravel-Lifecycle-Explained/" title="Laravel Lifecycle Explained">Laravel Lifecycle Explained</a><time datetime="2025-08-14T09:50:06.000Z" title="发表于 2025-08-14 17:50:06">2025-08-14</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/08/14/Principle-of-Implementing-the-User-Activation-Feature-Coordination-Between-Code-Files/" title="Principle of Implementing the User Activation Feature (Coordination Between Code Files)">Principle of Implementing the User Activation Feature (Coordination Between Code Files)</a><time datetime="2025-08-14T09:46:46.000Z" title="发表于 2025-08-14 17:46:46">2025-08-14</time></div></div></div></div></div></div></main><footer id="footer"><div class="footer-other"><div class="footer-copyright"><span class="copyright">&copy;&nbsp;2025 By 张一鸣</span><span class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo 7.3.0</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly 5.4.3</a></span></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
